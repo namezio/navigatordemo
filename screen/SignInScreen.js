@@ -23,7 +23,7 @@ function SignInScreen ({navigation}){
       }}
       >Hãy nhập thông tin của bạn để đăng ký
       </Text>
-      <Text style={styles.text}>Họ và Tên</Text>
+      <Text style={styles.text}>Tên người dùng</Text>
       <TextInput style={{
         height: 40,
         marginTop: 10,
