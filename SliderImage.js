@@ -9,10 +9,12 @@ export default class SliderImage extends Component {
     this.state = {
       images: [
         "https://source.unsplash.com/1024x768/?nature",
-        "https://source.unsplash.com/1024x768/?water",
+        "https://source.unsplash.com/1024x768/?athletics",
         "https://source.unsplash.com/1024x768/?girl",
         "https://source.unsplash.com/1024x768/?tree",
-        
+        "https://source.unsplash.com/1024x768/?street-photography",
+        "https://source.unsplash.com/1024x768/?travel",
+        "https://source.unsplash.com/1024x768/?arts-culture"
       ]
     };
   }

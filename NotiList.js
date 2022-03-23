@@ -15,19 +15,19 @@ const NotiList = () => {
       key: 1,
       item: 'Thông báo',
       time: '9:00 PM',
-      uri: "https://source.unsplash.com/1024x768/?tree"
+      uri: "https://source.unsplash.com/1024x768/?street-photography"
     },
     {
       key: 2,
       item: 'Thông báo',
       time: '9:00 PM',
-      uri: "https://source.unsplash.com/1024x768/?tree"
+      uri: "https://source.unsplash.com/1024x768/?arts-culture"
     },
     {
       key: 3,
       item: 'Thông báo',
       time: '9:00 PM',
-      uri: "https://source.unsplash.com/1024x768/?tree"
+      uri: "https://source.unsplash.com/1024x768/?street-photography"
     },
     {
       key: 4,
@@ -39,19 +39,19 @@ const NotiList = () => {
       key: 5,
       item: 'Thông báo',
       time: '9:00 PM',
-      uri: "https://source.unsplash.com/1024x768/?tree"
+      uri: "https://source.unsplash.com/1024x768/?street-photography"
     },
     {
       key: 6,
       item: 'Thông báo',
       time: '9:00 PM',
-      uri: "https://source.unsplash.com/1024x768/?tree"
+      uri: "https://source.unsplash.com/1024x768/?arts-culture"
     },
     {
       key: 7,
       item: 'Thông báo',
       time: '9:00 PM',
-      uri: "https://source.unsplash.com/1024x768/?tree"
+      uri: "https://source.unsplash.com/1024x768/?athletics",
     },
     {
       key: 8,
@@ -63,7 +63,7 @@ const NotiList = () => {
       key: 44,
       item: 'Thông báo',
       time: '9:00 PM',
-      uri: "https://source.unsplash.com/1024x768/?tree"
+      uri: "https://source.unsplash.com/1024x768/?athletics",
     },
     {
       key: 68,
@@ -75,14 +75,14 @@ const NotiList = () => {
       key: 0,
       item: 'Thông báo',
       time: '9:00 PM',
-      uri: "https://source.unsplash.com/1024x768/?tree"
+      uri: "https://source.unsplash.com/1024x768/?athletics",
     },
   ]);
   const [Refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
     setRefreshing(true);
-    setItems([...Items, { key: 69, item: 'Item 69', time: '9', uri: "https://source.unsplash.com/1024x768/?tree" }]);
+    setItems([...Items, { key: 69, item: 'Item 69', time: '9', uri: "https://source.unsplash.com/1024x768/?film" }]);
     setRefreshing(false);
   }
 
