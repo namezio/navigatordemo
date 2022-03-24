@@ -83,7 +83,7 @@ function LoginScreen({ navigation }) {
             color: '#FFF',
             fontSize: 20,
             alignSelf: 'center'
-          }}>Dang nhap</Text>
+          }}>Đăng nhập</Text>
       </TouchableOpacity>
       <View style={{ alignItems: 'center' }}>
         <View style={{ flexDirection: 'row' }}>

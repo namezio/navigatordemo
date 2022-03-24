@@ -33,7 +33,6 @@ export default class SliderImage extends Component {
             padding: 0,
             margin: 0
           }}
-          
           autoplay
           circleLoop
         />

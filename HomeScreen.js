@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  TouchableOpacityBase,
   
 }
   from 'react-native';
@@ -298,6 +299,27 @@ function CodeCall() {
 }
 function HeaderHome() {
   const navigation = useNavigation();
+  const LanguageAlert = (UriImage) => {
+    //function to make two option alert
+    Alert.alert(
+      //title
+      'Ngôn ngữ',
+      //body
+      'Tiếng Việt hay Tiếng Anh',
+      [
+        {
+          text: 'Tiếng Việt',
+          
+        },
+        {
+          text: 'Tiếng Anh',
+          // onPress: () => UriImage=('../navigatordemo/icons/eng.png')
+        },
+      ],
+      {cancelable: false},
+      //clicking out side of alert will not cancel
+    );
+  };
   return (
     <View style={{ flexDirection: 'row', margin: 10 }}>
       <View style={{ flex: 7 }}>
@@ -308,9 +330,13 @@ function HeaderHome() {
         </TouchableOpacity>
       </View>
       <View style={{ flexDirection: 'row', flex: 2 }}>
+        <TouchableOpacity onPress={LanguageAlert}>
         <Avatar.Image
           size={40}
           source={require('../navigatordemo/icons/vn.png')} />
+        </TouchableOpacity>
+        
+        
         <TouchableOpacity onPress={() => navigation.navigate("Noti")}>
           <Avatar.Image
             style={{ marginLeft: 5 }}
@@ -329,22 +355,22 @@ function SiteHomeBottom(){
 <View style={{ justifyContent: 'center' }}>
           <View style={{ flexDirection: 'row', marginTop: 5 }}>
             <OptionItem
-              icon={require('../navigatordemo/icons/vn.png')}
+              icon={require('../navigatordemo/icons/openroom.png')}
               label="Mở phòng họp"
               onPress={() => { navigation.navigate('MeetingRoom') }}
             />
             <OptionItem
-              icon={require('../navigatordemo/icons/vn.png')}
+              icon={require('../navigatordemo/icons/join.png')}
               label="Tham dự"
               onPress={() => { navigation.navigate('JoinRoom') }}
             />
             <OptionItem
-              icon={require('../navigatordemo/icons/vn.png')}
+              icon={require('../navigatordemo/icons/add_video.png')}
               label="Lập lịch họp"
               onPress={() => { navigation.navigate('CreateRoom') }}
             />
             <OptionItem
-              icon={require('../navigatordemo/icons/vn.png')}
+              icon={require('../navigatordemo/icons/home_icon.png')}
               label="QL phòng họp"
               onPress={() => { navigation.navigate('ManagerRoom') }}
             />

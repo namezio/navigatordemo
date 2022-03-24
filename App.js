@@ -13,6 +13,7 @@ import ForgetPasswordScreen from './screen/ForgetPasswordScreen';
 
 
 
+
 const Stack = createNativeStackNavigator();
 const options = { headerShown: false };
 function MyStack() {
@@ -27,6 +28,7 @@ function MyStack() {
       <Stack.Screen name='ManagerRoom' component={ManagerRoomScreen}/>
       <Stack.Screen name='SignIn' component={signInScreen} options={options}/>
       <Stack.Screen name='Forget' component={ForgetPasswordScreen} />
+      
     </Stack.Navigator>
   );
 }
