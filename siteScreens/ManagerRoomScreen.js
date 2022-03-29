@@ -1,17 +1,16 @@
-import {View, Text} from 'react-native';
-import React from 'react';
+import { View, Text } from 'react-native'
+import React from 'react'
 
 const ManagerRoomScreen = () => {
   return (
-    <View
-      style={{
+    <View style={{
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
       }}>
       <Text>ManagerRoomScreen</Text>
     </View>
-  );
-};
+  )
+}
 
-export default ManagerRoomScreen;
+export default ManagerRoomScreen
