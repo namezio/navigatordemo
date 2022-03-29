@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import LoginScreen from './LoginScreen';
-import HomeScreen from './HomeScreen';
-import Notification from './NotificationScreen';
+import LoginScreen from './screen/LoginScreen';
+import HomeScreen from './screen/HomeScreen';
+import Notification from './screen/NotificationScreen';
 import MeetingRoomScreen from './siteScreens/MeetingRoomScreen';
 import JoinRoomScreen from './siteScreens/JoinRoomScreen';
 import CreateRoomScreen from './siteScreens/CreateRoomScreen';

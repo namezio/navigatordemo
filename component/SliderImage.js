@@ -1,19 +1,18 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, {Component} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
-import { SliderBox } from "react-native-image-slider-box";
+import {SliderBox} from 'react-native-image-slider-box';
 
 export default class SliderImage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       images: [
-        "https://source.unsplash.com/1024x768/?nature",
-        "https://source.unsplash.com/1024x768/?water",
-        "https://source.unsplash.com/1024x768/?girl",
-        "https://source.unsplash.com/1024x768/?tree",
-        
-      ]
+        'https://source.unsplash.com/1024x768/?nature',
+        'https://source.unsplash.com/1024x768/?water',
+        'https://source.unsplash.com/1024x768/?girl',
+        'https://source.unsplash.com/1024x768/?tree',
+      ],
     };
   }
 
@@ -21,7 +20,7 @@ export default class SliderImage extends Component {
     return (
       <View style={styles.container}>
         <SliderBox
-        ImageComponentStyle={{borderRadius: 15, width: '97%'}}
+          ImageComponentStyle={{borderRadius: 15, width: '97%'}}
           images={this.state.images}
           dotStyle={{
             width: 30,
@@ -29,7 +28,7 @@ export default class SliderImage extends Component {
             borderRadius: 15,
             marginHorizontal: 0,
             padding: 0,
-            margin: 0
+            margin: 0,
           }}
           autoplay
           circleLoop
@@ -41,6 +40,6 @@ export default class SliderImage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
