@@ -4,10 +4,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './screen/LoginScreen';
 import HomeScreen from './screen/HomeScreen';
 import Notification from './screen/NotificationScreen';
-import MeetingRoomScreen from './siteScreens/MeetingRoomScreen';
-import JoinRoomScreen from './siteScreens/JoinRoomScreen';
-import CreateRoomScreen from './siteScreens/CreateRoomScreen';
-import ManagerRoomScreen from './siteScreens/ManagerRoomScreen';
+import MeetingRoomScreen from './screen/siteScreens/MeetingRoomScreen';
+import JoinRoomScreen from './screen/siteScreens/JoinRoomScreen';
+import CreateRoomScreen from './screen/siteScreens/CreateRoomScreen';
+import ManagerRoomScreen from './screen/siteScreens/ManagerRoomScreen';
 import signInScreen from './screen/SignInScreen';
 import ForgetPasswordScreen from './screen/ForgetPasswordScreen';
 

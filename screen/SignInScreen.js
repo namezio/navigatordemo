@@ -4,13 +4,24 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import DropDownPicker from 'react-native-dropdown-picker';
+import MaskedView from '@react-native-masked-view/masked-view';
+import LinearGradient from 'react-native-linear-gradient';
+import ButtonSignIn from '../component/ButtonSignIn';
 
 function SignInScreen({navigation}) {
   return (
-    <SafeAreaView style={{margin: 10, alignContent: 'center', maxHeight: 300}}>
+    <SafeAreaView
+      style={{
+        flexDirection: 'column',
+        margin: 10,
+        alignContent: 'center',
+        maxHeight: 500,
+      }}>
       <View>
         <Text
           style={{
@@ -29,68 +40,108 @@ function SignInScreen({navigation}) {
           Vui lòng nhập những thông tin sau
         </Text>
         <Text style={styles.text}>Họ tên</Text>
-        <TextInput
-          style={{
-            height: 40,
-            marginTop: 10,
-            borderWidth: 1,
-            maxWidth: 360,
-            padding: 10,
-          }}
-          placeholder="Họ và tên"
-        />
+        <TextInput style={styles.textinput} placeholder="Họ và tên" />
         <Text style={styles.text}>Số điện thoại</Text>
-        <TextInput
-          style={{
-            height: 40,
-            marginTop: 10,
-            borderWidth: 1,
-            maxWidth: 360,
-            padding: 10,
-          }}
-          placeholder="Số điện thoại"
-        />
+        <TextInput style={styles.textinput} placeholder="Số điện thoại" />
         <Text style={styles.text}>Email</Text>
-        <TextInput
-          // secureTextEntry={true}
-          style={{
-            height: 40,
-            marginTop: 10,
-            borderWidth: 1,
-            marginBottom: 10,
-            maxWidth: 360,
-            padding: 10,
-          }}
-          placeholder="Email"
-        />
-        <TouchableOpacity
-          style={{
-            borderRadius: 10,
-            height: 40,
-            maxWidth: 360,
-            backgroundColor: '#65c1b6',
-            marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          onPress={() => navigation.navigate('Login')}>
-          <Text
-            style={{
-              color: '#FFF',
-              fontSize: 24,
-              alignSelf: 'center',
-            }}>
-            Đăng ký
-          </Text>
-        </TouchableOpacity>
+        <TextInput style={styles.textinput} placeholder="Email" />
+        <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
+            <Text style={styles.text}>Mật khẩu</Text>
+            <TextInput
+              // secureTextEntry={true}
+              style={styles.textinput}
+              placeholder="Mật khẩu"
+            />
+          </View>
+          <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
+            <Text style={styles.text}>Xác nhận</Text>
+            <TextInput
+              // secureTextEntry={true}
+              style={styles.textinput}
+              placeholder="Xác nhận"
+            />
+          </View>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
+            <Text style={styles.text}>Lĩnh Vực</Text>
+            <PickerJob />
+          </View>
+          <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
+            <Text style={styles.text}>Quốc Gia</Text>
+            <PickerQG />
+          </View>
+        </View>
       </View>
-      <View style={{alignItems: 'center', marginTop: 30}}>
+      <ButtonSignIn />
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          marginTop: 200,
+        }}>
         <Text>Copyright @ 2022 by Namviet Telecom</Text>
       </View>
     </SafeAreaView>
   );
 }
+function PickerJob() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Giáo Dục', value: 'education'},
+    {label: 'Y tế- Sức khỏe', value: 'health'},
+    {label: 'Bất động sản', value: 'bds'},
+    {label: 'Tổ chức doanh nghiệp', value: 'bussines'},
+    {label: 'Tư vấn đào tạo ', value: 'training'},
+    {label: 'khác ', value: 'others'},
+  ]);
+
+  return (
+    <DropDownPicker
+      stickyHeader={true}
+      autoScroll={true}
+      style={styles.textinput}
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+    />
+  );
+}
+function PickerQG() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'VIệt Nam', value: 'vn'},
+    {label: 'Nước ngoài', value: 'other'},
+  ]);
+
+  return (
+    <DropDownPicker
+      style={styles.textinput}
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+    />
+  );
+}
+const GradientText = props => (
+  <MaskedView maskElement={<Text {...props} />}>
+    <LinearGradient
+      colors={['#0390fc', '#03fc98']}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 0}}>
+      <Text {...props} style={[props.style, {opacity: 0}]} />
+    </LinearGradient>
+  </MaskedView>
+);
 const styles = StyleSheet.create({
   text: {
     fontSize: 17,
@@ -101,6 +152,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: 5,
     color: '#65c1b6',
+  },
+  textinput: {
+    height: 40,
+    marginTop: 10,
+    borderWidth: 1,
+    maxWidth: 360,
+    padding: 10,
+    borderRadius: 5,
   },
 });
 export default SignInScreen;

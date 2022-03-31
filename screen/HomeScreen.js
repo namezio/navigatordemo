@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 import SliderImage from '../component/SliderImage';
 import {useNavigation} from '@react-navigation/native';
 import SiteHomeBottom from '../component/SiteHomeBottom';
-
+import {GradientText} from './LoginScreen';
 function HomeScreen() {
   return (
     <SafeAreaView style={{backgroundColor: '#fafafa', maxWidth: 386, flex: 1}}>

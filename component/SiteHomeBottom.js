@@ -39,24 +39,31 @@ function SiteHomeBottom() {
     </View>
   );
 }
-const OptionItem = ({icon, label, onPress}) => {
+const OptionItem = ({icon, label, onPress, color}) => {
   return (
     <TouchableOpacity
       style={{
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
         borderRadius: 10,
         margin: 5,
       }}
       onPress={onPress}>
-      <View style={{width: 60, height: 60}}>
+      <View
+        style={{
+          width: 60,
+          height: 60,
+          justifyContent: 'center',
+          backgroundColor: 'pink',
+          borderRadius: 5,
+        }}>
         <Image
           source={icon}
           resizeMode="contain"
           style={{
-            width: 60,
-            height: 60,
+            alignSelf: 'center',
+            width: 40,
+            height: 40,
           }}
         />
       </View>
