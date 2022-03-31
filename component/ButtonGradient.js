@@ -1,12 +1,12 @@
+import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {Text, TouchableOpacity} from 'react-native';
-import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-export default function ButtonLogin() {
+function ButtonGradient({text, onPress}) {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+    <TouchableOpacity onPress={onPress}>
       <LinearGradient
         colors={['#0390fc', '#3bd972']}
         start={{x: 0, y: 0}}
@@ -28,9 +28,11 @@ export default function ButtonLogin() {
             alignSelf: 'center',
             fontWeight: '800',
           }}>
-          ĐĂNG NHẬP
+          {text}
         </Text>
       </LinearGradient>
     </TouchableOpacity>
   );
 }
+
+export default ButtonGradient;

@@ -8,10 +8,8 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {MaskView} from 'react-native-maskview';
-import MaskedView from '@react-native-masked-view/masked-view';
-import LinearGradient from 'react-native-linear-gradient';
-import ButtonLogin from '../component/ButtonLogin';
+import GradientText from '../component/GradientText';
+import ButtonGradient from '../component/ButtonGradient';
 
 function LoginScreen({navigation}) {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -76,7 +74,10 @@ function LoginScreen({navigation}) {
           Lưu thông tin đăng nhập
         </Text>
       </View>
-      <ButtonLogin />
+      <ButtonGradient
+        text="ĐĂNG NHẬP"
+        onPress={() => navigation.navigate('Home')}
+      />
       <View style={{alignItems: 'center'}}>
         <View style={{flexDirection: 'row'}}>
           <Text style={{margin: 5}}>Chưa có tài khoản ?</Text>
@@ -94,16 +95,7 @@ function LoginScreen({navigation}) {
     </SafeAreaView>
   );
 }
-const GradientText = props => (
-  <MaskedView maskElement={<Text {...props} />}>
-    <LinearGradient
-      colors={['#0390fc', '#03fc98']}
-      start={{x: 0, y: 0}}
-      end={{x: 1, y: 0}}>
-      <Text {...props} style={[props.style, {opacity: 0}]} />
-    </LinearGradient>
-  </MaskedView>
-);
+
 const styles = StyleSheet.create({
   text: {
     fontSize: 13,

@@ -11,7 +11,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
-import ButtonSignIn from '../component/ButtonSignIn';
+import ButtonGradient from '../component/ButtonGradient';
 
 function SignInScreen({navigation}) {
   return (
@@ -74,7 +74,10 @@ function SignInScreen({navigation}) {
           </View>
         </View>
       </View>
-      <ButtonSignIn />
+      <ButtonGradient
+        text="ĐĂNG KÝ"
+        onPress={() => navigation.navigate('Login')}
+      />
       <View
         style={{
           alignItems: 'center',
