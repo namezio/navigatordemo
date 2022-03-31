@@ -8,6 +8,10 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import {MaskView} from 'react-native-maskview';
+import MaskedView from '@react-native-masked-view/masked-view';
+import LinearGradient from 'react-native-linear-gradient';
+import ButtonLogin from '../component/ButtonLogin';
 
 function LoginScreen({navigation}) {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -15,14 +19,14 @@ function LoginScreen({navigation}) {
 
   return (
     <SafeAreaView style={{margin: 20, alignContent: 'center', maxHeight: 300}}>
-      <Text
+      <GradientText
         style={{
           fontSize: 35,
           fontWeight: '700',
           color: '#09bcc8',
         }}>
-        Đăng nhập
-      </Text>
+        Đăng Nhập
+      </GradientText>
       <Text
         style={{
           fontSize: 18,
@@ -72,41 +76,17 @@ function LoginScreen({navigation}) {
           Lưu thông tin đăng nhập
         </Text>
       </View>
-      <TouchableOpacity
-        style={{
-          borderRadius: 10,
-          height: 40,
-          maxWidth: 360,
-          backgroundColor: '#65c1b6',
-          marginTop: 20,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onPress={() => navigation.navigate('Home')}>
-        <Text
-          style={{
-            color: '#FFF',
-            fontSize: 20,
-            alignSelf: 'center',
-          }}>
-          Đăng nhập
-        </Text>
-      </TouchableOpacity>
+      <ButtonLogin />
       <View style={{alignItems: 'center'}}>
         <View style={{flexDirection: 'row'}}>
           <Text style={{margin: 5}}>Chưa có tài khoản ?</Text>
-          <Text
-            style={styles.text2}
-            onPress={() => navigation.navigate('SignIn')}>
-            Đăng ký
-          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+            <GradientText style={styles.text2}> Đăng Ký</GradientText>
+          </TouchableOpacity>
         </View>
-        <Text
-          style={styles.text2}
-          onPress={() => navigation.navigate('Forget')}>
-          Quên mật khẩu ?
-        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Forget')}>
+          <GradientText style={styles.text2}>Quên mật khẩu ?</GradientText>
+        </TouchableOpacity>
       </View>
       <View style={{alignItems: 'center'}}>
         <Text>Copyright @ 2022 by Namviet Telecom</Text>
@@ -114,7 +94,16 @@ function LoginScreen({navigation}) {
     </SafeAreaView>
   );
 }
-
+const GradientText = props => (
+  <MaskedView maskElement={<Text {...props} />}>
+    <LinearGradient
+      colors={['#0390fc', '#03fc98']}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 0}}>
+      <Text {...props} style={[props.style, {opacity: 0}]} />
+    </LinearGradient>
+  </MaskedView>
+);
 const styles = StyleSheet.create({
   text: {
     fontSize: 13,

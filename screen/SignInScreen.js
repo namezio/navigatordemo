@@ -26,9 +26,9 @@ function SignInScreen({navigation}) {
             color: 'gray',
             marginTop: 10,
           }}>
-          Hãy nhập thông tin của bạn để đăng ký
+          Vui lòng nhập những thông tin sau
         </Text>
-        <Text style={styles.text}>Tên người dùng</Text>
+        <Text style={styles.text}>Họ tên</Text>
         <TextInput
           style={{
             height: 40,
@@ -37,9 +37,9 @@ function SignInScreen({navigation}) {
             maxWidth: 360,
             padding: 10,
           }}
-          placeholder="Họ và tên người dùng"
+          placeholder="Họ và tên"
         />
-        <Text style={styles.text}>Tên đăng nhập</Text>
+        <Text style={styles.text}>Số điện thoại</Text>
         <TextInput
           style={{
             height: 40,
@@ -48,11 +48,11 @@ function SignInScreen({navigation}) {
             maxWidth: 360,
             padding: 10,
           }}
-          placeholder="Số di động, email hoặc tên đăng nhập"
+          placeholder="Số điện thoại"
         />
-        <Text style={styles.text}>Mật khẩu</Text>
+        <Text style={styles.text}>Email</Text>
         <TextInput
-          secureTextEntry={true}
+          // secureTextEntry={true}
           style={{
             height: 40,
             marginTop: 10,
@@ -61,7 +61,7 @@ function SignInScreen({navigation}) {
             maxWidth: 360,
             padding: 10,
           }}
-          placeholder="Mật khẩu"
+          placeholder="Email"
         />
         <TouchableOpacity
           style={{
