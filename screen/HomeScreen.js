@@ -19,7 +19,8 @@ const Drawer = createDrawerNavigator();
 import SliderImage from '../component/SliderImage';
 import {useNavigation} from '@react-navigation/native';
 import SiteHomeBottom from '../component/SiteHomeBottom';
-import {GradientText} from './LoginScreen';
+import GradientText from '../component/GradientText';
+import HomeSchedule from '../component/HomeSchedule';
 function HomeScreen() {
   return (
     <SafeAreaView style={{backgroundColor: '#fafafa', maxWidth: 386, flex: 1}}>
@@ -34,6 +35,10 @@ function HomeScreen() {
         <CodeCall />
         <SliderImage />
         <SiteHomeBottom />
+        <GradientText style={{margin: 10, fontSize: 24}}>
+          Meetings in Today
+        </GradientText>
+        <HomeSchedule />
       </ScrollView>
     </SafeAreaView>
   );
@@ -284,7 +289,7 @@ function CodeCall() {
     <View style={{margin: 10, backgroundColor: '#FFF', borderRadius: 20}}>
       <View style={{margin: 20, alignItems: 'center'}}>
         <Text style={{fontSize: 20}}>TranS ID của bạn</Text>
-        <Text
+        <GradientText
           style={{
             fontSize: 25,
             marginTop: 5,
@@ -292,7 +297,7 @@ function CodeCall() {
             fontWeight: 'bold',
           }}>
           0123456
-        </Text>
+        </GradientText>
         <Text
           style={{
             fontSize: 16,
