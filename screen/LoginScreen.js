@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -10,11 +10,19 @@ import {
 } from 'react-native';
 import GradientText from '../component/GradientText';
 import ButtonGradient from '../component/ButtonGradient';
+import {useSelector, useDispatch} from 'react-redux';
+import {Auth} from '../redux/reducer/AuthReducer';
+import {SignIn} from '../redux/action/AuthAction';
 
 function LoginScreen({navigation}) {
+  const [fullname, onChangeName] = React.useState('AAA');
+  const dispatch = useDispatch();
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
+  const info = useSelector(state => state.Auth);
+  useEffect(() => {
+    console.log('INFO', info);
+  });
   return (
     <SafeAreaView style={{margin: 20, alignContent: 'center', maxHeight: 300}}>
       <GradientText
@@ -42,6 +50,8 @@ function LoginScreen({navigation}) {
           maxWidth: 360,
           padding: 10,
         }}
+        onChangeText={onChangeName}
+        value={fullname}
         placeholder="Số di động, email hoặc tên đăng nhập"
       />
       <Text style={styles.text}>Mật khẩu</Text>
@@ -76,7 +86,10 @@ function LoginScreen({navigation}) {
       </View>
       <ButtonGradient
         text="ĐĂNG NHẬP"
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => {
+          console.log('Fullname :', fullname);
+          dispatch(SignIn(fullname));
+        }}
       />
       <View style={{alignItems: 'center'}}>
         <View style={{flexDirection: 'row'}}>

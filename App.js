@@ -10,6 +10,8 @@ import CreateRoomScreen from './screen/siteScreens/CreateRoomScreen';
 import ManagerRoomScreen from './screen/siteScreens/ManagerRoomScreen';
 import signInScreen from './screen/SignInScreen';
 import ForgetPasswordScreen from './screen/ForgetPasswordScreen';
+import {Provider} from 'react-redux';
+import {Store} from './redux/Store';
 
 const Stack = createNativeStackNavigator();
 const options = {headerShown: false};
@@ -31,8 +33,10 @@ function MyStack() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <MyStack />
-    </NavigationContainer>
+    <Provider store={Store}>
+      <NavigationContainer>
+        <MyStack />
+      </NavigationContainer>
+    </Provider>
   );
 }
