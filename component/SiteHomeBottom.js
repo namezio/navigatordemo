@@ -13,6 +13,7 @@ function SiteHomeBottom() {
           onPress={() => {
             navigation.navigate('MeetingRoom');
           }}
+          color="pink"
         />
         <OptionItem
           icon={require('../icons/join.png')}
@@ -20,6 +21,7 @@ function SiteHomeBottom() {
           onPress={() => {
             navigation.navigate('JoinRoom');
           }}
+          color="yellow"
         />
         <OptionItem
           icon={require('../icons/add_video.png')}
@@ -27,6 +29,7 @@ function SiteHomeBottom() {
           onPress={() => {
             navigation.navigate('CreateRoom');
           }}
+          color="blue"
         />
         <OptionItem
           icon={require('../icons/home_icon.png')}
@@ -34,6 +37,7 @@ function SiteHomeBottom() {
           onPress={() => {
             navigation.navigate('ManagerRoom');
           }}
+          color="green"
         />
       </View>
     </View>
@@ -54,7 +58,7 @@ const OptionItem = ({icon, label, onPress, color}) => {
           width: 60,
           height: 60,
           justifyContent: 'center',
-          backgroundColor: 'pink',
+          backgroundColor: color,
           borderRadius: 5,
         }}>
         <Image
