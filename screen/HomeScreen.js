@@ -21,6 +21,7 @@ import {useNavigation} from '@react-navigation/native';
 import SiteHomeBottom from '../component/SiteHomeBottom';
 import GradientText from '../component/GradientText';
 import HomeSchedule from '../component/HomeSchedule';
+import CalendarScreen from './CalendarScreen';
 function HomeScreen() {
   return (
     <SafeAreaView style={{backgroundColor: '#fafafa', maxWidth: 386, flex: 1}}>
@@ -247,7 +248,7 @@ function MyDrawer() {
       />
       <Drawer.Screen
         name="Lich Hop"
-        component={Lichhop}
+        component={CalendarScreen}
         options={{
           drawerIcon: () => (
             <Avatar.Image size={20} source={require('../icons/vn.png')} />

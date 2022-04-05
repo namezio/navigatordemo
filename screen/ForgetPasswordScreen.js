@@ -7,27 +7,29 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
+import GradientText from '../component/GradientText';
+import ButtonGradient from '../component/ButtonGradient';
 
 const ForgetPasswordScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{margin: 10}}>
-      <Text
+      <GradientText
         style={{
           fontSize: 35,
           fontWeight: '700',
-          color: '#09bcc8',
         }}>
         Quên mật khẩu
-      </Text>
+      </GradientText>
+
       <Text
         style={{
           fontSize: 18,
           color: 'gray',
           marginTop: 10,
         }}>
-        Hãy lại nhập thông tin của bạn để tiến hành xác minh tài khoản
+        Chúng tôi sẽ gửi mật khẩu đến email của bạn
       </Text>
-      <Text style={styles.text}>Tên người dùng</Text>
+      <Text style={styles.text}>Email</Text>
       <TextInput
         style={{
           height: 40,
@@ -36,68 +38,18 @@ const ForgetPasswordScreen = ({navigation}) => {
           maxWidth: 360,
           padding: 10,
         }}
-        placeholder="Họ và tên người dùng"
+        placeholder="Email"
       />
-      <Text style={styles.text}>Tên đăng nhập</Text>
-      <TextInput
-        secureTextEntry={true}
-        style={{
-          height: 40,
-          marginTop: 10,
-          borderWidth: 1,
-          marginBottom: 10,
-          maxWidth: 360,
-          padding: 10,
-        }}
-        placeholder="Số di động, email hoặc tên đăng nhập"
+      <ButtonGradient
+        onPress={() => navigation.navigate('Login')}
+        text={'Gửi mã bảo mật đến Email của tôi'}
       />
-      <Text style={styles.text}>Mật khẩu mới</Text>
-      <TextInput
-        secureTextEntry={true}
-        style={{
-          height: 40,
-          marginTop: 10,
-          borderWidth: 1,
-          marginBottom: 10,
-          maxWidth: 360,
-          padding: 10,
-        }}
-        placeholder="Mật khẩu"
-      />
-      <Text style={styles.text}>Nhập lại mật khẩu mới</Text>
-      <TextInput
-        secureTextEntry={true}
-        style={{
-          height: 40,
-          marginTop: 10,
-          borderWidth: 1,
-          marginBottom: 10,
-          maxWidth: 360,
-          padding: 10,
-        }}
-        placeholder="Mật khẩu"
-      />
-      <TouchableOpacity
-        style={{
-          borderRadius: 10,
-          height: 40,
-          maxWidth: 360,
-          backgroundColor: '#65c1b6',
-          marginTop: 20,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onPress={() => navigation.navigate('Login')}>
-        <Text
-          style={{
-            color: '#FFF',
-            fontSize: 24,
-            alignSelf: 'center',
-          }}>
-          Xác Thực Tài Khoản
-        </Text>
-      </TouchableOpacity>
+      <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+        <Text style={styles.text}>Đã có mật khẩu ?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <GradientText style={styles.text}> Đăng nhập</GradientText>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
