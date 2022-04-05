@@ -10,6 +10,7 @@ import CreateRoomScreen from './screen/siteScreens/CreateRoomScreen';
 import ManagerRoomScreen from './screen/siteScreens/ManagerRoomScreen';
 import signInScreen from './screen/SignInScreen';
 import ForgetPasswordScreen from './screen/ForgetPasswordScreen';
+import AddCalendar from './screen/addCalendar';
 
 const Stack = createNativeStackNavigator();
 const options = {headerShown: false};
@@ -25,6 +26,7 @@ function MyStack() {
       <Stack.Screen name="ManagerRoom" component={ManagerRoomScreen} />
       <Stack.Screen name="SignIn" component={signInScreen} options={options} />
       <Stack.Screen name="Forget" component={ForgetPasswordScreen} />
+      <Stack.Screen name="AddCalendar" component={AddCalendar} />
     </Stack.Navigator>
   );
 }

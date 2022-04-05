@@ -1,8 +1,18 @@
 import React from 'react';
 import {Agenda} from 'react-native-calendars';
-import {SafeAreaView, View, StyleSheet, Text, Image} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import ButtonGradient from '../component/ButtonGradient';
+import {useNavigation} from '@react-navigation/native';
 
 function CalendarScreen() {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={{flex: 1}}>
       <Agenda
@@ -60,6 +70,12 @@ function CalendarScreen() {
           todayTextColor: '#00adf5',
         }}
       />
+      <View style={{marginLeft: 15, marginRigh: 20}}>
+        <ButtonGradient
+          text={'Thêm lịch'}
+          onPress={() => navigation.navigate('AddCalendar')}
+        />
+      </View>
     </SafeAreaView>
   );
 }
