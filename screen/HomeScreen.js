@@ -104,10 +104,10 @@ function CustomDrawerContent(props) {
     <View style={{flex: 1}}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{backgroundColor: '#FFF'}}>
+        contentContainerStyle={{backgroundColor: '#65c1b6'}}>
         <Image
-          source={require('../icons/vn.png')}
-          style={{margin: 20, width: 250, height: 100}}
+          source={require('../icons/Horizonal-Logo.png')}
+          style={{margin: 10, width: 250, height: 65}}
         />
         <View
           style={{
@@ -131,7 +131,7 @@ function CustomDrawerContent(props) {
             alignItems: 'center',
             margin: 10,
           }}>
-          <Avatar.Image size={30} source={require('../icons/vn.png')} />
+          <Avatar.Image size={30} source={require('../icons/nuti.png')} />
           <Text
             style={{
               margin: 10,
@@ -202,17 +202,23 @@ function Dangxuatbutton() {
   return (
     <View style={{paddingVertical: 15}}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Avatar.Image size={40} source={require('../icons/vn.png')} />
+        <Image
+          style={{width: 40, height: 40, borderRadius: 40}}
+          source={require('../icons/vn.png')}
+        />
         <Text
           style={{
-            fontSize: 15,
+            fontSize: 18,
             marginLeft: 5,
             marginRight: 5,
           }}>
           Nguyen Thanh Hung
         </Text>
         <TouchableOpacity onPress={confirmAlert}>
-          <Avatar.Image size={30} source={require('../icons/signout.png')} />
+          <Image
+            style={{width: 40, height: 40, borderRadius: 40}}
+            source={require('../icons/signout.png')}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -242,7 +248,10 @@ function MyDrawer() {
         component={HomeScreen}
         options={{
           drawerIcon: () => (
-            <Avatar.Image size={20} source={require('../icons/vn.png')} />
+            <Image
+              style={{width: 20, height: 20}}
+              source={require('../icons/home.png')}
+            />
           ),
         }}
       />
@@ -251,7 +260,10 @@ function MyDrawer() {
         component={CalendarScreen}
         options={{
           drawerIcon: () => (
-            <Avatar.Image size={20} source={require('../icons/vn.png')} />
+            <Image
+              style={{width: 20, height: 20}}
+              source={require('../icons/calendar.png')}
+            />
           ),
         }}
       />
@@ -260,7 +272,10 @@ function MyDrawer() {
         component={Danhba}
         options={{
           drawerIcon: () => (
-            <Avatar.Image size={20} source={require('../icons/vn.png')} />
+            <Image
+              style={{width: 20, height: 20}}
+              source={require('../icons/users-alt.png')}
+            />
           ),
         }}
       />
@@ -269,7 +284,10 @@ function MyDrawer() {
         component={Tienich}
         options={{
           drawerIcon: () => (
-            <Avatar.Image size={20} source={require('../icons/vn.png')} />
+            <Image
+              style={{width: 20, height: 20}}
+              source={require('../icons/apps.png')}
+            />
           ),
         }}
       />
@@ -278,7 +296,10 @@ function MyDrawer() {
         component={Caidat}
         options={{
           drawerIcon: () => (
-            <Avatar.Image size={20} source={require('../icons/vn.png')} />
+            <Image
+              style={{width: 20, height: 20}}
+              source={require('../icons/settings.png')}
+            />
           ),
         }}
       />
@@ -345,18 +366,20 @@ function HeaderHome() {
       </View>
       <View style={{flexDirection: 'row', flex: 2}}>
         <TouchableOpacity onPress={LanguageAlert}>
-          <Avatar.Image size={40} source={require('../icons/vn.png')} />
+          <Image
+            style={{height: 40, width: 40, borderRadius: 40}}
+            source={require('../icons/vn.png')}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('Noti')}>
-          <Avatar.Image
-            style={{marginLeft: 5}}
-            size={40}
+          <Image
+            style={{height: 40, width: 40, borderRadius: 40, marginLeft: 5}}
             source={require('../icons/nuti.png')}
           />
         </TouchableOpacity>
 
-        <Badge style={{position: 'absolute', top: 0, left: 70}}>4</Badge>
+        <Badge style={{position: 'absolute', top: 0, left: 70}}>+99</Badge>
       </View>
     </View>
   );
