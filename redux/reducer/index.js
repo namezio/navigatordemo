@@ -8,6 +8,9 @@ import recoveryPasswordReducer from './RecoveryPassword';
 import settingsReducer from './Setting';
 import signUpReducer from './SignUp';
 import meetingScheduleReducer from './MeetingSchedule';
+import ChangePasswordByCodeReducer from './ChangePasswordByCode';
+import AddScheduleReducer from './AddSchedule';
+import EditScheduleReducer from './EditSchedule';
 
 const authPersistConfig = {
   key: 'auth',
@@ -29,7 +32,10 @@ const rootReducer = combineReducers({
   dialog: dialogReducer,
   recoveryPassword: recoveryPasswordReducer,
   signUp: signUpReducer,
+  changePasswordByCode: ChangePasswordByCodeReducer,
   meetingSchedule: meetingScheduleReducer,
+  addSchedule: AddScheduleReducer,
+  editSchedule: EditScheduleReducer,
   settings: persistReducer(settingsPersistConfig, settingsReducer),
   freeJoin: persistReducer(freeJoinPersistConfig, freeJoinReducer),
   auth: persistReducer(authPersistConfig, authReducer),

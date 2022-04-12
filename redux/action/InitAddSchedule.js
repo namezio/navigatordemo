@@ -1,8 +1,11 @@
+import CommonHelper from '../../helpers/CommonHelper';
+import AuthenticateService from '../../services/AuthenticateService';
+
 export const InitAddAction = {
-  SET_INITADD_SCHEDULE: 'SET_INITADD_SCHEDULE',
+  SET_DATA: 'SET_DATA',
 };
-export const setInitAddSchedule = data => dispatch =>
+export const setData = data => dispatch =>
   dispatch({
-    type: InitAddAction.SET_INITADD_SCHEDULE,
+    type: InitAddAction.SET_DATA,
     payload: data,
   });

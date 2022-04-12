@@ -1,8 +1,8 @@
-export const ScheduleAction = {
+export const GetScheduleAction = {
   SET_DATA: 'SET_DATA',
 };
 export const setData = data => dispatch =>
   dispatch({
-    type: ScheduleAction.SET_DATA,
+    type: GetScheduleAction.SET_DATA,
     payload: data,
   });
