@@ -1,11 +1,11 @@
 import {authActions} from '../action/Auth';
 
 const initialState = {
-  username: '',
-  password: '',
-  id: 0,
+  username: '0975977774',
+  password: '123123',
+  id: 1,
   transId: '',
-  fullName: '',
+  fullName: 'Nguyễn Thành Hưng',
   avatarUrl: '',
   licenseEndDate: '',
   appFeatures: [],

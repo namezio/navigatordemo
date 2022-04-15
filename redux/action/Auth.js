@@ -13,7 +13,7 @@ export const setData = data => dispatch =>
   });
 
 export const login = data => async dispatch => {
-  await CommonHelper.delay(1000);
+  await CommonHelper.delay(500);
   const response = await AuthenticateService.signIn(data);
   if (!response) {
     return {
@@ -30,7 +30,7 @@ export const login = data => async dispatch => {
   }
 
   dispatch({
-    type: authActions.SET_DATA,
+    type: authActions.LOGIN,
     payload: {
       ...data,
       ...response.data,

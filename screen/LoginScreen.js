@@ -7,14 +7,57 @@ import {
   Switch,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import GradientText from '../component/GradientText';
 import ButtonGradient from '../component/ButtonGradient';
+import {useDispatch, useSelector} from 'react-redux';
+import {Formik, Form, Field} from 'formik';
+import * as yup from 'yup';
+import {Controller, useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
+import * as dialogAction from '../redux/action/Dialog';
+import {authActions, login} from '../redux/action/Auth';
+
+import HTTPHelpers from '../helpers/HTTPHelpers';
 
 function LoginScreen({navigation}) {
+  const dispatch = useDispatch();
   const [isEnabled, setIsEnabled] = useState(false);
+  const [userError, setUserError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const auth = useSelector(state => state.auth);
+  const defaultValues = {
+    username:
+      auth && auth.username && auth.username.length > 0 ? auth.username : '',
+    password: '',
+  };
 
+  const schema = yup.object().shape({
+    username: yup.string().required('Bắt buộc phải nhập'),
+    password: yup.string().required('Bắt buộc phải nhập'),
+  });
+  const {control, handleSubmit, setFocus, setValue, register} = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: defaultValues,
+  });
+  const submit = async data => {
+    dispatch(dialogAction.showLoading());
+    const result = await dispatch(login(data));
+    dispatch(dialogAction.dismissLoading());
+    if (result.error) {
+      dispatch(
+        dialogAction.showAlert(
+          result.message || 'error.connect_server_failed',
+          () => setValue('password', ''),
+        ),
+        Alert.alert(result.message),
+      );
+      return;
+    }
+    navigation.navigate('Home');
+  };
   return (
     <SafeAreaView style={{margin: 20, alignContent: 'center', maxHeight: 300}}>
       <GradientText
@@ -34,29 +77,57 @@ function LoginScreen({navigation}) {
         Hãy nhập thông tin của bạn để đăng nhập
       </Text>
       <Text style={styles.text}>Tên đăng nhập</Text>
-      <TextInput
-        style={{
-          height: 40,
-          marginTop: 10,
-          borderWidth: 1,
-          maxWidth: 360,
-          padding: 10,
-        }}
-        placeholder="Số di động, email hoặc tên đăng nhập"
+      <Controller
+        control={control}
+        render={({
+          field: {onChange, value, ref},
+          fieldState: {error: fieldError},
+        }) => (
+          <TextInput
+            value={value}
+            onChangeText={onChange}
+            onSubmitEditing={() => setFocus('password')}
+            style={{
+              height: 40,
+              marginTop: 10,
+              borderWidth: 1,
+              maxWidth: 360,
+              padding: 10,
+            }}
+            placeholder="Số di động, email hoặc tên đăng nhập"
+          />
+        )}
+        name="username"
       />
       <Text style={styles.text}>Mật khẩu</Text>
-      <TextInput
-        secureTextEntry={true}
-        style={{
-          height: 40,
-          marginTop: 10,
-          borderWidth: 1,
-          marginBottom: 10,
-          maxWidth: 360,
-          padding: 10,
-        }}
-        placeholder="Mật khẩu"
+      <Controller
+        control={control}
+        render={({
+          field: {onChange, value, ref},
+          fieldState: {error: fieldError},
+        }) => (
+          <TextInput
+            ref={ref}
+            value={value}
+            onChangeText={onChange}
+            secureTextEntry
+            style={{
+              height: 40,
+              marginTop: 10,
+              borderWidth: 1,
+              marginBottom: 10,
+              maxWidth: 360,
+              padding: 10,
+            }}
+            placeholder="Mật khẩu"
+            error={!!fieldError}
+            hint={fieldError?.message}
+            onSubmitEditing={handleSubmit(submit)}
+          />
+        )}
+        name="password"
       />
+      <Text>{passwordError}</Text>
       <View style={{flexDirection: 'row'}}>
         <Switch
           trackColor={{false: 'white', true: '#65c1b6'}}
@@ -74,10 +145,7 @@ function LoginScreen({navigation}) {
           Lưu thông tin đăng nhập
         </Text>
       </View>
-      <ButtonGradient
-        text="ĐĂNG NHẬP"
-        onPress={() => navigation.navigate('Home')}
-      />
+      <ButtonGradient text={'ĐĂNG NHẬP'} onPress={handleSubmit(submit)} />
       <View style={{alignItems: 'center'}}>
         <View style={{flexDirection: 'row'}}>
           <Text style={{margin: 5}}>Chưa có tài khoản ?</Text>

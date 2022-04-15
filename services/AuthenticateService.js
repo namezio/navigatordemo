@@ -11,7 +11,10 @@ const AuthenticateService = {
     });
   },
   async signIn(data) {
-    data.appType = 'application';
+    data.appType = 'application/json';
+    data.idDevice = 'string';
+    data.save = true;
+    data.timeZoneOffset = 0;
     return await HTTPHelper.post('/Auth/SignIn', data);
   },
   async recoveryPassword(data) {
