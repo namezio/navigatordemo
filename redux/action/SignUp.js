@@ -1,5 +1,4 @@
-// import AuthenticateService from '../../services/AuthenticateService';
-// import CommonHelper from '../../helpers/CommonHelper';
+import AuthenticateService from '../../services/AuthenticateService';
 
 export const signUpActions = {
   INIT_DATA: 'INIT_DATA',
@@ -7,32 +6,32 @@ export const signUpActions = {
   SET_CAREER: 'SET_CAREER',
 };
 
-// export const initData = () => async dispatch => {
-//   const response = await AuthenticateService.initSignUp();
-//   if (!response) {
-//     return {
-//       error: true,
-//       message: null,
-//     };
-//   }
-//
-//   if (response.error) {
-//     return {
-//       error: true,
-//       message: response.message,
-//     };
-//   }
-//
-//   dispatch({
-//     type: signUpActions.INIT_DATA,
-//     payload: response.data,
-//   });
-//
-//   return {
-//     error: false,
-//     message: response.message,
-//   };
-// };
+export const initData = () => async dispatch => {
+  const response = await AuthenticateService.initSignUp();
+  if (!response) {
+    return {
+      error: true,
+      message: null,
+    };
+  }
+
+  if (response.error) {
+    return {
+      error: true,
+      message: response.message,
+    };
+  }
+
+  dispatch({
+    type: signUpActions.INIT_DATA,
+    payload: response.data,
+  });
+
+  return {
+    error: false,
+    message: response.message,
+  };
+};
 
 export const setCountry = data => dispatch =>
   dispatch({
@@ -46,24 +45,24 @@ export const setCareer = data => dispatch =>
     payload: data,
   });
 
-// export const submit = data => async dispatch => {
-//   const response = await AuthenticateService.signUp(data);
-//   if (!response) {
-//     return {
-//       error: true,
-//       message: null,
-//     };
-//   }
-//
-//   if (response.error) {
-//     return {
-//       error: true,
-//       message: response.message,
-//     };
-//   }
-//
-//   return {
-//     error: false,
-//     message: response.message,
-//   };
-// };
+export const submit = data => async dispatch => {
+  const response = await AuthenticateService.signUp(data);
+  if (!response) {
+    return {
+      error: true,
+      message: null,
+    };
+  }
+
+  if (response.error) {
+    return {
+      error: true,
+      message: response.message,
+    };
+  }
+
+  return {
+    error: false,
+    message: response.message,
+  };
+};

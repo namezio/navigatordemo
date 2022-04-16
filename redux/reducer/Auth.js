@@ -1,8 +1,8 @@
 import {authActions} from '../action/Auth';
 
 const initialState = {
-  username: '0975977774',
-  password: '123123',
+  username: '',
+  password: '',
   id: 1,
   transId: '',
   fullName: 'Nguyễn Thành Hưng',

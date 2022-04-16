@@ -18,7 +18,7 @@ export const login = data => async dispatch => {
   if (!response) {
     return {
       error: true,
-      message: null,
+      message: response.message,
     };
   }
 
@@ -38,6 +38,7 @@ export const login = data => async dispatch => {
   });
 
   return {
+    loginToken: response.data.loginToken,
     error: false,
     message: response.message,
   };

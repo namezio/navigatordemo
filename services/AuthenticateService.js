@@ -11,7 +11,7 @@ const AuthenticateService = {
     });
   },
   async signIn(data) {
-    data.appType = 'application/json';
+    // data.appType = 'application/json';
     data.idDevice = 'string';
     data.save = true;
     data.timeZoneOffset = 0;

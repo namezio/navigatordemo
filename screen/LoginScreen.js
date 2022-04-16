@@ -12,18 +12,17 @@ import {
 import GradientText from '../component/GradientText';
 import ButtonGradient from '../component/ButtonGradient';
 import {useDispatch, useSelector} from 'react-redux';
-import {Formik, Form, Field} from 'formik';
 import * as yup from 'yup';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as dialogAction from '../redux/action/Dialog';
-import {authActions, login} from '../redux/action/Auth';
-
-import HTTPHelpers from '../helpers/HTTPHelpers';
+import {login} from '../redux/action/Auth';
 
 function LoginScreen({navigation}) {
   const dispatch = useDispatch();
   const [isEnabled, setIsEnabled] = useState(false);
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
   const [userError, setUserError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -35,8 +34,8 @@ function LoginScreen({navigation}) {
   };
 
   const schema = yup.object().shape({
-    username: yup.string().required('Bắt buộc phải nhập'),
-    password: yup.string().required('Bắt buộc phải nhập'),
+    username: yup.string().required(),
+    password: yup.string().required(),
   });
   const {control, handleSubmit, setFocus, setValue, register} = useForm({
     resolver: yupResolver(schema),

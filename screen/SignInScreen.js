@@ -6,14 +6,104 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import * as yup from 'yup';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 import ButtonGradient from '../component/ButtonGradient';
+import {useDispatch, useSelector} from 'react-redux';
+import {useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
+import * as dialogAction from '../redux/action/Dialog';
+import {initData, signUpActions} from '../redux/action/SignUp';
+import {Picker} from '@react-native-picker/picker';
 
-function SignInScreen({navigation}) {
+function SignUpScreen({navigation}) {
+  const dispatch = useDispatch();
+  const [isAcceptTerm, setIsAcceptTerm] = useState(false);
+  const signUp = useSelector(state => state.signUp);
+  const defaultValues = {
+    fullname: '',
+    email: '',
+    mobile: '',
+    password: '',
+    country: '',
+    idCountry: '',
+    career: '',
+    idCareer: 0,
+  };
+
+  const schema = yup.object().shape({
+    fullname: yup.string().required('validate.required'),
+    email: yup
+      .string()
+      .required('validate.required')
+      .email('validate.invalid_email_format'),
+    mobile: yup.string().required('validate.required'),
+    password: yup.string().required('validate.required'),
+    // confirmPassword: yup
+    //   .string()
+    //   .required('validate.required')
+    //   .oneOf([yup.ref('password'), null], 'validate.confirm_password_wrong'),
+    country: yup.string().required('validate.required'),
+    career: yup.string().required('validate.required'),
+  });
+
+  const {
+    control,
+    handleSubmit,
+    setFocus,
+    setValue,
+    formState: {errors},
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: defaultValues,
+  });
+
+  async function InitData() {
+    dialogAction.showLoading();
+    const response = await dispatch(initData());
+    dialogAction.dismissLoading();
+    if (!response.error) {
+      return;
+    }
+    dispatch(
+      dialogAction.showAlert(
+        response.message || 'error.connect_server_failed',
+        () => navigation.pop(),
+      ),
+    );
+  }
+
+  useEffect(() => {
+    console.log('Country changed');
+    setValue('idCountry', signUp.data.country ? signUp.data.country.value : '');
+    setValue('country', signUp.data.country ? signUp.data.country.label : '');
+  }, [setValue, signUp.data.country]);
+
+  useEffect(() => {
+    console.log('Career changed');
+    setValue('idCareer', signUp.data.career ? signUp.data.career.value : '');
+    setValue('career', signUp.data.career ? signUp.data.career.label : '');
+  }, [setValue, signUp.data.career]);
+
+  const submit = async data => {
+    dispatch(dialogAction.showLoading());
+    const result = await dispatch(submit(data));
+    dispatch(dialogAction.dismissLoading());
+
+    if (result.error) {
+      dispatch(
+        dialogAction.showAlert(result.message || 'error.connect_server_failed'),
+      );
+      return;
+    }
+
+    dispatch(dialogAction.showAlert(result.message, () => navigation.pop()));
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -117,21 +207,25 @@ function PickerJob() {
 }
 function PickerQG() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'VIệt Nam', value: 'vn'},
-    {label: 'Nước ngoài', value: 'other'},
-  ]);
-
+  const careers = useSelector(state => state.initSignUp.careers).map(x => ({
+    value: x.id,
+    label: x.name,
+  }));
+  // const [items, setItems] = useState([
+  //   {label: careers.label, value: careers.value},
+  // ]);
+  // const [value, setValue] = useState(null);
   return (
     <DropDownPicker
+      stickyHeader={true}
+      autoScroll={true}
       style={styles.textinput}
       open={open}
-      value={value}
-      items={items}
+      value={careers.value}
+      items={careers}
       setOpen={setOpen}
-      setValue={setValue}
-      setItems={setItems}
+      setValue={careers.value}
+      setItems={careers.label}
     />
   );
 }
@@ -165,4 +259,4 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
-export default SignInScreen;
+export default SignUpScreen;
