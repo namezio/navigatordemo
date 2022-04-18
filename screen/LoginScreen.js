@@ -55,7 +55,8 @@ function LoginScreen({navigation}) {
       );
       return;
     }
-    navigation.navigate('Home');
+    console.log(result.fullname);
+    navigation.navigate({name: 'Home', params: {fullName: result.fullname}});
   };
   return (
     <SafeAreaView style={{margin: 20, alignContent: 'center', maxHeight: 300}}>

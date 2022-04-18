@@ -22,6 +22,8 @@ import * as dialogAction from '../redux/action/Dialog';
 import {
   initData,
   registerSignUp,
+  setCareer,
+  setCountry,
   signUpActions,
   submit,
 } from '../redux/action/SignUp';
@@ -71,15 +73,15 @@ function SignUpScreen({navigation}) {
 
   useEffect(() => {
     console.log('Country changed');
-    setValue('idCountry', signUp.data.country ? signUp.data.country.value : '');
-    setValue('country', signUp.data.country ? signUp.data.country.label : '');
-  }, [setValue, signUp.data.country]);
+    setValue('idCountry', signUp.country ? signUp.country.value : '');
+    setValue('country', signUp.country ? signUp.country.label : '');
+  }, [setValue, signUp.country]);
 
   useEffect(() => {
     console.log('Career changed');
-    setValue('idCareer', signUp.data.career ? signUp.data.career.value : '');
-    setValue('career', signUp.data.career ? signUp.data.career.label : '');
-  }, [setValue, signUp.data.career]);
+    setValue('idCareer', signUp.career ? signUp.career.value : '');
+    setValue('career', signUp.career ? signUp.career.label : '');
+  }, [setValue, signUp.career]);
 
   const submit = async data => {
     dispatch(dialogAction.showLoading());
@@ -267,9 +269,10 @@ function SignUpScreen({navigation}) {
   );
 }
 function PickerJob() {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-  const careers = useSelector(state => state.initSignUp.careers).map(x => ({
+  const careers = useSelector(state => state.signUp.careers).map(x => ({
     value: x.id,
     label: x.name,
   }));
@@ -280,18 +283,21 @@ function PickerJob() {
       style={styles.textinput}
       open={open}
       value={value}
-      placeholder={careers.label}
       items={careers}
       setOpen={setOpen}
       setValue={setValue}
       setItems={careers.label}
+      onPress={() => {
+        dispatch(setCareer(value));
+      }}
     />
   );
 }
 function PickerQG() {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-  const countries = useSelector(state => state.initSignUp.countries).map(x => ({
+  const countries = useSelector(state => state.signUp.countries).map(x => ({
     value: x.id,
     label: x.name,
   }));
@@ -306,19 +312,12 @@ function PickerQG() {
       setOpen={setOpen}
       setValue={setValue}
       setItems={countries.label}
+      onPress={() => {
+        dispatch(setCountry(value));
+      }}
     />
   );
 }
-const GradientText = props => (
-  <MaskedView maskElement={<Text {...props} />}>
-    <LinearGradient
-      colors={['#0390fc', '#03fc98']}
-      start={{x: 0, y: 0}}
-      end={{x: 1, y: 0}}>
-      <Text {...props} style={[props.style, {opacity: 0}]} />
-    </LinearGradient>
-  </MaskedView>
-);
 const styles = StyleSheet.create({
   text: {
     fontSize: 17,

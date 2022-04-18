@@ -22,15 +22,22 @@ import SiteHomeBottom from '../component/SiteHomeBottom';
 import GradientText from '../component/GradientText';
 import HomeSchedule from '../component/HomeSchedule';
 import CalendarScreen from './CalendarScreen';
-function HomeScreen() {
+import {useDispatch} from 'react-redux';
+// import {login} from '../redux/action/Auth';
+function HomeScreen(route) {
+  // const dispatch = useDispatch();
+  // async function showData(data) {
+  //   const result = await dispatch(login(data));
+  //   console.log(result.data.fullName);
+  // }
+  // showData();
+  console.log(route.params);
   return (
     <SafeAreaView style={{backgroundColor: '#fafafa', maxWidth: 386, flex: 1}}>
       <HeaderHome />
       <ScrollView>
         <View style={{margin: 10}}>
-          <Text style={{fontSize: 24, fontWeight: 'bold'}}>
-            Xin chào, Nguyễn Thành Hung
-          </Text>
+          <Text style={{fontSize: 24, fontWeight: 'bold'}}>Xin chào,</Text>
           <Text style={{fontSize: 20}}>Chào mừng bạn đến với Trans</Text>
         </View>
         <CodeCall />

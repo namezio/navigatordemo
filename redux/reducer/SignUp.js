@@ -1,27 +1,48 @@
 import {signUpActions} from '../action/SignUp';
 
 const initialState = {
-  data: {
-    country: null,
-    career: null,
-  },
-  countries: [],
-  careers: [],
+  countries: [
+    {
+      id: '',
+      name: '',
+      isSelected: true,
+    },
+  ],
+  careers: [
+    {
+      id: 0,
+      name: '',
+      isSelected: true,
+    },
+  ],
 };
 
 const signUpReducer = (state = initialState, action) => {
   switch (action.type) {
     case signUpActions.INIT_DATA:
       const data = action.payload;
-
       return {
         ...state,
-        data: {
-          country: data.countries.find(x => x.selected),
-          career: data.careers.find(x => x.selected),
-        },
-        countries: data.countries,
-        careers: data.careers,
+        countries: [
+          {
+            id: data.countries.id.find(x => x.isSelected),
+            name: data.countries.name,
+            isSelected: data.countries.isSelected,
+          },
+        ],
+        careers: [
+          {
+            id: data.careers.id.find(x => x.isSelected),
+            name: data.careers.name,
+            isSelected: data.careers.isSelected,
+          },
+        ],
+        // data: {
+        //   country: data.countries.find(x => x.selected),
+        //   career: data.careers.find(x => x.selected),
+        // },
+        // countries: data.countries,
+        // careers: data.careers,
       };
 
     case signUpActions.SET_COUNTRY:
@@ -41,7 +62,6 @@ const signUpReducer = (state = initialState, action) => {
           career: action.payload,
         },
       };
-
     default:
       return state;
   }

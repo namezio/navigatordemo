@@ -41,5 +41,7 @@ export const login = data => async dispatch => {
     loginToken: response.data.loginToken,
     error: false,
     message: response.message,
+    data: response.data,
+    fullname: response.data.fullName,
   };
 };

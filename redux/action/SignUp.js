@@ -1,6 +1,8 @@
 import AuthenticateService from '../../services/AuthenticateService';
+import {authActions} from './Auth';
 
 export const signUpActions = {
+  SIGN_UP: 'SIGN_UP',
   INIT_DATA: 'INIT_DATA',
   SET_COUNTRY: 'SET_COUNTRY',
   SET_CAREER: 'SET_CAREER',
@@ -60,7 +62,13 @@ export const registerSignUp = data => async dispatch => {
       message: response.message,
     };
   }
-
+  dispatch({
+    type: signUpActions.SIGN_UP,
+    payload: {
+      ...data,
+      ...response.data,
+    },
+  });
   return {
     error: false,
     message: response.message,
