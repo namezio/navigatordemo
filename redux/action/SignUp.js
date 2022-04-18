@@ -45,7 +45,7 @@ export const setCareer = data => dispatch =>
     payload: data,
   });
 
-export const submit = data => async dispatch => {
+export const registerSignUp = data => async dispatch => {
   const response = await AuthenticateService.signUp(data);
   if (!response) {
     return {
