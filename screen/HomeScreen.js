@@ -17,21 +17,23 @@ import {
 } from '@react-navigation/drawer';
 const Drawer = createDrawerNavigator();
 import SliderImage from '../component/SliderImage';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import SiteHomeBottom from '../component/SiteHomeBottom';
 import GradientText from '../component/GradientText';
 import HomeSchedule from '../component/HomeSchedule';
 import CalendarScreen from './CalendarScreen';
-import {useDispatch} from 'react-redux';
+import ButtonGradient from '../component/ButtonGradient';
 // import {login} from '../redux/action/Auth';
-function HomeScreen(route) {
+function HomeScreen() {
   // const dispatch = useDispatch();
   // async function showData(data) {
   //   const result = await dispatch(login(data));
   //   console.log(result.data.fullName);
   // }
   // showData();
-  console.log(route.params);
+  // const route = useRoute();
+  // const name = route.params?.ten;
+  // console.log('name :', name);
   return (
     <SafeAreaView style={{backgroundColor: '#fafafa', maxWidth: 386, flex: 1}}>
       <HeaderHome />
@@ -125,7 +127,7 @@ function CustomDrawerContent(props) {
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      <TouchableOpacity
+      <View
         style={{
           backgroundColor: '#ccc',
           margin: 10,
@@ -138,14 +140,17 @@ function CustomDrawerContent(props) {
             alignItems: 'center',
             margin: 10,
           }}>
-          <Avatar.Image size={30} source={require('../icons/nuti.png')} />
+          <Image
+            style={{height: 30, width: 30}}
+            source={require('../icons/noti.png')}
+          />
           <Text
             style={{
               margin: 10,
               fontSize: 20,
               fontWeight: 'bold',
             }}>
-            Thong bao
+            Thông Báo
           </Text>
         </View>
         <View
@@ -157,25 +162,14 @@ function CustomDrawerContent(props) {
             <Text style={{fontWeight: 'bold'}}>TranS</Text>
             <Text style={{maxWidth: 200}}>
               {' '}
-              giam 50% gia tri cho cac goi dich vu
+              giảm 50% giá trị cho các dịch vụ
             </Text>
           </Text>
         </View>
-        <TouchableOpacity
-          style={{
-            margin: 20,
-            borderRadius: 10,
-            height: 40,
-            maxWidth: 360,
-            backgroundColor: '#65c1b6',
-            marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text style={{color: '#FFF'}}>MUA NGAY</Text>
-        </TouchableOpacity>
-      </TouchableOpacity>
+        <View style={{margin: 20}}>
+          <ButtonGradient text="MUA NGAY" />
+        </View>
+      </View>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
         <Dangxuatbutton />
       </View>
@@ -382,7 +376,7 @@ function HeaderHome() {
         <TouchableOpacity onPress={() => navigation.navigate('Noti')}>
           <Image
             style={{height: 40, width: 40, borderRadius: 40, marginLeft: 5}}
-            source={require('../icons/nuti.png')}
+            source={require('../icons/noti.png')}
           />
         </TouchableOpacity>
 

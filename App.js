@@ -8,7 +8,7 @@ import MeetingRoomScreen from './screen/siteScreens/MeetingRoomScreen';
 import JoinRoomScreen from './screen/siteScreens/JoinRoomScreen';
 import CreateRoomScreen from './screen/siteScreens/CreateRoomScreen';
 import ManagerRoomScreen from './screen/siteScreens/ManagerRoomScreen';
-import signInScreen from './screen/SignInScreen';
+import signInScreen from './screen/SignUpScreen';
 import ForgetPasswordScreen from './screen/ForgetPasswordScreen';
 import AddCalendar from './screen/addCalendar';
 import CalendarScreen from './screen/CalendarScreen';
@@ -39,7 +39,11 @@ function MyStack() {
           component={signInScreen}
           options={options}
         />
-        <Stack.Screen name="Forget" component={ForgetPasswordScreen} />
+        <Stack.Screen
+          name="Forget"
+          component={ForgetPasswordScreen}
+          options={options}
+        />
         <Stack.Screen name="AddCalendar" component={AddCalendar} />
         <Stack.Screen name="Calendar" component={CalendarScreen} />
       </Stack.Navigator>

@@ -20,14 +20,14 @@ import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as dialogAction from '../redux/action/Dialog';
 import {
-  initData,
   registerSignUp,
   setCareer,
   setCountry,
   signUpActions,
   submit,
 } from '../redux/action/SignUp';
-import {Picker} from '@react-native-picker/picker';
+import {initData} from '../redux/action/SignUp';
+import {re} from '@babel/core/lib/vendor/import-meta-resolve';
 
 function SignUpScreen({navigation}) {
   const dispatch = useDispatch();
@@ -70,6 +70,19 @@ function SignUpScreen({navigation}) {
     resolver: yupResolver(schema),
     defaultValues: defaultValues,
   });
+  // useEffect(async () => {
+  //   dialogAction.showLoading();
+  //   const response = await dispatch(initData());
+  //   dialogAction.dismissLoading();
+  //   if (!response.error) {
+  //     return;
+  //   }
+  //   dispatch(console.log(response.data));
+  // }, [dispatch]);
+  async function showData() {
+    const response = await dispatch(initData());
+  }
+  showData();
 
   useEffect(() => {
     console.log('Country changed');
@@ -144,7 +157,11 @@ function SignUpScreen({navigation}) {
           )}
           name="fullname"
         />
-
+        {errors.fullname && (
+          <Text style={{color: 'red', fontWeight: 'bold'}}>
+            * Thông tin bắt buộc
+          </Text>
+        )}
         <Text style={styles.text}>Số điện thoại</Text>
         <Controller
           control={control}
@@ -165,6 +182,11 @@ function SignUpScreen({navigation}) {
           )}
           name="mobile"
         />
+        {errors.mobile && (
+          <Text style={{color: 'red', fontWeight: 'bold'}}>
+            * Thông tin bắt buộc
+          </Text>
+        )}
         <Text style={styles.text}>Email</Text>
         <Controller
           control={control}
@@ -185,6 +207,11 @@ function SignUpScreen({navigation}) {
           )}
           name="email"
         />
+        {errors.email && (
+          <Text style={{color: 'red', fontWeight: 'bold'}}>
+            * Thông tin bắt buộc
+          </Text>
+        )}
         <View style={{flexDirection: 'row'}}>
           <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
             <Text style={styles.text}>Mật khẩu</Text>
@@ -231,6 +258,16 @@ function SignUpScreen({navigation}) {
             />
           </View>
         </View>
+        {errors.password && (
+          <Text style={{color: 'red', fontWeight: 'bold'}}>
+            * Hãy nhập mật khẩu
+          </Text>
+        )}
+        {errors.confirmPassword && (
+          <Text style={{color: 'red', fontWeight: 'bold'}}>
+            * Hãy nhập lại mật khẩu
+          </Text>
+        )}
         <View style={{flexDirection: 'row'}}>
           <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
             <Text style={styles.text}>Lĩnh Vực</Text>
@@ -254,7 +291,7 @@ function SignUpScreen({navigation}) {
 
       <ButtonGradient
         text="ĐĂNG KÝ"
-        disabled={false}
+        // disabled={false}
         onPress={handleSubmit(submit)}
       />
       <View

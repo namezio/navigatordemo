@@ -15,7 +15,7 @@ export const setData = data => dispatch =>
     payload: data,
   });
 
-export const submit = data => async dispatch => {
+export const recoPass = data => async dispatch => {
   await CommonHelper.delay(1000);
   const response = await AuthenticateService.recoveryPassword(data);
   if (!response) {

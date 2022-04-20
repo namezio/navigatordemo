@@ -1,6 +1,7 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 function SiteHomeBottom() {
   const navigation = useNavigation();
@@ -13,7 +14,8 @@ function SiteHomeBottom() {
           onPress={() => {
             navigation.navigate('MeetingRoom');
           }}
-          color="pink"
+          colorS="#00ff1e"
+          colorE="#3ab048"
         />
         <OptionItem
           icon={require('../icons/join.png')}
@@ -21,7 +23,8 @@ function SiteHomeBottom() {
           onPress={() => {
             navigation.navigate('JoinRoom');
           }}
-          color="yellow"
+          colorS="#026ef2"
+          colorE="#02c6f2"
         />
         <OptionItem
           icon={require('../icons/add_video.png')}
@@ -29,7 +32,8 @@ function SiteHomeBottom() {
           onPress={() => {
             navigation.navigate('CreateRoom');
           }}
-          color="blue"
+          colorS="#f29e02"
+          colorE="#f2da02"
         />
         <OptionItem
           icon={require('../icons/home_icon.png')}
@@ -37,14 +41,39 @@ function SiteHomeBottom() {
           onPress={() => {
             navigation.navigate('ManagerRoom');
           }}
-          color="green"
+          colorS="#fc7b5b"
+          colorE="#ed3507"
         />
       </View>
     </View>
   );
 }
-const OptionItem = ({icon, label, onPress, color}) => {
+const OptionItem = ({icon, label, onPress, colorS, colorE}) => {
   return (
+    // <LinearGradient
+    //   colors={['#0390fc', '#3bd972']}
+    //   start={{x: 0, y: 0}}
+    //   end={{x: 1, y: 0}}
+    //   style={{
+    //     borderRadius: 10,
+    //     height: 40,
+    //     maxWidth: 360,
+    //     backgroundColor: '#65c1b6',
+    //     marginTop: 20,
+    //     flexDirection: 'row',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //   }}>
+    //   <Text
+    //     style={{
+    //       color: '#FFF',
+    //       fontSize: 20,
+    //       alignSelf: 'center',
+    //       fontWeight: '800',
+    //     }}>
+    //     {text}
+    //   </Text>
+    // </LinearGradient>
     <TouchableOpacity
       style={{
         flex: 1,
@@ -53,12 +82,15 @@ const OptionItem = ({icon, label, onPress, color}) => {
         margin: 5,
       }}
       onPress={onPress}>
-      <View
+      <LinearGradient
+        colors={[colorS, colorE]}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 1}}
         style={{
           width: 60,
           height: 60,
           justifyContent: 'center',
-          backgroundColor: color,
+          backgroundColor: '#65c1b6',
           borderRadius: 5,
         }}>
         <Image
@@ -70,7 +102,7 @@ const OptionItem = ({icon, label, onPress, color}) => {
             height: 40,
           }}
         />
-      </View>
+      </LinearGradient>
       <Text
         style={{
           fontSize: 12,

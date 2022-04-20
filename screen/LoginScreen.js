@@ -19,6 +19,7 @@ import * as dialogAction from '../redux/action/Dialog';
 import {login} from '../redux/action/Auth';
 
 function LoginScreen({navigation}) {
+  const [name, setName] = useState('');
   const dispatch = useDispatch();
   const [isEnabled, setIsEnabled] = useState(false);
   const [user, setUser] = useState('');
@@ -37,7 +38,13 @@ function LoginScreen({navigation}) {
     username: yup.string().required(),
     password: yup.string().required(),
   });
-  const {control, handleSubmit, setFocus, setValue, register} = useForm({
+  const {
+    control,
+    handleSubmit,
+    setFocus,
+    setValue,
+    formState: {errors},
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues: defaultValues,
   });
@@ -56,7 +63,8 @@ function LoginScreen({navigation}) {
       return;
     }
     console.log(result.fullname);
-    navigation.navigate({name: 'Home', params: {fullName: result.fullname}});
+    setName(result.fullname);
+    navigation.navigate('Home');
   };
   return (
     <SafeAreaView style={{margin: 20, alignContent: 'center', maxHeight: 300}}>
@@ -79,6 +87,7 @@ function LoginScreen({navigation}) {
       <Text style={styles.text}>Tên đăng nhập</Text>
       <Controller
         control={control}
+        rules={{required: true}}
         render={({
           field: {onChange, value, ref},
           fieldState: {error: fieldError},
@@ -99,9 +108,15 @@ function LoginScreen({navigation}) {
         )}
         name="username"
       />
+      {errors.username && (
+        <Text style={{color: 'red', fontWeight: 'bold'}}>
+          * Thông tin bắt buộc
+        </Text>
+      )}
       <Text style={styles.text}>Mật khẩu</Text>
       <Controller
         control={control}
+        rules={{required: true}}
         render={({
           field: {onChange, value, ref},
           fieldState: {error: fieldError},
@@ -127,6 +142,11 @@ function LoginScreen({navigation}) {
         )}
         name="password"
       />
+      {errors.password && (
+        <Text style={{color: 'red', fontWeight: 'bold'}}>
+          * Thông tin bắt buộc
+        </Text>
+      )}
       <Text>{passwordError}</Text>
       <View style={{flexDirection: 'row'}}>
         <Switch
