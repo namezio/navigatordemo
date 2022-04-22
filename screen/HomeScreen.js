@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  ImageBackground,
 } from 'react-native';
 import {Avatar} from 'react-native-paper';
 import {Badge} from 'react-native-paper';
@@ -129,46 +130,52 @@ function CustomDrawerContent(props) {
       </DrawerContentScrollView>
       <View
         style={{
-          backgroundColor: '#ccc',
-          margin: 10,
-          borderRadius: 10,
-          maxWidth: 250,
+          borderRadius: 30,
         }}>
-        <View
+        <ImageBackground
+          source={require('../icons/bg-promotion.jpg')}
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
+            backgroundColor: '#ccc',
             margin: 10,
+            maxWidth: 250,
           }}>
-          <Image
-            style={{height: 30, width: 30}}
-            source={require('../icons/noti.png')}
-          />
-          <Text
+          <View
             style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderRadius: 30,
               margin: 10,
-              fontSize: 20,
-              fontWeight: 'bold',
             }}>
-            Thông Báo
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            margin: 10,
-          }}>
-          <Text style={{fontSize: 16}}>
-            <Text style={{fontWeight: 'bold'}}>TranS</Text>
-            <Text style={{maxWidth: 200}}>
-              {' '}
-              giảm 50% giá trị cho các dịch vụ
+            <Image
+              style={{height: 30, width: 30}}
+              source={require('../icons/noti.png')}
+            />
+            <Text
+              style={{
+                margin: 10,
+                fontSize: 20,
+                fontWeight: 'bold',
+              }}>
+              Thông Báo
             </Text>
-          </Text>
-        </View>
-        <View style={{margin: 20}}>
-          <ButtonGradient text="MUA NGAY" />
-        </View>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              margin: 10,
+            }}>
+            <Text style={{fontSize: 16}}>
+              <Text style={{fontWeight: 'bold'}}>TranS</Text>
+              <Text style={{maxWidth: 200}}>
+                {' '}
+                giảm 50% giá trị cho các dịch vụ
+              </Text>
+            </Text>
+          </View>
+          <View style={{margin: 20}}>
+            <ButtonGradient text="MUA NGAY" />
+          </View>
+        </ImageBackground>
       </View>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
         <Dangxuatbutton />

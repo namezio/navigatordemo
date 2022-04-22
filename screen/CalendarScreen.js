@@ -17,18 +17,22 @@ function CalendarScreen() {
     <SafeAreaView style={{flex: 1}}>
       <Agenda
         items={{
-          '2022-04-04': [
+          '2022-04-23': [
             {
               time: '19h00',
               title: 'Họp 1',
               hostname: 'Nam Ezio',
             },
           ],
-          '2022-04-05': [
+          '2022-04-25': [
             {time: '17h00', title: 'item 2 - any js object', hostname: 'Hưng'},
           ],
-          '2022-04-06': [{time: '15h00', title: 'Họp gấp', hostname: 'Khang'}],
-          '2022-04-08': [
+          '2022-04-22': [{time: '15h00', title: 'Họp gấp', hostname: 'Khang'}],
+          '2022-04-24': [
+            {time: '15h00', title: 'item 3 - any js object', hostname: 'Khang'},
+            {title: 'any js object'},
+          ],
+          '2022-04-21': [
             {time: '15h00', title: 'item 3 - any js object', hostname: 'Khang'},
             {title: 'any js object'},
           ],
@@ -46,7 +50,7 @@ function CalendarScreen() {
                     Tên cuộc họp : <Text>{item.title}</Text>
                   </Text>
                   <Text>
-                    Thành viên : <Text>{item.hostname}</Text>
+                    Chủ Tọa: <Text>{item.hostname}</Text>
                   </Text>
                 </View>
               </View>
