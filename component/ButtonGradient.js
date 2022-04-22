@@ -3,10 +3,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-function ButtonGradient({text, onPress}) {
+function ButtonGradient({text, onPress, disabled}) {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity disabled={disabled} onPress={onPress}>
       <LinearGradient
         colors={['#0390fc', '#3bd972']}
         start={{x: 0, y: 0}}

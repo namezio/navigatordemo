@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  ImageBackground,
 } from 'react-native';
 import {Avatar} from 'react-native-paper';
 import {Badge} from 'react-native-paper';
@@ -17,20 +18,29 @@ import {
 } from '@react-navigation/drawer';
 const Drawer = createDrawerNavigator();
 import SliderImage from '../component/SliderImage';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import SiteHomeBottom from '../component/SiteHomeBottom';
 import GradientText from '../component/GradientText';
 import HomeSchedule from '../component/HomeSchedule';
 import CalendarScreen from './CalendarScreen';
+import ButtonGradient from '../component/ButtonGradient';
+// import {login} from '../redux/action/Auth';
 function HomeScreen() {
+  // const dispatch = useDispatch();
+  // async function showData(data) {
+  //   const result = await dispatch(login(data));
+  //   console.log(result.data.fullName);
+  // }
+  // showData();
+  // const route = useRoute();
+  // const name = route.params?.ten;
+  // console.log('name :', name);
   return (
     <SafeAreaView style={{backgroundColor: '#fafafa', maxWidth: 386, flex: 1}}>
       <HeaderHome />
       <ScrollView>
         <View style={{margin: 10}}>
-          <Text style={{fontSize: 24, fontWeight: 'bold'}}>
-            Xin chào, Nguyễn Thành Hung
-          </Text>
+          <Text style={{fontSize: 24, fontWeight: 'bold'}}>Xin chào,</Text>
           <Text style={{fontSize: 20}}>Chào mừng bạn đến với Trans</Text>
         </View>
         <CodeCall />
@@ -118,57 +128,55 @@ function CustomDrawerContent(props) {
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      <TouchableOpacity
+      <View
         style={{
-          backgroundColor: '#ccc',
-          margin: 10,
-          borderRadius: 10,
-          maxWidth: 250,
+          borderRadius: 30,
         }}>
-        <View
+        <ImageBackground
+          source={require('../icons/bg-promotion.jpg')}
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
+            backgroundColor: '#ccc',
             margin: 10,
+            maxWidth: 250,
           }}>
-          <Avatar.Image size={30} source={require('../icons/nuti.png')} />
-          <Text
+          <View
             style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderRadius: 30,
               margin: 10,
-              fontSize: 20,
-              fontWeight: 'bold',
             }}>
-            Thong bao
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            margin: 10,
-          }}>
-          <Text style={{fontSize: 16}}>
-            <Text style={{fontWeight: 'bold'}}>TranS</Text>
-            <Text style={{maxWidth: 200}}>
-              {' '}
-              giam 50% gia tri cho cac goi dich vu
+            <Image
+              style={{height: 30, width: 30}}
+              source={require('../icons/noti.png')}
+            />
+            <Text
+              style={{
+                margin: 10,
+                fontSize: 20,
+                fontWeight: 'bold',
+              }}>
+              Thông Báo
             </Text>
-          </Text>
-        </View>
-        <TouchableOpacity
-          style={{
-            margin: 20,
-            borderRadius: 10,
-            height: 40,
-            maxWidth: 360,
-            backgroundColor: '#65c1b6',
-            marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text style={{color: '#FFF'}}>MUA NGAY</Text>
-        </TouchableOpacity>
-      </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              margin: 10,
+            }}>
+            <Text style={{fontSize: 16}}>
+              <Text style={{fontWeight: 'bold'}}>TranS</Text>
+              <Text style={{maxWidth: 200}}>
+                {' '}
+                giảm 50% giá trị cho các dịch vụ
+              </Text>
+            </Text>
+          </View>
+          <View style={{margin: 20}}>
+            <ButtonGradient text="MUA NGAY" />
+          </View>
+        </ImageBackground>
+      </View>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
         <Dangxuatbutton />
       </View>
@@ -375,7 +383,7 @@ function HeaderHome() {
         <TouchableOpacity onPress={() => navigation.navigate('Noti')}>
           <Image
             style={{height: 40, width: 40, borderRadius: 40, marginLeft: 5}}
-            source={require('../icons/nuti.png')}
+            source={require('../icons/noti.png')}
           />
         </TouchableOpacity>
 
