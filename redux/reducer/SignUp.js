@@ -3,14 +3,14 @@ import {signUpActions} from '../action/SignUp';
 const initialState = {
   countries: [
     {
-      id: 'VN',
-      name: 'VietNam',
+      id: '',
+      name: '',
       isSelected: true,
     },
   ],
   careers: [
     {
-      id: 2,
+      id: 0,
       name: '',
       isSelected: true,
     },
@@ -23,22 +23,8 @@ const signUpReducer = (state = initialState, action) => {
       const data = action.payload;
       return {
         ...state,
-        data: {
-          countries: [
-            {
-              id: data.countries.id,
-              name: data.countries.name,
-              isSelected: data.countries.isSelected,
-            },
-          ],
-          careers: [
-            {
-              id: data.careers.id,
-              name: data.careers.name,
-              isSelected: data.careers.isSelected,
-            },
-          ],
-        },
+        countries: data.countries,
+        careers: data.careers,
       };
 
     case signUpActions.SET_COUNTRY:

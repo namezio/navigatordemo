@@ -23,6 +23,7 @@ import {initData} from '../redux/action/SignUp';
 function SignUpScreen({navigation}) {
   const [openCareer, setOpenCareer] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
+  const [pickerData, setPickerData] = useState([]);
   const careers = useSelector(state => state.signUp.careers).map(x => ({
     value: x.id,
     label: x.name,
@@ -80,14 +81,15 @@ function SignUpScreen({navigation}) {
   }, [setValue, signUp.career]);
 
   async function initSelect() {
-    dialogAction.showLoading();
     const response = await dispatch(initData());
-    dialogAction.dismissLoading();
-    if (!response.error) {
+    if (response.error) {
       return;
     }
-    dispatch(Alert.alert(response.data));
+    console.log(response.data);
   }
+  useState(() => {
+    initSelect();
+  }, []);
   const submit = async data => {
     dispatch(dialogAction.showLoading());
     const result = await dispatch(registerSignUp(data));
