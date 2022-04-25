@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -24,17 +24,18 @@ import GradientText from '../component/GradientText';
 import HomeSchedule from '../component/HomeSchedule';
 import CalendarScreen from './CalendarScreen';
 import ButtonGradient from '../component/ButtonGradient';
+import {useSelector} from 'react-redux';
 // import {login} from '../redux/action/Auth';
 function HomeScreen() {
-  // const dispatch = useDispatch();
-  // async function showData(data) {
-  //   const result = await dispatch(login(data));
-  //   console.log(result.data.fullName);
-  // }
-  // showData();
-  // const route = useRoute();
-  // const name = route.params?.ten;
-  // console.log('name :', name);
+  const [name, setName] = useState('');
+  const [code, setCode] = useState('');
+  const auth = useSelector(state => state.auth);
+  console.log(auth);
+  useEffect(() => {
+    setName(auth.name);
+    setCode(auth.i);
+  }, []);
+
   return (
     <SafeAreaView style={{backgroundColor: '#fafafa', maxWidth: 386, flex: 1}}>
       <HeaderHome />

@@ -32,8 +32,6 @@ export const initData = () => async dispatch => {
     error: false,
     message: response.message,
     data: response.data,
-    // career: response.data.careers,
-    // country: response.data.countries,
   };
 };
 

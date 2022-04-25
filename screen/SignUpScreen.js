@@ -23,7 +23,6 @@ import {initData} from '../redux/action/SignUp';
 function SignUpScreen({navigation}) {
   const [openCareer, setOpenCareer] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
-  const [pickerData, setPickerData] = useState([]);
   const careers = useSelector(state => state.signUp.careers).map(x => ({
     value: x.id,
     label: x.name,
