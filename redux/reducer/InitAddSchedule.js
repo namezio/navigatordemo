@@ -1,4 +1,4 @@
-import {setInitAddSchedule} from '../action/InitAddSchedule';
+import {InitAddAction, setInitAddSchedule} from '../action/InitAddSchedule';
 
 const initialState = {
   rooms: [
@@ -21,8 +21,13 @@ const initialState = {
 };
 const InitAddScheduleReducer = (state = initialState, action) => {
   switch (action.type) {
-    case setInitAddSchedule.SET_DATA:
-      return action.payload;
+    case InitAddAction.SET_DATA:
+      const data = action.payload;
+      return {
+        ...state,
+        rooms: data.rooms,
+        hosts: data.hosts,
+      };
     default: {
       return state;
     }

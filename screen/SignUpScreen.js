@@ -12,25 +12,24 @@ import * as yup from 'yup';
 import CheckBox from '@react-native-community/checkbox';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import DropDownPicker from 'react-native-dropdown-picker';
+import MaskedView from '@react-native-masked-view/masked-view';
+import LinearGradient from 'react-native-linear-gradient';
 import ButtonGradient from '../component/ButtonGradient';
 import {useDispatch, useSelector} from 'react-redux';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as dialogAction from '../redux/action/Dialog';
-import {registerSignUp, setCareer, setCountry} from '../redux/action/SignUp';
+import {
+  registerSignUp,
+  setCareer,
+  setCountry,
+  signUpActions,
+  submit,
+} from '../redux/action/SignUp';
 import {initData} from '../redux/action/SignUp';
+import {re} from '@babel/core/lib/vendor/import-meta-resolve';
 
 function SignUpScreen({navigation}) {
-  const [openCareer, setOpenCareer] = useState(false);
-  const [openCountry, setOpenCountry] = useState(false);
-  const careers = useSelector(state => state.signUp.careers).map(x => ({
-    value: x.id,
-    label: x.name,
-  }));
-  const countries = useSelector(state => state.signUp.countries).map(x => ({
-    value: x.id,
-    label: x.name,
-  }));
   const dispatch = useDispatch();
   const [isAcceptTerm, setIsAcceptTerm] = useState(false);
   const signUp = useSelector(state => state.signUp);
@@ -39,7 +38,9 @@ function SignUpScreen({navigation}) {
     email: '',
     mobile: '',
     password: '',
+    country: '',
     idCountry: '',
+    career: '',
     idCareer: 0,
   };
 
@@ -55,30 +56,47 @@ function SignUpScreen({navigation}) {
       .string()
       .required('validate.required')
       .oneOf([yup.ref('password'), null], 'validate.confirm_password_wrong'),
-    idCountry: yup.string().required(),
-    idCareer: yup.string().required(),
+    country: yup.string().required('validate.required'),
+    career: yup.string().required('validate.required'),
   });
+
   const {
     control,
     handleSubmit,
+    setFocus,
     setValue,
     formState: {errors},
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: defaultValues,
   });
+  // useEffect(async () => {
+  //   dialogAction.showLoading();
+  //   const response = await dispatch(initData());
+  //   dialogAction.dismissLoading();
+  //   if (!response.error) {
+  //     return;
+  //   }
+  //   dispatch(console.log(response.data));
+  // }, [dispatch]);
+  async function showData() {
+    const response = await dispatch(initData());
+  }
+  showData();
+
   useEffect(() => {
     console.log('Country changed');
-    setValue('idCountry', signUp.country ? signUp.country.value : 0);
+    setValue('idCountry', signUp.country ? signUp.country.value : '');
     setValue('country', signUp.country ? signUp.country.label : '');
   }, [setValue, signUp.country]);
 
   useEffect(() => {
     console.log('Career changed');
-    setValue('idCareer', signUp.career ? signUp.career.value : 0);
+    setValue('idCareer', signUp.career ? signUp.career.value : '');
     setValue('career', signUp.career ? signUp.career.label : '');
   }, [setValue, signUp.career]);
 
+<<<<<<< HEAD
   async function initSelect() {
     const response = await dispatch(initData());
     if (response.error) {
@@ -89,6 +107,8 @@ function SignUpScreen({navigation}) {
   useState(() => {
     initSelect();
   }, []);
+=======
+>>>>>>> parent of 3954bc8 (update sign up)
   const submit = async data => {
     dispatch(dialogAction.showLoading());
     const result = await dispatch(registerSignUp(data));
@@ -101,9 +121,10 @@ function SignUpScreen({navigation}) {
       );
       return;
     }
-    Alert.alert(result.message);
-    dispatch(navigation.goBack());
+
+    dispatch(dialogAction.showAlert(result.message, () => navigation.goBack()));
   };
+
   return (
     <SafeAreaView
       style={{
@@ -260,60 +281,17 @@ function SignUpScreen({navigation}) {
             * Hãy nhập lại mật khẩu
           </Text>
         )}
+        <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
+            <Text style={styles.text}>Lĩnh Vực</Text>
+            <PickerJob />
+          </View>
+          <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
+            <Text style={styles.text}>Quốc Gia</Text>
+            <PickerQG />
+          </View>
+        </View>
       </View>
-      <Text style={styles.text}>Lĩnh Vực</Text>
-      <Controller
-        control={control}
-        render={({
-          field: {onChange, value, ref},
-          fieldState: {error: fieldError},
-        }) => (
-          <DropDownPicker
-            stickyHeader={true}
-            autoScroll={true}
-            style={styles.textinput}
-            open={openCareer}
-            value={value}
-            items={careers}
-            setOpen={setOpenCareer}
-            setValue={onChange}
-            setItems={careers.label}
-            onChangeValue={onChange}
-            onPress={() => {
-              dispatch(setCareer(value));
-              console.log(value);
-            }}
-          />
-        )}
-        name="idCareer"
-      />
-
-      <Text style={styles.text}>Quốc Gia</Text>
-      <Controller
-        control={control}
-        render={({
-          field: {onChange, value, ref},
-          fieldState: {error: fieldError},
-        }) => (
-          <DropDownPicker
-            stickyHeader={true}
-            autoScroll={true}
-            style={styles.textinput}
-            open={openCountry}
-            value={value}
-            items={countries}
-            setOpen={setOpenCountry}
-            setValue={onChange}
-            setItems={countries.label}
-            onChangeValue={onChange}
-            onPress={() => {
-              dispatch(setCountry(value));
-              console.log(value);
-            }}
-          />
-        )}
-        name="idCountry"
-      />
       <View style={{flexDirection: 'row', margin: 5}}>
         <CheckBox
           isChecked={isAcceptTerm}
@@ -338,6 +316,56 @@ function SignUpScreen({navigation}) {
         <Text>Copyright @ 2022 by Namviet Telecom</Text>
       </View>
     </SafeAreaView>
+  );
+}
+function PickerJob() {
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+  const careers = useSelector(state => state.signUp.careers).map(x => ({
+    value: x.id,
+    label: x.name,
+  }));
+  return (
+    <DropDownPicker
+      stickyHeader={true}
+      autoScroll={true}
+      style={styles.textinput}
+      open={open}
+      value={value}
+      items={careers}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={careers.label}
+      onPress={() => {
+        dispatch(setCareer(value));
+      }}
+    />
+  );
+}
+function PickerQG() {
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+  const countries = useSelector(state => state.signUp.countries).map(x => ({
+    value: x.id,
+    label: x.name,
+  }));
+  return (
+    <DropDownPicker
+      stickyHeader={true}
+      autoScroll={true}
+      style={styles.textinput}
+      open={open}
+      value={value}
+      items={countries}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={countries.label}
+      onPress={() => {
+        dispatch(setCountry(value));
+      }}
+    />
   );
 }
 const styles = StyleSheet.create({

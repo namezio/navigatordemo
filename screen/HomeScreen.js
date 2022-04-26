@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  ImageBackground,
 } from 'react-native';
 import {Avatar} from 'react-native-paper';
 import {Badge} from 'react-native-paper';
@@ -30,10 +29,9 @@ function HomeScreen() {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
   const auth = useSelector(state => state.auth);
-  console.log(auth);
   useEffect(() => {
-    setName(auth.name);
-    setCode(auth.i);
+    setName(auth.fullName);
+    setCode(auth.meetingId);
   }, []);
 
   return (
@@ -41,10 +39,33 @@ function HomeScreen() {
       <HeaderHome />
       <ScrollView>
         <View style={{margin: 10}}>
-          <Text style={{fontSize: 24, fontWeight: 'bold'}}>Xin chào,</Text>
+          <Text style={{fontSize: 24, fontWeight: 'bold'}}>
+            Xin chào, {name}
+          </Text>
           <Text style={{fontSize: 20}}>Chào mừng bạn đến với Trans</Text>
         </View>
-        <CodeCall />
+        <View style={{margin: 10, backgroundColor: '#FFF', borderRadius: 20}}>
+          <View style={{margin: 20, alignItems: 'center'}}>
+            <Text style={{fontSize: 20}}>TranS ID của bạn</Text>
+            <GradientText
+              style={{
+                fontSize: 25,
+                marginTop: 5,
+                color: 'green',
+                fontWeight: 'bold',
+              }}>
+              {code}
+            </GradientText>
+            <Text
+              style={{
+                fontSize: 16,
+                marginTop: 5,
+                color: 'blue',
+              }}>
+              Chia sẻ cho bạn của chúng tôi ???
+            </Text>
+          </View>
+        </View>
         <SliderImage />
         <SiteHomeBottom />
         <GradientText style={{margin: 10, fontSize: 24}}>
@@ -131,52 +152,46 @@ function CustomDrawerContent(props) {
       </DrawerContentScrollView>
       <View
         style={{
-          borderRadius: 30,
+          backgroundColor: '#ccc',
+          margin: 10,
+          borderRadius: 10,
+          maxWidth: 250,
         }}>
-        <ImageBackground
-          source={require('../icons/bg-promotion.jpg')}
+        <View
           style={{
-            backgroundColor: '#ccc',
+            flexDirection: 'row',
+            alignItems: 'center',
             margin: 10,
-            maxWidth: 250,
           }}>
-          <View
+          <Image
+            style={{height: 30, width: 30}}
+            source={require('../icons/noti.png')}
+          />
+          <Text
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              borderRadius: 30,
               margin: 10,
+              fontSize: 20,
+              fontWeight: 'bold',
             }}>
-            <Image
-              style={{height: 30, width: 30}}
-              source={require('../icons/noti.png')}
-            />
-            <Text
-              style={{
-                margin: 10,
-                fontSize: 20,
-                fontWeight: 'bold',
-              }}>
-              Thông Báo
+            Thông Báo
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            margin: 10,
+          }}>
+          <Text style={{fontSize: 16}}>
+            <Text style={{fontWeight: 'bold'}}>TranS</Text>
+            <Text style={{maxWidth: 200}}>
+              {' '}
+              giảm 50% giá trị cho các dịch vụ
             </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              margin: 10,
-            }}>
-            <Text style={{fontSize: 16}}>
-              <Text style={{fontWeight: 'bold'}}>TranS</Text>
-              <Text style={{maxWidth: 200}}>
-                {' '}
-                giảm 50% giá trị cho các dịch vụ
-              </Text>
-            </Text>
-          </View>
-          <View style={{margin: 20}}>
-            <ButtonGradient text="MUA NGAY" />
-          </View>
-        </ImageBackground>
+          </Text>
+        </View>
+        <View style={{margin: 20}}>
+          <ButtonGradient text="MUA NGAY" />
+        </View>
       </View>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
         <Dangxuatbutton />
@@ -185,6 +200,7 @@ function CustomDrawerContent(props) {
   );
 }
 function Dangxuatbutton() {
+  const auth = useSelector(state => state.auth);
   const navigation = useNavigation();
   const confirmAlert = () => {
     //function to make two option alert
@@ -221,7 +237,7 @@ function Dangxuatbutton() {
             marginLeft: 5,
             marginRight: 5,
           }}>
-          Nguyen Thanh Hung
+          {auth.fullName}
         </Text>
         <TouchableOpacity onPress={confirmAlert}>
           <Image

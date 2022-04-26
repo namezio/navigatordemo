@@ -13,6 +13,12 @@ import DatePicker from 'react-native-date-picker';
 import dayjs from 'dayjs';
 import ButtonGradient from '../component/ButtonGradient';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+<<<<<<< HEAD
+import {initData} from '../redux/action/InitAddSchedule';
+=======
+import {getInit} from '../redux/action/AddSchedule';
+>>>>>>> 4f3c8713da75895b3ec09b560f97c9e30faf785f
 
 function AddCalendar() {
   const [date, setDate] = useState(new Date());
@@ -22,7 +28,46 @@ function AddCalendar() {
   const [openEnd, setOpenEnd] = useState(false);
   const [openStart, setOpenStart] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  async function getData() {
+<<<<<<< HEAD
+    const response = await dispatch(initData());
+=======
+    const response = await dispatch(getInit());
+>>>>>>> 4f3c8713da75895b3ec09b560f97c9e30faf785f
+    if (response.error) {
+      return;
+    }
+    console.log(response.data);
+  }
+  useState(() => {
+    getData();
+  }, []);
 
+<<<<<<< HEAD
+  const hosts = useSelector(state => state.initAddSchedule.hosts).map(x => ({
+    value: x.id,
+    label: x.name,
+  }));
+  const countries = useSelector(state => state.initAddSchedule.rooms).map(
+    x => ({
+      value: x.id,
+      label: x.name,
+    }),
+  );
+  const addSchedule = useSelector(state => state.initAddSchedule);
+=======
+  const hosts = useSelector(state => state.addSchedule.hosts).map(x => ({
+    value: x.id,
+    label: x.name,
+  }));
+  const countries = useSelector(state => state.addSchedule.rooms).map(x => ({
+    value: x.id,
+    label: x.name,
+  }));
+  const addSchedule = useSelector(state => state.addSchedule);
+>>>>>>> 4f3c8713da75895b3ec09b560f97c9e30faf785f
+  console.log('aaaaa', addSchedule);
   return (
     <SafeAreaView style={{margin: 10}}>
       <GradientText

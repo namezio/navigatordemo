@@ -23,8 +23,31 @@ const signUpReducer = (state = initialState, action) => {
       const data = action.payload;
       return {
         ...state,
+<<<<<<< HEAD
         countries: data.countries,
         careers: data.careers,
+=======
+        countries: [
+          {
+            id: data.countries.id.find(x => x.isSelected),
+            name: data.countries.name,
+            isSelected: data.countries.isSelected,
+          },
+        ],
+        careers: [
+          {
+            id: data.careers.id.find(x => x.isSelected),
+            name: data.careers.name,
+            isSelected: data.careers.isSelected,
+          },
+        ],
+        // data: {
+        //   country: data.countries.find(x => x.selected),
+        //   career: data.careers.find(x => x.selected),
+        // },
+        // countries: data.countries,
+        // careers: data.careers,
+>>>>>>> parent of 3954bc8 (update sign up)
       };
 
     case signUpActions.SET_COUNTRY:

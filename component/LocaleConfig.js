@@ -1,4 +1,4 @@
-import {LocaleConfig} from 'react-native-calendars';
+mport {LocaleConfig} from 'react-native-calendars';
 
 LocaleConfig.locales.fr = {
   monthNames: [

@@ -43,7 +43,8 @@ const HTTPHelper = {
 
     let auth = store.getState().auth;
     if (auth && auth.accessToken) {
-      headers.Authorization = auth.accessToken;
+      headers.Authorization = 'Bearer ' + auth.accessToken;
+      // console.log('token', headers.Authorization);
     }
 
     if (data && (method || 'GET') === 'GET') {
