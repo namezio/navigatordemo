@@ -30,10 +30,9 @@ function HomeScreen() {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
   const auth = useSelector(state => state.auth);
-  console.log(auth);
   useEffect(() => {
-    setName(auth.name);
-    setCode(auth.i);
+    setName(auth.fullName);
+    setCode(auth.meetingId);
   }, []);
 
   return (
@@ -41,10 +40,33 @@ function HomeScreen() {
       <HeaderHome />
       <ScrollView>
         <View style={{margin: 10}}>
-          <Text style={{fontSize: 24, fontWeight: 'bold'}}>Xin chào,</Text>
+          <Text style={{fontSize: 24, fontWeight: 'bold'}}>
+            Xin chào, {name}
+          </Text>
           <Text style={{fontSize: 20}}>Chào mừng bạn đến với Trans</Text>
         </View>
-        <CodeCall />
+        <View style={{margin: 10, backgroundColor: '#FFF', borderRadius: 20}}>
+          <View style={{margin: 20, alignItems: 'center'}}>
+            <Text style={{fontSize: 20}}>TranS ID của bạn</Text>
+            <GradientText
+              style={{
+                fontSize: 25,
+                marginTop: 5,
+                color: 'green',
+                fontWeight: 'bold',
+              }}>
+              {code}
+            </GradientText>
+            <Text
+              style={{
+                fontSize: 16,
+                marginTop: 5,
+                color: 'blue',
+              }}>
+              Chia sẻ cho bạn của chúng tôi ???
+            </Text>
+          </View>
+        </View>
         <SliderImage />
         <SiteHomeBottom />
         <GradientText style={{margin: 10, fontSize: 24}}>
@@ -185,6 +207,7 @@ function CustomDrawerContent(props) {
   );
 }
 function Dangxuatbutton() {
+  const auth = useSelector(state => state.auth);
   const navigation = useNavigation();
   const confirmAlert = () => {
     //function to make two option alert
@@ -221,7 +244,7 @@ function Dangxuatbutton() {
             marginLeft: 5,
             marginRight: 5,
           }}>
-          Nguyen Thanh Hung
+          {auth.fullName}
         </Text>
         <TouchableOpacity onPress={confirmAlert}>
           <Image

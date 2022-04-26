@@ -11,7 +11,8 @@ import meetingScheduleReducer from './MeetingSchedule';
 import ChangePasswordByCodeReducer from './ChangePasswordByCode';
 import AddScheduleReducer from './AddSchedule';
 import EditScheduleReducer from './EditSchedule';
-
+import GetScheduleReducer from './GetSchedule';
+import InitAddScheduleReducer from './InitAddSchedule';
 const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage,
@@ -34,8 +35,10 @@ const rootReducer = combineReducers({
   signUp: signUpReducer,
   changePasswordByCode: ChangePasswordByCodeReducer,
   meetingSchedule: meetingScheduleReducer,
+  getSchedule: GetScheduleReducer,
   addSchedule: AddScheduleReducer,
   editSchedule: EditScheduleReducer,
+  initAddSchedule: InitAddScheduleReducer,
   settings: persistReducer(settingsPersistConfig, settingsReducer),
   freeJoin: persistReducer(freeJoinPersistConfig, freeJoinReducer),
   auth: persistReducer(authPersistConfig, authReducer),

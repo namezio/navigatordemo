@@ -1,6 +1,6 @@
 import {ScheduleAction} from '../action/MeetingSchedule';
 const initialState = {
-  meeting: [
+  meetings: [
     {
       id: 0,
       name: '',
@@ -22,7 +22,12 @@ const initialState = {
 const meetingScheduleReducer = (state = initialState, action) => {
   switch (action.type) {
     case ScheduleAction.SET_DATA:
-      return action.payload;
+      const data = action.payload;
+      return {
+        ...state,
+        meetings: data.meetings,
+        analytics: data.analytics,
+      };
     default: {
       return state;
     }

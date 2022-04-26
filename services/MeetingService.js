@@ -2,7 +2,9 @@ import HTTPHelper from '../helpers/HTTPHelpers';
 
 const MeetingService = {
   async MettingList() {
-    return await HTTPHelper.get('/MeetingSchedule/List');
+    return await HTTPHelper.get(
+      '/MeetingSchedule/List?start=2022-04-01&end=2022-04-25',
+    );
   },
   async AddSchedule(data) {
     return await HTTPHelper.post('/MeetingSchedule/Add', data);
@@ -23,3 +25,4 @@ const MeetingService = {
     return await HTTPHelper.post('/MeetingSchedule/Delete', id);
   },
 };
+export default MeetingService;

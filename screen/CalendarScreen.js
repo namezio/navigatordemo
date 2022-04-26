@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Agenda} from 'react-native-calendars';
 import {
   SafeAreaView,
@@ -10,31 +10,40 @@ import {
 } from 'react-native';
 import ButtonGradient from '../component/ButtonGradient';
 import {useNavigation} from '@react-navigation/native';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {setData} from '../redux/action/MeetingSchedule';
+import dayjs from 'dayjs';
 function CalendarScreen() {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+  async function initSelect() {
+    const response = await dispatch(setData());
+    if (response.error) {
+      return;
+    }
+    // console.log(response.data);
+  }
+  useState(() => {
+    initSelect();
+  }, []);
+  const meeting = useSelector(state => state.meetingSchedule.meetings).map(
+    x => ({
+      date: dayjs(x.startDate).format('YYYY-MM-DD'),
+      title: x.name,
+      time: dayjs(x.startDate).format('HH:mm'),
+    }),
+  );
+  console.log('meeting', meeting);
   return (
     <SafeAreaView style={{flex: 1}}>
       <Agenda
         items={{
-          '2022-04-23': [
+          [meeting.date]: [
             {
-              time: '19h00',
-              title: 'Họp 1',
+              time: [meeting.time],
+              title: [meeting.title],
               hostname: 'Nam Ezio',
             },
-          ],
-          '2022-04-25': [
-            {time: '17h00', title: 'item 2 - any js object', hostname: 'Hưng'},
-          ],
-          '2022-04-22': [{time: '15h00', title: 'Họp gấp', hostname: 'Khang'}],
-          '2022-04-24': [
-            {time: '15h00', title: 'item 3 - any js object', hostname: 'Khang'},
-            {title: 'any js object'},
-          ],
-          '2022-04-21': [
-            {time: '15h00', title: 'item 3 - any js object', hostname: 'Khang'},
-            {title: 'any js object'},
           ],
         }}
         renderItem={item => {
