@@ -20,7 +20,7 @@ export const setData = data => async dispatch => {
   }
 
   dispatch({
-    type: InitAddAction.INIT_DATA,
+    type: InitAddAction.SET_DATA,
     payload: response.data,
   });
 

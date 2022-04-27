@@ -21,29 +21,31 @@ function CalendarScreen() {
     if (response.error) {
       return;
     }
-    // console.log(response.data);
+    console.log(response.data);
   }
   useState(() => {
     initSelect();
   }, []);
-  const meeting = useSelector(state => state.meetingSchedule.meetings).map(
-    x => ({
-      date: dayjs(x.startDate).format('YYYY-MM-DD'),
-      title: x.name,
-      time: dayjs(x.startDate).format('HH:mm'),
-    }),
-  );
-  console.log('meeting', meeting);
+  // const meeting = useSelector(state => state.meetingSchedule.meetings).map(
+  //   x => ({
+  //     date: dayjs(x.startDate).format('YYYY-MM-DD'),
+  //     title: x.name,
+  //     time: dayjs(x.startDate).format('HH:mm'),
+  //   }),
+  // );
+  //
+  // console.log('meeting', meeting);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <Agenda
         items={{
-          [meeting.date]: [
-            {
-              time: [meeting.time],
-              title: [meeting.title],
-              hostname: 'Nam Ezio',
-            },
+          '2012-05-22': [{name: 'item 1 - any js object'}],
+          '2012-05-23': [{name: 'item 2 - any js object', height: 80}],
+          '2012-05-24': [],
+          '2012-05-25': [
+            {name: 'item 3 - any js object'},
+            {name: 'any js object'},
           ],
         }}
         renderItem={item => {

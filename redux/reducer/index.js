@@ -38,7 +38,7 @@ const rootReducer = combineReducers({
   getSchedule: GetScheduleReducer,
   addSchedule: AddScheduleReducer,
   editSchedule: EditScheduleReducer,
-  initAddSchedule: InitAddScheduleReducer,
+  initAdd: InitAddScheduleReducer,
   settings: persistReducer(settingsPersistConfig, settingsReducer),
   freeJoin: persistReducer(freeJoinPersistConfig, freeJoinReducer),
   auth: persistReducer(authPersistConfig, authReducer),
