@@ -13,6 +13,8 @@ import DatePicker from 'react-native-date-picker';
 import dayjs from 'dayjs';
 import ButtonGradient from '../component/ButtonGradient';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {getInit} from '../redux/action/AddSchedule';
 
 function AddCalendar() {
   const [date, setDate] = useState(new Date());
@@ -22,7 +24,28 @@ function AddCalendar() {
   const [openEnd, setOpenEnd] = useState(false);
   const [openStart, setOpenStart] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  async function getData() {
+    const response = await dispatch(getInit());
+    if (response.error) {
+      return;
+    }
+    console.log(response.data);
+  }
+  useState(() => {
+    getData();
+  }, []);
 
+  const hosts = useSelector(state => state.addSchedule.hosts).map(x => ({
+    value: x.id,
+    label: x.name,
+  }));
+  const countries = useSelector(state => state.addSchedule.rooms).map(x => ({
+    value: x.id,
+    label: x.name,
+  }));
+  const addSchedule = useSelector(state => state.addSchedule);
+  console.log('aaaaa', addSchedule);
   return (
     <SafeAreaView style={{margin: 10}}>
       <GradientText
