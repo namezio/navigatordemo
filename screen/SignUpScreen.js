@@ -96,7 +96,6 @@ function SignUpScreen({navigation}) {
     setValue('career', signUp.career ? signUp.career.label : '');
   }, [setValue, signUp.career]);
 
-<<<<<<< HEAD
   async function initSelect() {
     const response = await dispatch(initData());
     if (response.error) {
@@ -107,8 +106,6 @@ function SignUpScreen({navigation}) {
   useState(() => {
     initSelect();
   }, []);
-=======
->>>>>>> parent of 3954bc8 (update sign up)
   const submit = async data => {
     dispatch(dialogAction.showLoading());
     const result = await dispatch(registerSignUp(data));

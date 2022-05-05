@@ -1,7 +1,6 @@
 import {AddScheduleAction} from '../action/AddSchedule';
 
 const initialState = {
-<<<<<<< HEAD
   name: '',
   idMeetingRoom: 0,
   startDate: '',
@@ -17,7 +16,6 @@ const initialState = {
   isOnDingDongSound: true,
   passCode: '',
   isBlocked: '',
-=======
   rooms: [
     {
       isMine: true,
@@ -36,17 +34,10 @@ const initialState = {
       isSelected: true,
     },
   ],
->>>>>>> 4f3c8713da75895b3ec09b560f97c9e30faf785f
 };
 const AddScheduleReducer = (state = initialState, action) => {
   switch (action.type) {
     case AddScheduleAction.GET_DATA:
-<<<<<<< HEAD
-      return action.payload;
-    case AddScheduleAction.SET_ROOM:
-      return {
-        ...state,
-=======
       const data = action.payload;
       return {
         ...state,
@@ -56,7 +47,6 @@ const AddScheduleReducer = (state = initialState, action) => {
     case AddScheduleAction.SET_ROOM:
       return {
         ...state,
->>>>>>> 4f3c8713da75895b3ec09b560f97c9e30faf785f
         data: {
           ...state.data,
           room: action.payload,

@@ -6,7 +6,7 @@ const initialState = () => ({
   name: 'TranS',
   apiServers: [
     {
-      url: 'http://192.168.1.199:8080',
+      url: 'https://trans.giaiphaphoinghitruyenhinh.com',
       default: true,
     },
   ],

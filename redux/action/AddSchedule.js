@@ -6,10 +6,6 @@ export const AddScheduleAction = {
   SET_ROOM: 'SET_ROOM',
   SET_HOST: 'SET_HOST',
 };
-<<<<<<< HEAD
-export const setRoom = data => dispatch =>
-  dispatch({
-=======
 export const getInit = () => async dispatch => {
   const response = await MeetingService.InitAddSchedule();
   if (!response) {
@@ -39,7 +35,6 @@ export const getInit = () => async dispatch => {
 };
 export const setRoom = data => dispatch =>
   dispatch({
->>>>>>> 4f3c8713da75895b3ec09b560f97c9e30faf785f
     type: AddScheduleAction.SET_ROOM,
     payload: data,
   });
