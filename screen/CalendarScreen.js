@@ -13,35 +13,19 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {setData} from '../redux/action/MeetingSchedule';
 import dayjs from 'dayjs';
+import CommonHelper from '../helpers/CommonHelper';
 function CalendarScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  async function initSelect() {
-    const response = await dispatch(setData());
-    if (response.error) {
-      return;
-    }
-    // console.log(response.data);
-  }
-  useState(() => {
-    initSelect();
-  }, []);
-  const meeting = useSelector(state => state.meetingSchedule.meetings).map(
-    x => ({
-      date: dayjs(x.startDate).format('YYYY-MM-DD'),
-      title: x.name,
-      time: dayjs(x.startDate).format('HH:mm'),
-    }),
-  );
-  console.log('meeting', meeting);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <Agenda
         items={{
-          [meeting.date]: [
+          '2022-05-06': [
             {
-              time: [meeting.time],
-              title: [meeting.title],
+              time: '10:00',
+              title: 'aaa',
               hostname: 'Nam Ezio',
             },
           ],

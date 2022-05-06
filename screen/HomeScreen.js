@@ -23,9 +23,13 @@ import GradientText from '../component/GradientText';
 import HomeSchedule from '../component/HomeSchedule';
 import CalendarScreen from './CalendarScreen';
 import ButtonGradient from '../component/ButtonGradient';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import CommonHelper from '../helpers/CommonHelper';
+import {setData} from '../redux/action/MeetingSchedule';
+import dayjs from 'dayjs';
 // import {login} from '../redux/action/Auth';
 function HomeScreen() {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
   const auth = useSelector(state => state.auth);

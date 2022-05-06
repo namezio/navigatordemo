@@ -1,6 +1,5 @@
 import CommonHelper from '../../helpers/CommonHelper';
 import AuthenticateService from '../../services/AuthenticateService';
-import {recoveryPasswordActions} from './RecoveryPassword';
 
 export const ChangePasswordByCodeActions = {
   SET_DATA: 'SET_DATA',

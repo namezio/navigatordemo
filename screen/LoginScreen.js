@@ -30,7 +30,9 @@ function LoginScreen({navigation}) {
   const auth = useSelector(state => state.auth);
   const defaultValues = {
     username:
-      auth && auth.username && auth.username.length > 0 ? auth.username : '',
+      auth && auth.username && auth.username.length > 0
+        ? auth.username
+        : '0975977774',
     password: '',
   };
 
