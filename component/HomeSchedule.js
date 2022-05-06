@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {setData} from '../redux/action/MeetingSchedule';
@@ -50,6 +51,35 @@ function HomeSchedule() {
               <Text style={styles.time}>
                 {object.timeS} - {object.timeE}
               </Text>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: '#29ffb4',
+                    margin: 5,
+                    padding: 5,
+                    borderRadius: 10,
+                  }}>
+                  <Text>Bắt đầu</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: '#29ffb4',
+                    margin: 5,
+                    padding: 5,
+                    borderRadius: 10,
+                  }}>
+                  <Text>Điểm danh</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: '#29ffb4',
+                    margin: 5,
+                    padding: 5,
+                    borderRadius: 10,
+                  }}>
+                  <Text>Tài liệu</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         );
