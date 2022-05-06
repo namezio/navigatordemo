@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  ImageBackground,
 } from 'react-native';
 import {Avatar} from 'react-native-paper';
 import {Badge} from 'react-native-paper';
@@ -25,7 +26,7 @@ import CalendarScreen from './CalendarScreen';
 import ButtonGradient from '../component/ButtonGradient';
 import {useDispatch, useSelector} from 'react-redux';
 import CommonHelper from '../helpers/CommonHelper';
-import {setData} from '../redux/action/MeetingSchedule';
+import {setData} from '../redux/action/MeetingList';
 import dayjs from 'dayjs';
 // import {login} from '../redux/action/Auth';
 function HomeScreen() {
@@ -39,7 +40,7 @@ function HomeScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={{backgroundColor: '#fafafa', maxWidth: 386, flex: 1}}>
+    <SafeAreaView style={{backgroundColor: 'gray', maxWidth: 400, flex: 1}}>
       <HeaderHome />
       <ScrollView>
         <View style={{margin: 10}}>
@@ -83,18 +84,6 @@ function HomeScreen() {
 // Component menu icon va ten icon ben duoi
 
 // cac man hinh o drawer
-function Lichhop() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text>Lich hop Screen</Text>
-    </View>
-  );
-}
 
 function Danhba() {
   return (
@@ -154,9 +143,9 @@ function CustomDrawerContent(props) {
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      <View
+      <ImageBackground
+        source={require('../icons/bg-promotion.jpg')}
         style={{
-          backgroundColor: '#ccc',
           margin: 10,
           borderRadius: 10,
           maxWidth: 250,
@@ -196,7 +185,7 @@ function CustomDrawerContent(props) {
         <View style={{margin: 20}}>
           <ButtonGradient text="MUA NGAY" />
         </View>
-      </View>
+      </ImageBackground>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
         <Dangxuatbutton />
       </View>
@@ -408,7 +397,7 @@ function HeaderHome() {
           />
         </TouchableOpacity>
 
-        <Badge style={{position: 'absolute', top: 0, left: 70}}>+99</Badge>
+        <Badge style={{position: 'absolute', top: 0, left: 70}}>5</Badge>
       </View>
     </View>
   );

@@ -1,4 +1,4 @@
-import {ScheduleAction} from '../action/MeetingList';
+import {ListAction, ScheduleAction} from '../action/MeetingList';
 const initialState = {
   meetings: [
     {
@@ -19,9 +19,9 @@ const initialState = {
     },
   ],
 };
-const meetingScheduleReducer = (state = initialState, action) => {
+const meetingListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ScheduleAction.SET_DATA:
+    case ListAction.SET_DATA:
       const data = action.payload;
       return {
         ...state,
@@ -33,4 +33,4 @@ const meetingScheduleReducer = (state = initialState, action) => {
     }
   }
 };
-export default meetingScheduleReducer;
+export default meetingListReducer;

@@ -11,7 +11,7 @@ import {
 import ButtonGradient from '../component/ButtonGradient';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {setData} from '../redux/action/MeetingSchedule';
+import {setData} from '../redux/action/MeetingList';
 import dayjs from 'dayjs';
 import CommonHelper from '../helpers/CommonHelper';
 function CalendarScreen() {
@@ -21,15 +21,26 @@ function CalendarScreen() {
   return (
     <SafeAreaView style={{flex: 1}}>
       <Agenda
-        items={{
-          '2022-05-06': [
-            {
-              time: '10:00',
-              title: 'aaa',
-              hostname: 'Nam Ezio',
-            },
-          ],
-        }}
+        items={
+          ({
+            '2022-05-06': [
+              {
+                time: '10:05',
+                title: 'aaa',
+                hostname: 'Nam Ezio',
+              },
+            ],
+          },
+          {
+            '2022-05-06': [
+              {
+                time: '10:00',
+                title: 'aaa',
+                hostname: 'Nam Ezio',
+              },
+            ],
+          })
+        }
         renderItem={item => {
           return (
             <View style={styles.CardEvent}>

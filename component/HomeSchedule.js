@@ -9,19 +9,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {setData} from '../redux/action/MeetingSchedule';
+import {setData} from '../redux/action/MeetingList';
 import {useDispatch, useSelector} from 'react-redux';
 import dayjs from 'dayjs';
 
 function HomeSchedule() {
   const dispatch = useDispatch();
-  const meeting = useSelector(state => state.meetingSchedule.meetings).map(
-    x => ({
-      title: x.name,
-      timeS: dayjs(x.startDate).format('HH:mm'),
-      timeE: dayjs(x.endDate).format('HH:mm'),
-    }),
-  );
+  const meeting = useSelector(state => state.meetingList.meetings).map(x => ({
+    title: x.name,
+    timeS: dayjs(x.startDate).format('HH:mm'),
+    timeE: dayjs(x.endDate).format('HH:mm'),
+  }));
   console.log('meeting', meeting);
   async function initSelect() {
     const response = await dispatch(setData());
@@ -95,22 +93,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 20,
     flexDirection: 'row',
-    margin: 10,
-
+    margin: 5,
     // justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
     maxWidth: 250,
     color: '#000000',
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: 'bold',
-    margin: 5,
+    margin: 3,
   },
   time: {
-    margin: 5,
+    margin: 3,
     fontSize: 15,
-    color: 'red',
+    color: 'blue',
   },
 });
 export default HomeSchedule;

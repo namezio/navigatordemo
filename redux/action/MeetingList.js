@@ -1,10 +1,10 @@
 import MeetingService from '../../services/MeetingService';
 
-export const ScheduleAction = {
+export const ListAction = {
   SET_DATA: 'SET_DATA',
 };
 export const setData = () => async dispatch => {
-  const response = await MeetingService.MettingSchedule();
+  const response = await MeetingService.MettingList();
   if (!response) {
     return {
       error: true,
@@ -20,7 +20,7 @@ export const setData = () => async dispatch => {
   }
 
   dispatch({
-    type: ScheduleAction.SET_DATA,
+    type: ListAction.SET_DATA,
     payload: response.data,
   });
 

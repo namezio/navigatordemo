@@ -7,7 +7,7 @@ import freeJoinReducer from './FreeJoin';
 import recoveryPasswordReducer from './RecoveryPassword';
 import settingsReducer from './Setting';
 import signUpReducer from './SignUp';
-import meetingScheduleReducer from './MeetingSchedule';
+import meetingListReducer from './MeetingList';
 import ChangePasswordByCodeReducer from './ChangePasswordByCode';
 import AddScheduleReducer from './AddSchedule';
 import EditScheduleReducer from './EditSchedule';
@@ -35,7 +35,7 @@ const rootReducer = combineReducers({
   recoveryPassword: recoveryPasswordReducer,
   signUp: signUpReducer,
   changePasswordByCode: ChangePasswordByCodeReducer,
-  meetingSchedule: meetingScheduleReducer,
+  meetingList: meetingListReducer,
   getSchedule: GetScheduleReducer,
   addSchedule: AddScheduleReducer,
   editSchedule: EditScheduleReducer,
