@@ -1,46 +1,46 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Agenda} from 'react-native-calendars';
-import {
-  SafeAreaView,
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import ButtonGradient from '../component/ButtonGradient';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {setData} from '../redux/action/MeetingList';
 import dayjs from 'dayjs';
-import CommonHelper from '../helpers/CommonHelper';
+import {setDataFull} from '../redux/action/MeetingSchedule';
+import _ from 'lodash';
+
 function CalendarScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  let [schedules, setSchedules] = useState([]);
+  async function initSelect() {
+    const response = await dispatch(setDataFull());
+    if (response.error) {
+      return;
+    }
+    // console.log(response.data);
+  }
+
+  useEffect(() => {
+    initSelect();
+  }, []);
+  const meetings = useSelector(state => state.meetingSchedule.meetings);
+  // const dates = useSelector(state => state.meetingSchedule.meetings);
+  // const a = _.uniq(dates);
+  console.log(meetings);
+  // a.filter(a => {
+  //   let items;
+  //   items = meetings.filter(meeting => meeting.date === a);
+  //   const temp = {[a]: items};
+  //   schedules = temp;
+  //   console.log(schedules);
+  // });
+  // const kq = useCallback(() => schedules, []);
+  // console.log(kq);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <Agenda
-        items={
-          ({
-            '2022-05-06': [
-              {
-                time: '10:05',
-                title: 'aaa',
-                hostname: 'Nam Ezio',
-              },
-            ],
-          },
-          {
-            '2022-05-06': [
-              {
-                time: '10:00',
-                title: 'aaa',
-                hostname: 'Nam Ezio',
-              },
-            ],
-          })
-        }
+        items={meetings}
         renderItem={item => {
           return (
             <View style={styles.CardEvent}>

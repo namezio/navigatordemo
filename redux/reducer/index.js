@@ -13,6 +13,7 @@ import AddScheduleReducer from './AddSchedule';
 import EditScheduleReducer from './EditSchedule';
 import GetScheduleReducer from './GetSchedule';
 import InitAddScheduleReducer from './InitAddSchedule';
+import meetingScheduleReducer from './MeetingSchedule';
 
 const authPersistConfig = {
   key: 'auth',
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
   signUp: signUpReducer,
   changePasswordByCode: ChangePasswordByCodeReducer,
   meetingList: meetingListReducer,
+  meetingSchedule: meetingScheduleReducer,
   getSchedule: GetScheduleReducer,
   addSchedule: AddScheduleReducer,
   editSchedule: EditScheduleReducer,

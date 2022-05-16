@@ -28,6 +28,8 @@ import {
 } from '../redux/action/SignUp';
 import {initData} from '../redux/action/SignUp';
 import {re} from '@babel/core/lib/vendor/import-meta-resolve';
+import dayjs from 'dayjs';
+import {uniq} from 'lodash';
 
 function SignUpScreen({navigation}) {
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -17,10 +17,12 @@ import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as dialogAction from '../redux/action/Dialog';
 import {login} from '../redux/action/Auth';
+import {setDataFull} from '../redux/action/MeetingSchedule';
 
 function LoginScreen({navigation}) {
   const [name, setName] = useState('');
   const dispatch = useDispatch();
+  const meetings = useSelector(state => state.meetingSchedule.meetings);
   const [isEnabled, setIsEnabled] = useState(false);
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
@@ -33,7 +35,7 @@ function LoginScreen({navigation}) {
       auth && auth.username && auth.username.length > 0
         ? auth.username
         : '0975977774',
-    password: '',
+    password: '123456',
   };
 
   const schema = yup.object().shape({

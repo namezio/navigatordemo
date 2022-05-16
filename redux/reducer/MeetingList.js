@@ -1,4 +1,4 @@
-import {ListAction, ScheduleAction} from '../action/MeetingList';
+import {ListAction} from '../action/MeetingList';
 const initialState = {
   meetings: [
     {

@@ -145,9 +145,9 @@ function CustomDrawerContent(props) {
       </DrawerContentScrollView>
       <ImageBackground
         source={require('../icons/bg-promotion.jpg')}
+        imageStyle={{borderRadius: 10}}
         style={{
           margin: 10,
-          borderRadius: 10,
           maxWidth: 250,
         }}>
         <View

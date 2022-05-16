@@ -1,9 +1,11 @@
 import MeetingService from '../../services/MeetingService';
+import dayjs from 'dayjs';
+import {uniq, reduce} from 'lodash/';
 
 export const ScheduleAction = {
-  SET_DATA: 'SET_DATA',
+  SET_DATA_FULL: 'SET_DATA_FULL',
 };
-export const setData = () => async dispatch => {
+export const setDataFull = () => async dispatch => {
   const response = await MeetingService.MettingSchedule();
   if (!response) {
     return {
@@ -19,9 +21,23 @@ export const setData = () => async dispatch => {
     };
   }
 
+  const meetings = {};
+  const schedules = response.data.meetings.map(x => ({
+    date: dayjs(x.startDate).format('YYYY-MM-DD'),
+    title: x.name,
+    time: dayjs(x.startDate).format('HH:mm'),
+  }));
+  let dates = schedules.map(({date}) => date);
+  dates = uniq(dates);
+  dates.filter(date => {
+    const items = schedules.filter(schedule => schedule.date === date);
+    // let z = {[date]: items};
+    meetings[date] = items;
+  });
+
   dispatch({
-    type: ScheduleAction.SET_DATA,
-    payload: response.data,
+    type: ScheduleAction.SET_DATA_FULL,
+    payload: meetings,
   });
 
   return {
