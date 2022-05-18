@@ -24,8 +24,15 @@ const MeetingService = {
       .join('&');
     return await HTTPHelper.get('/MeetingSchedule/List?' + query);
   },
+  async GetSchedule() {
+    const id = 14;
+    return await HTTPHelper.get('/MeetingSchedule/Get?id=' + id);
+  },
   async MettingAdd() {
     return await HTTPHelper.get('/MeetingSchedule/Add');
+  },
+  async AddSchedule(data) {
+    return await HTTPHelper.post('/MeetingSchedule/Add', data);
   },
   async MeetPostAdd(data) {
     return await HTTPHelper.post('/MeetingSchedule/List');

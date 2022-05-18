@@ -23,6 +23,7 @@ export const setDataFull = () => async dispatch => {
 
   const meetings = {};
   const schedules = response.data.meetings.map(x => ({
+    id: x.id,
     date: dayjs(x.startDate).format('YYYY-MM-DD'),
     title: x.name,
     time: dayjs(x.startDate).format('HH:mm'),

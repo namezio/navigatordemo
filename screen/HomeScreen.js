@@ -28,6 +28,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import CommonHelper from '../helpers/CommonHelper';
 import {setData} from '../redux/action/MeetingList';
 import dayjs from 'dayjs';
+import ContactScreen from './ContactScreen';
 // import {login} from '../redux/action/Auth';
 function HomeScreen() {
   const dispatch = useDispatch();
@@ -85,18 +86,6 @@ function HomeScreen() {
 
 // cac man hinh o drawer
 
-function Danhba() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text>Danh ba Screen</Text>
-    </View>
-  );
-}
 function Caidat() {
   return (
     <View
@@ -287,7 +276,7 @@ function MyDrawer() {
       />
       <Drawer.Screen
         name="Danh ba"
-        component={Danhba}
+        component={ContactScreen}
         options={{
           drawerIcon: () => (
             <Image
@@ -324,32 +313,7 @@ function MyDrawer() {
     </Drawer.Navigator>
   );
 }
-function CodeCall() {
-  return (
-    <View style={{margin: 10, backgroundColor: '#FFF', borderRadius: 20}}>
-      <View style={{margin: 20, alignItems: 'center'}}>
-        <Text style={{fontSize: 20}}>TranS ID của bạn</Text>
-        <GradientText
-          style={{
-            fontSize: 25,
-            marginTop: 5,
-            color: 'green',
-            fontWeight: 'bold',
-          }}>
-          0123456
-        </GradientText>
-        <Text
-          style={{
-            fontSize: 16,
-            marginTop: 5,
-            color: 'blue',
-          }}>
-          Chia sẻ cho bạn của chúng tôi ???
-        </Text>
-      </View>
-    </View>
-  );
-}
+
 function HeaderHome() {
   const navigation = useNavigation();
   const LanguageAlert = UriImage => {

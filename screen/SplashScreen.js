@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import HomeService from '../services/HomeService';
+import ContactService from '../services/ContactService';
 import * as settingsAction from '../redux/action/Setting';
 import {authActions} from '../redux/action/Auth';
 import CommonHelper from '../helpers/CommonHelper';
@@ -32,7 +32,7 @@ function SplashScreen() {
     const apiServers = settings.apiServers.sort(apiServerComparer);
     for (let i = 0; i < apiServers.length; i++) {
       const apiServer = apiServers[i];
-      const response = await HomeService.initApplication(apiServer.url);
+      const response = await ContactService.initApplication(apiServer.url);
       if (!response || response.error) {
         continue;
       }

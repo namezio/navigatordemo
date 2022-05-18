@@ -20,7 +20,7 @@ function HomeSchedule() {
     timeS: dayjs(x.startDate).format('HH:mm'),
     timeE: dayjs(x.endDate).format('HH:mm'),
   }));
-  console.log('meeting', meeting);
+  // console.log('meeting', meeting);
   async function initSelect() {
     const response = await dispatch(setData());
     if (response.error) {

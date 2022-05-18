@@ -1,14 +1,14 @@
 import MeetingService from '../../services/MeetingService';
 
 export const GetScheduleAction = {
-  SET_DATA: 'SET_DATA',
+  GET_DATA: 'GET_DATA',
 };
-export const setData = data => async dispatch => {
-  const response = await MeetingService.GetSchedule(data);
+export const GetInfo = () => async dispatch => {
+  const response = await MeetingService.GetSchedule();
   if (!response) {
     return {
       error: true,
-      message: response.message,
+      message: null,
     };
   }
 
@@ -20,11 +20,8 @@ export const setData = data => async dispatch => {
   }
 
   dispatch({
-    type: GetScheduleAction.SET_DATA,
-    payload: {
-      ...data,
-      ...response.data,
-    },
+    type: GetScheduleAction.GET_DATA,
+    payload: response.data,
   });
 
   return {

@@ -27,22 +27,27 @@ import {
   submit,
 } from '../redux/action/SignUp';
 import {initData} from '../redux/action/SignUp';
-import {re} from '@babel/core/lib/vendor/import-meta-resolve';
-import dayjs from 'dayjs';
-import {uniq} from 'lodash';
 
 function SignUpScreen({navigation}) {
   const dispatch = useDispatch();
   const [isAcceptTerm, setIsAcceptTerm] = useState(false);
   const signUp = useSelector(state => state.signUp);
+  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const careers = useSelector(state => state.signUp.careers).map(x => ({
+    value: x.id,
+    label: x.name,
+  }));
+  const countries = useSelector(state => state.signUp.countries).map(x => ({
+    value: x.id,
+    label: x.name,
+  }));
   const defaultValues = {
     fullname: '',
     email: '',
     mobile: '',
     password: '',
-    country: '',
     idCountry: '',
-    career: '',
     idCareer: 0,
   };
 
@@ -58,8 +63,8 @@ function SignUpScreen({navigation}) {
       .string()
       .required('validate.required')
       .oneOf([yup.ref('password'), null], 'validate.confirm_password_wrong'),
-    country: yup.string().required('validate.required'),
-    career: yup.string().required('validate.required'),
+    idCountry: yup.string().required(),
+    idCareer: yup.string().required(),
   });
 
   const {
@@ -72,19 +77,10 @@ function SignUpScreen({navigation}) {
     resolver: yupResolver(schema),
     defaultValues: defaultValues,
   });
-  // useEffect(async () => {
-  //   dialogAction.showLoading();
+  // async function showData() {
   //   const response = await dispatch(initData());
-  //   dialogAction.dismissLoading();
-  //   if (!response.error) {
-  //     return;
-  //   }
-  //   dispatch(console.log(response.data));
-  // }, [dispatch]);
-  async function showData() {
-    const response = await dispatch(initData());
-  }
-  showData();
+  // }
+  // showData();
 
   useEffect(() => {
     console.log('Country changed');
@@ -109,10 +105,7 @@ function SignUpScreen({navigation}) {
     initSelect();
   }, []);
   const submit = async data => {
-    dispatch(dialogAction.showLoading());
     const result = await dispatch(registerSignUp(data));
-    dispatch(dialogAction.dismissLoading());
-
     if (result.error) {
       dispatch(
         dialogAction.showAlert(result.message || 'error.connect_server_failed'),
@@ -120,8 +113,8 @@ function SignUpScreen({navigation}) {
       );
       return;
     }
-
-    dispatch(dialogAction.showAlert(result.message, () => navigation.goBack()));
+    Alert.alert(result.message);
+    navigation.goBack();
   };
 
   return (
@@ -283,11 +276,59 @@ function SignUpScreen({navigation}) {
         <View style={{flexDirection: 'row'}}>
           <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
             <Text style={styles.text}>Lĩnh Vực</Text>
-            <PickerJob />
+            <Controller
+              control={control}
+              render={({
+                field: {onChange, value, ref},
+                fieldState: {error: fieldError},
+              }) => (
+                <DropDownPicker
+                  stickyHeader={true}
+                  autoScroll={true}
+                  style={styles.textinput}
+                  open={open}
+                  value={value}
+                  items={careers}
+                  setOpen={setOpen}
+                  setValue={onChange}
+                  setItems={careers.label}
+                  onChangeValue={onChange}
+                  onPress={() => {
+                    dispatch(setCareer(value));
+                    console.log(value);
+                  }}
+                />
+              )}
+              name="idCareer"
+            />
           </View>
           <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
             <Text style={styles.text}>Quốc Gia</Text>
-            <PickerQG />
+            <Controller
+              control={control}
+              render={({
+                field: {onChange, value, ref},
+                fieldState: {error: fieldError},
+              }) => (
+                <DropDownPicker
+                  stickyHeader={true}
+                  autoScroll={true}
+                  style={styles.textinput}
+                  open={open1}
+                  value={value}
+                  items={countries}
+                  setOpen={setOpen1}
+                  setValue={onChange}
+                  setItems={countries.label}
+                  onChangeValue={onChange}
+                  onPress={() => {
+                    dispatch(setCountry(value));
+                    console.log(value);
+                  }}
+                />
+              )}
+              name="idCountry"
+            />
           </View>
         </View>
       </View>
@@ -315,56 +356,6 @@ function SignUpScreen({navigation}) {
         <Text>Copyright @ 2022 by Namviet Telecom</Text>
       </View>
     </SafeAreaView>
-  );
-}
-function PickerJob() {
-  const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('');
-  const careers = useSelector(state => state.signUp.careers).map(x => ({
-    value: x.id,
-    label: x.name,
-  }));
-  return (
-    <DropDownPicker
-      stickyHeader={true}
-      autoScroll={true}
-      style={styles.textinput}
-      open={open}
-      value={value}
-      items={careers}
-      setOpen={setOpen}
-      setValue={setValue}
-      setItems={careers.label}
-      onPress={() => {
-        dispatch(setCareer(value));
-      }}
-    />
-  );
-}
-function PickerQG() {
-  const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('');
-  const countries = useSelector(state => state.signUp.countries).map(x => ({
-    value: x.id,
-    label: x.name,
-  }));
-  return (
-    <DropDownPicker
-      stickyHeader={true}
-      autoScroll={true}
-      style={styles.textinput}
-      open={open}
-      value={value}
-      items={countries}
-      setOpen={setOpen}
-      setValue={setValue}
-      setItems={countries.label}
-      onPress={() => {
-        dispatch(setCountry(value));
-      }}
-    />
   );
 }
 const styles = StyleSheet.create({
