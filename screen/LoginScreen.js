@@ -170,6 +170,28 @@ function LoginScreen({navigation}) {
         </Text>
       </View>
       <ButtonGradient text={'ĐĂNG NHẬP'} onPress={handleSubmit(submit)} />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('FreeJoin');
+        }}>
+        <View
+          style={{
+            borderColor: 'black',
+            borderWidth: 2,
+            borderRadius: 10,
+            height: 40,
+            maxWidth: 360,
+            backgroundColor: 'gray',
+            marginTop: 20,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{fontSize: 16, fontWeight: '700', color: '#FFF'}}>
+            THAM GIA TỰ DO
+          </Text>
+        </View>
+      </TouchableOpacity>
       <View style={{alignItems: 'center'}}>
         <View style={{flexDirection: 'row'}}>
           <Text style={{margin: 5}}>Chưa có tài khoản ?</Text>

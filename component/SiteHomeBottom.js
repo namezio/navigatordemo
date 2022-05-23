@@ -48,32 +48,8 @@ function SiteHomeBottom() {
     </View>
   );
 }
-const OptionItem = ({icon, label, onPress, colorS, colorE}) => {
+const OptionItem = ({icon, label, onPress, colorS, colorE, size}) => {
   return (
-    // <LinearGradient
-    //   colors={['#0390fc', '#3bd972']}
-    //   start={{x: 0, y: 0}}
-    //   end={{x: 1, y: 0}}
-    //   style={{
-    //     borderRadius: 10,
-    //     height: 40,
-    //     maxWidth: 360,
-    //     backgroundColor: '#65c1b6',
-    //     marginTop: 20,
-    //     flexDirection: 'row',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //   }}>
-    //   <Text
-    //     style={{
-    //       color: '#FFF',
-    //       fontSize: 20,
-    //       alignSelf: 'center',
-    //       fontWeight: '800',
-    //     }}>
-    //     {text}
-    //   </Text>
-    // </LinearGradient>
     <TouchableOpacity
       style={{
         flex: 1,

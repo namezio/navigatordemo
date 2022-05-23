@@ -21,14 +21,16 @@ const initialState = {
   ],
   draw: 0,
 };
-const contactReducer = (state = initialState, action) => {
+const ContactReducer = (state = initialState, action) => {
   switch (action.type) {
     case contactActions.GET_CONTACT:
       const data = action.payload;
       return {
-        customer: data.customer,
         contacts: data.contacts,
-        draw: data.draw,
+        customer: data.customer,
       };
+    default:
+      return state;
   }
 };
+export default ContactReducer;

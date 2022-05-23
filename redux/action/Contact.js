@@ -11,7 +11,6 @@ export const getContact = () => async dispatch => {
       message: null,
     };
   }
-
   if (response.error) {
     return {
       error: true,
@@ -27,7 +26,7 @@ export const getContact = () => async dispatch => {
   return {
     error: false,
     message: response.message,
-    customer: response.data.customer,
     contacts: response.data.contacts,
+    customer: response.data.customer,
   };
 };

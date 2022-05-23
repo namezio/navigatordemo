@@ -16,6 +16,7 @@ import {Provider} from 'react-redux';
 import {store} from './redux';
 import SplashScreen from './screen/SplashScreen';
 import GetInfoCalendar from './screen/GetInfoCalendar';
+import FreeJoinScreen from './screen/FreeJoinScreen';
 
 const Stack = createNativeStackNavigator();
 const options = {headerShown: false};
@@ -52,6 +53,7 @@ function MyStack() {
         />
         <Stack.Screen name="AddCalendar" component={AddCalendar} />
         <Stack.Screen name="Calendar" component={CalendarScreen} />
+        <Stack.Screen name="FreeJoin" component={FreeJoinScreen} />
       </Stack.Navigator>
     </Provider>
   );
