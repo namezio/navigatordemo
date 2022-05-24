@@ -39,7 +39,9 @@ function CalendarScreen() {
         items={meetings}
         renderItem={item => {
           return (
-            <TouchableOpacity onPress={() => navigation.navigate('GetInfo')}>
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => navigation.navigate('GetInfo')}>
               <View style={styles.CardEvent}>
                 <View style={{margin: 10, flex: 2}}>
                   <View style={{flexDirection: 'column'}}>

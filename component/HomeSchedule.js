@@ -32,7 +32,7 @@ function HomeSchedule() {
   }, []);
   return (
     <ScrollView style={styles.body}>
-      {meeting.map(object => {
+      {meeting.map(x => {
         return (
           <View style={styles.item}>
             <Image
@@ -45,9 +45,9 @@ function HomeSchedule() {
               }}
             />
             <View>
-              <Text style={styles.text}>{object.title}</Text>
+              <Text style={styles.text}>{x.title}</Text>
               <Text style={styles.time}>
-                {object.timeS} - {object.timeE}
+                {x.timeS} - {x.timeE}
               </Text>
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity

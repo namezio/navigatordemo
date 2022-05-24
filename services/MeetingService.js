@@ -25,7 +25,7 @@ const MeetingService = {
     return await HTTPHelper.get('/MeetingSchedule/List?' + query);
   },
   async GetSchedule() {
-    const id = 14;
+    const id = 4;
     return await HTTPHelper.get('/MeetingSchedule/Get?id=' + id);
   },
   async MettingAdd() {
