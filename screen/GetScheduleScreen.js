@@ -19,6 +19,8 @@ function GetScheduleScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   console.log(info);
+  const host = useSelector(state => state.getSchedule);
+  console.log('mmm', host);
 
   return (
     <SafeAreaView

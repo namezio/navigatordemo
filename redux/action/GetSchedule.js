@@ -22,9 +22,7 @@ export const GetSchedule = id => async dispatch => {
     };
   }
   const info = response.data;
-  const hosts = info.hosts.map(x => ({
-    name: x.name,
-  }));
+
   // console.log(info);
   const customParseFormat = require('dayjs/plugin/customParseFormat');
   dayjs.extend(customParseFormat);
@@ -35,8 +33,13 @@ export const GetSchedule = id => async dispatch => {
   const timeEnd = dayjs(te).format('HH:mm');
   const dateStart = dayjs(info.startDate).format('DD/MM/YYYY');
   const dateEnd = dayjs(info.endDate).format('DD/MM/YYYY');
+  // console.log('hhhh', host1);
+  const hosts = info.hosts
+    .filter(x => x.isSelected === true)
+    .map(a => ({
+      name: a.name,
+    }));
   const hostname = hosts[0].name;
-
   const getInfomation = {
     name,
     timeStart,
