@@ -50,9 +50,10 @@ const initialState = {
 const GetScheduleReducer = (state = initialState, action) => {
   switch (action.type) {
     case GetScheduleAction.GET_DATA:
+      const data = action.payload;
       return {
         ...state,
-        info: action.payload,
+        info: data,
       };
     default:
       return state;

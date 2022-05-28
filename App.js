@@ -15,8 +15,8 @@ import CalendarScreen from './screen/CalendarScreen';
 import {Provider} from 'react-redux';
 import {store} from './redux';
 import SplashScreen from './screen/SplashScreen';
-import GetInfoCalendar from './screen/GetInfoCalendar';
 import FreeJoinScreen from './screen/FreeJoinScreen';
+import GetScheduleScreen from './screen/GetScheduleScreen';
 
 const Stack = createNativeStackNavigator();
 const options = {headerShown: false};
@@ -37,11 +37,6 @@ function MyStack() {
         <Stack.Screen name="CreateRoom" component={CreateRoomScreen} />
         <Stack.Screen name="ManagerRoom" component={ManagerRoomScreen} />
         <Stack.Screen
-          name="GetInfo"
-          component={GetInfoCalendar}
-          options={options}
-        />
-        <Stack.Screen
           name="SignIn"
           component={signInScreen}
           options={options}
@@ -54,6 +49,7 @@ function MyStack() {
         <Stack.Screen name="AddCalendar" component={AddCalendar} />
         <Stack.Screen name="Calendar" component={CalendarScreen} />
         <Stack.Screen name="FreeJoin" component={FreeJoinScreen} />
+        <Stack.Screen name="GetSchedule" component={GetScheduleScreen} />
       </Stack.Navigator>
     </Provider>
   );

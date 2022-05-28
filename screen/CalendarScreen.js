@@ -14,6 +14,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import dayjs from 'dayjs';
 import {setDataFull} from '../redux/action/MeetingSchedule';
 import _ from 'lodash';
+import {GetSchedule} from '../redux/action/GetSchedule';
+import * as dialogAction from '../redux/action/Dialog';
 
 function CalendarScreen() {
   const dispatch = useDispatch();
@@ -31,18 +33,25 @@ function CalendarScreen() {
   }, []);
   const meetings = useSelector(state => state.meetingSchedule.meetings);
   // console.log(meetings);
-  // let id = meetings.id;
-
+  const getIdScreen = async id => {
+    dispatch(dialogAction.showLoading());
+    const response = await dispatch(GetSchedule(id));
+    dispatch(dialogAction.dismissLoading());
+    if (response.error) {
+      return;
+    }
+    navigation.navigate('GetSchedule');
+  };
   return (
     <SafeAreaView style={{flex: 1}}>
       <Agenda
         items={meetings}
         renderItem={item => {
           return (
-            <TouchableOpacity
-              key={item.id}
-              onPress={() => navigation.navigate('GetInfo')}>
-              <View style={styles.CardEvent}>
+            <View>
+              <TouchableOpacity
+                style={styles.CardEvent}
+                onPress={() => getIdScreen(item.id)}>
                 <View style={{margin: 10, flex: 2}}>
                   <View style={{flexDirection: 'column'}}>
                     <Text
@@ -73,8 +82,8 @@ function CalendarScreen() {
                     }}
                   />
                 </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           );
         }}
         scrollEnabled={true}

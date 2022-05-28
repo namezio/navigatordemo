@@ -1,43 +1,24 @@
+import * as React from 'react';
 import {
-  View,
-  Text,
-  SafeAreaView,
   Image,
-  TouchableOpacity,
+  SafeAreaView,
   StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {GetInfo} from '../redux/action/GetSchedule';
+import {useNavigation} from '@react-navigation/native';
+import {useEffect, useState} from 'react';
+import {GetSchedule} from '../redux/action/GetSchedule';
+import CommonHelper from '../helpers/CommonHelper';
 import GradientText from '../component/GradientText';
-import dayjs from 'dayjs';
-import ButtonGradient from '../component/ButtonGradient';
 
-function GetInfoCalendar() {
-  const dispatch = useDispatch();
-  const customParseFormat = require('dayjs/plugin/customParseFormat');
-  dayjs.extend(customParseFormat);
-  async function initSelect() {
-    const response = await dispatch(GetInfo());
-    if (response.error) {
-      return;
-    }
-  }
-  useEffect(() => {
-    initSelect();
-  }, []);
+function GetScheduleScreen() {
   const info = useSelector(state => state.getSchedule.info);
-  // console.log(info);
-  const hosts = useSelector(state => state.getSchedule.info.hosts).map(x => ({
-    name: x.name,
-  }));
-  const ts = dayjs(info.startTime.toString(), 'hh:mm:ss');
-  const te = dayjs(info.endTime.toString(), 'hh:mm:ss');
-  const timeStart = dayjs(ts).format('HH:mm');
-  const timeEnd = dayjs(te).format('HH:mm');
-  const dateStart = dayjs(info.startDate).format('DD/MM/YYYY');
-  const dateEnd = dayjs(info.endDate).format('DD/MM/YYYY');
-  // console.log(hosts[0].name);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  console.log(info);
 
   return (
     <SafeAreaView
@@ -61,7 +42,7 @@ function GetInfoCalendar() {
           style={{width: 30, height: 30, marginRight: 20}}
         />
         <Text style={styles.text}>
-          {timeStart} - {timeEnd}
+          {info.timeStart} - {info.timeEnd}
         </Text>
       </View>
       <View style={{flexDirection: 'row', marginTop: 20}}>
@@ -70,7 +51,7 @@ function GetInfoCalendar() {
           style={{width: 30, height: 30, marginRight: 20}}
         />
         <Text style={styles.text}>
-          {dateStart} - {dateEnd}
+          {info.dateStart} - {info.dateEnd}
         </Text>
       </View>
       <View style={{flexDirection: 'row', marginTop: 20}}>
@@ -78,7 +59,7 @@ function GetInfoCalendar() {
           source={require('../icons/user.png')}
           style={{width: 30, height: 30, marginRight: 20}}
         />
-        <Text style={styles.text}>{hosts[0].name}</Text>
+        <Text style={styles.text}>{info.hostname}</Text>
       </View>
       <View
         style={{
@@ -123,4 +104,4 @@ function GetInfoCalendar() {
 const styles = StyleSheet.create({
   text: {fontSize: 18},
 });
-export default GetInfoCalendar;
+export default GetScheduleScreen;

@@ -20,7 +20,6 @@ import {login} from '../redux/action/Auth';
 import {setDataFull} from '../redux/action/MeetingSchedule';
 
 function LoginScreen({navigation}) {
-  const [name, setName] = useState('');
   const dispatch = useDispatch();
   const meetings = useSelector(state => state.meetingSchedule.meetings);
   const [isEnabled, setIsEnabled] = useState(false);
@@ -66,8 +65,6 @@ function LoginScreen({navigation}) {
       );
       return;
     }
-    console.log(result.fullname);
-    setName(result.fullname);
     navigation.navigate('Home');
   };
   return (
