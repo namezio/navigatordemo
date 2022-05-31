@@ -21,36 +21,37 @@ export const GetSchedule = id => async dispatch => {
       message: response.message,
     };
   }
-  const info = response.data;
+  // const info = response.data;
 
   // console.log(info);
-  const customParseFormat = require('dayjs/plugin/customParseFormat');
-  dayjs.extend(customParseFormat);
-  const name = info.name;
-  const ts = dayjs(info.startTime.toString(), 'hh:mm:ss');
-  const te = dayjs(info.endTime.toString(), 'hh:mm:ss');
-  const timeStart = dayjs(ts).format('HH:mm');
-  const timeEnd = dayjs(te).format('HH:mm');
-  const dateStart = dayjs(info.startDate).format('DD/MM/YYYY');
-  const dateEnd = dayjs(info.endDate).format('DD/MM/YYYY');
-  // console.log('hhhh', host1);
-  const hosts = info.hosts
-    .filter(x => x.isSelected === true)
-    .map(a => ({
-      name: a.name,
-    }));
-  const hostname = hosts[0].name;
-  const getInfomation = {
-    name,
-    timeStart,
-    timeEnd,
-    dateStart,
-    dateEnd,
-    hostname,
-  };
+  // const customParseFormat = require('dayjs/plugin/customParseFormat');
+  // dayjs.extend(customParseFormat);
+  // const name = info.name;
+  // const ts = dayjs(info.startTime.toString(), 'hh:mm:ss');
+  // const te = dayjs(info.endTime.toString(), 'hh:mm:ss');
+  // const timeStart = dayjs(ts).format('HH:mm');
+  // const timeEnd = dayjs(te).format('HH:mm');
+  // const dateStart = dayjs(info.startDate).format('DD/MM/YYYY');
+  // const dateEnd = dayjs(info.endDate).format('DD/MM/YYYY');
+  //
+  // // console.log('hhhh', host1);
+  // const hosts = info.hosts
+  //   .filter(x => x.isSelected === true)
+  //   .map(a => ({
+  //     name: a.name,
+  //   }));
+  // const hostname = hosts[0].name;
+  // const getInfomation = {
+  //   name,
+  //   timeStart,
+  //   timeEnd,
+  //   dateStart,
+  //   dateEnd,
+  //   hostname,
+  // };
   dispatch({
     type: GetScheduleAction.GET_DATA,
-    payload: getInfomation,
+    payload: response.data,
   });
 
   return {

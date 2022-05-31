@@ -194,7 +194,7 @@ function Dangxuatbutton() {
       [
         {
           text: 'Có',
-          onPress: () => navigation.navigate('Login'),
+          onPress: () => navigation.goBack(),
         },
         {
           text: 'Không',
@@ -329,7 +329,7 @@ function HeaderHome() {
         },
         {
           text: 'Tiếng Anh',
-          // onPress: () => UriImage=('../navigatordemo/icons/eng.png')
+          // onPress: () => (UriImage = '../navigatordemo/icons/eng.png'),
         },
       ],
       {cancelable: false},

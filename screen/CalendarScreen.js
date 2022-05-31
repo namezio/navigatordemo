@@ -39,7 +39,6 @@ function CalendarScreen() {
     const response = await dispatch(GetSchedule(id));
     dispatch(dialogAction.dismissLoading());
     if (response.error) {
-      Alert.alert(response.message);
       Alert.alert(
         //title
         response.message,

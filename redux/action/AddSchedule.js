@@ -6,6 +6,7 @@ export const AddScheduleAction = {
   GET_DATA: 'GET_DATA',
   SET_ROOM: 'SET_ROOM',
   SET_HOST: 'SET_HOST',
+  SET_PARTICIPANTS: 'SET_PARTICIPANTS',
   ADD_SCHEDULE: 'ADD_SCHEDULE',
 };
 export const getInit = () => async dispatch => {
@@ -35,6 +36,7 @@ export const getInit = () => async dispatch => {
     data: response.data,
   };
 };
+
 export const setRoom = data => dispatch =>
   dispatch({
     type: AddScheduleAction.SET_ROOM,
@@ -46,6 +48,13 @@ export const setHost = data => dispatch =>
     type: AddScheduleAction.SET_HOST,
     payload: data,
   });
+
+export const setPart = data => dispatch =>
+  dispatch({
+    type: AddScheduleAction.SET_PARTICIPANTS,
+    payload: data,
+  });
+
 export const AddSchedule = data => async dispatch => {
   // await CommonHelper.delay(1000);
   const response = await MeetingService.AddSchedule(data);

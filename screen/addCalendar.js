@@ -73,9 +73,9 @@ function AddCalendar() {
     isOnHostVideo: true,
     isOnParticipantVideos: true,
     isOnDingDongSound: true,
-    isUsePassCode: true,
+    isUsePassCode: false,
     passCode: '',
-    isBlocked: true,
+    isBlocked: false,
   };
   const schema = yup.object().shape({
     name: yup.string().required(''),
@@ -151,7 +151,7 @@ function AddCalendar() {
         }}>
         <TouchableOpacity onPress={() => setOpenStart(true)}>
           <Text
-            style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 10}}>
+            style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 5}}>
             {dayjs(timeStart).format('HH:mm A')}
           </Text>
         </TouchableOpacity>
@@ -182,7 +182,7 @@ function AddCalendar() {
         />
         <TouchableOpacity onPress={() => setOpenEnd(true)}>
           <Text
-            style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 10}}>
+            style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 5}}>
             {dayjs(timeEnd).format('HH:mm A')}
           </Text>
         </TouchableOpacity>
@@ -216,13 +216,13 @@ function AddCalendar() {
       <View style={{flexDirection: 'row'}}>
         <TouchableOpacity onPress={() => setOpenDate(true)}>
           <Text
-            style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 10}}>
+            style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 5}}>
             {dayjs(date).format('DD/MM/YYYY')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setOpenDate(true)}>
           <Text
-            style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 10}}>
+            style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 5}}>
             {dayjs(date).format('DD/MM/YYYY')}
           </Text>
         </TouchableOpacity>
@@ -329,8 +329,13 @@ function AddCalendar() {
         name="idHost"
       />
       <Text style={styles.text}>Đại biểu</Text>
-      <View style={{flexDirection: 'row'}}>
+      <ButtonGradient
+        onPress={() => navigation.navigate('Participants')}
+        text={' +  THÊM ĐẠI BIỂU'}
+      />
+      <View style={styles.Viewswitch}>
         <Switch
+          style={styles.switch}
           trackColor={{false: 'white', true: '#65c1b6'}}
           thumbColor={isEnabled ? 'white' : 'white'}
           ios_backgroundColor="#3e3e3e"
@@ -343,11 +348,12 @@ function AddCalendar() {
             marginLeft: 10,
             fontSize: 14,
           }}>
-          Lưu thông tin đăng nhập
+          Bật video của chủ tọa
         </Text>
       </View>
-      <View style={{flexDirection: 'row'}}>
+      <View style={styles.Viewswitch}>
         <Switch
+          style={styles.switch}
           trackColor={{false: 'white', true: '#65c1b6'}}
           thumbColor={isEnabled ? 'white' : 'white'}
           ios_backgroundColor="#3e3e3e"
@@ -360,11 +366,12 @@ function AddCalendar() {
             marginLeft: 10,
             fontSize: 14,
           }}>
-          Lưu thông tin đăng nhập
+          Bật video của đại biểu
         </Text>
       </View>
-      <View style={{flexDirection: 'row'}}>
+      <View style={styles.Viewswitch}>
         <Switch
+          style={styles.switch}
           trackColor={{false: 'white', true: '#65c1b6'}}
           thumbColor={isEnabled ? 'white' : 'white'}
           ios_backgroundColor="#3e3e3e"
@@ -377,11 +384,12 @@ function AddCalendar() {
             marginLeft: 10,
             fontSize: 14,
           }}>
-          Lưu thông tin đăng nhập
+          Bật âm thanh đinh đong của phòng họp
         </Text>
       </View>
-      <View style={{flexDirection: 'row'}}>
+      <View style={styles.Viewswitch}>
         <Switch
+          style={styles.switch}
           trackColor={{false: 'white', true: '#65c1b6'}}
           thumbColor={isEnabled ? 'white' : 'white'}
           ios_backgroundColor="#3e3e3e"
@@ -394,7 +402,25 @@ function AddCalendar() {
             marginLeft: 10,
             fontSize: 14,
           }}>
-          Lưu thông tin đăng nhập
+          Sử dụng chức năng mật khẩu phòng họp
+        </Text>
+      </View>
+      <View style={styles.Viewswitch}>
+        <Switch
+          style={styles.switch}
+          trackColor={{false: 'white', true: '#65c1b6'}}
+          thumbColor={isEnabled ? 'white' : 'white'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+        <Text
+          style={{
+            alignSelf: 'center',
+            marginLeft: 10,
+            fontSize: 14,
+          }}>
+          Khóa lịch họp
         </Text>
       </View>
 
@@ -403,7 +429,12 @@ function AddCalendar() {
   );
 }
 const styles = StyleSheet.create({
-  switch: {},
+  Viewswitch: {
+    flexDirection: 'row',
+  },
+  switch: {
+    transform: [{scaleX: 0.5}, {scaleY: 0.5}],
+  },
   text: {
     fontSize: 13,
     fontWeight: '600',

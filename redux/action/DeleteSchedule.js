@@ -1,19 +1,16 @@
-import CommonHelper from '../../helpers/CommonHelper';
-import AuthenticateService from '../../services/AuthenticateService';
-import {AddScheduleAction} from './AddSchedule';
+import MeetingService from '../../services/MeetingService';
 
 export const DeleteScheduleAction = {
-  SET_DATA: 'SET_DATA',
+  DELETE_DATA: 'DELETE_DATA',
 };
 export const setData = data => dispatch =>
   dispatch({
-    type: DeleteScheduleAction.SET_DATA,
+    type: DeleteScheduleAction.DELETE_DATA,
     payload: data,
   });
 
 export const Delete = data => async dispatch => {
-  await CommonHelper.delay(1000);
-  const response = await AuthenticateService.DeleteSchedule(data);
+  const response = await MeetingService.DeleteSchedule(data);
   if (!response) {
     return {
       error: true,

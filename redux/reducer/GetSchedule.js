@@ -52,7 +52,6 @@ const GetScheduleReducer = (state = initialState, action) => {
     case GetScheduleAction.GET_DATA:
       const data = action.payload;
       return {
-        ...state,
         info: data,
       };
     default:

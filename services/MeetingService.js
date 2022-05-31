@@ -33,8 +33,11 @@ const MeetingService = {
   async AddSchedule(data) {
     return await HTTPHelper.post('/MeetingSchedule/Add', data);
   },
-  async MeetPostAdd(data) {
-    return await HTTPHelper.post('/MeetingSchedule/List');
+  async EditSchedule(data) {
+    return await HTTPHelper.post('/MeetingSchedule/Edit', data);
+  },
+  async DeleteSchedule(data) {
+    return await HTTPHelper.post('/MeetingSchedule/Delete', data);
   },
 };
 export default MeetingService;

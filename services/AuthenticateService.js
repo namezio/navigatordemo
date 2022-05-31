@@ -23,23 +23,8 @@ const AuthenticateService = {
   async ChangePasswordByCode(data) {
     return await HTTPHelper.post('/Auth/ChangePasswordByCode', data);
   },
-  async AddSchedule(data) {
-    return await HTTPHelper.post('/MeetingSchedule/Add', data);
-  },
-  async MeetingSchedule() {
-    return await HTTPHelper.get('/MeetingSchedule/List');
-  },
-  async InitAddSchedule() {
-    return await HTTPHelper.get('/MeetingSchedule/Add');
-  },
   async GetSchedule() {
     return await HTTPHelper.get('MeetingSchedule/Get');
-  },
-  async EditSchedule(data) {
-    return await HTTPHelper.post('/MeetingSchedule/Edit', data);
-  },
-  async DeleteSchedule(data) {
-    return await HTTPHelper.post('/MeetingSchedule/Delete', data);
   },
 };
 

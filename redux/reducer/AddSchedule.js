@@ -61,6 +61,14 @@ const AddScheduleReducer = (state = initialState, action) => {
           host: action.payload,
         },
       };
+    case AddScheduleAction.SET_PARTICIPANTS:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isParticipants: action.payload,
+        },
+      };
     default:
       return state;
   }
