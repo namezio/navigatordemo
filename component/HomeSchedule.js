@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   Image,
   RefreshControl,
@@ -12,6 +12,7 @@ import {
 import {setData} from '../redux/action/MeetingList';
 import {useDispatch, useSelector} from 'react-redux';
 import dayjs from 'dayjs';
+import {useFocusEffect} from '@react-navigation/native';
 
 function HomeSchedule() {
   const dispatch = useDispatch();
@@ -20,16 +21,17 @@ function HomeSchedule() {
     timeS: dayjs(x.startDate).format('HH:mm'),
     timeE: dayjs(x.endDate).format('HH:mm'),
   }));
-  // console.log('meeting', meeting);
   async function initSelect() {
     const response = await dispatch(setData());
     if (response.error) {
       return;
     }
   }
-  useState(() => {
-    initSelect();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      initSelect();
+    }, []),
+  );
   return (
     <ScrollView style={styles.body}>
       {meeting.map(x => {

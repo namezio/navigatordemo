@@ -19,9 +19,6 @@ function GetScheduleScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   console.log(info);
-  const host = useSelector(state => state.getSchedule);
-  console.log('mmm', host);
-
   return (
     <SafeAreaView
       style={{
@@ -104,6 +101,6 @@ function GetScheduleScreen() {
   );
 }
 const styles = StyleSheet.create({
-  text: {fontSize: 18},
+  text: {fontSize: 20, alignSelf: 'center'},
 });
 export default GetScheduleScreen;

@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import GradientText from '../component/GradientText';
 import {useDispatch, useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {getContact} from '../redux/action/Contact';
 
 const ContactScreen = () => {
@@ -33,9 +33,11 @@ const ContactScreen = () => {
       return;
     }
   }
-  useState(() => {
-    initSelect();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      initSelect();
+    }, []),
+  );
 
   return (
     <SafeAreaView

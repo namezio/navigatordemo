@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Agenda} from 'react-native-calendars';
 import {
+  Alert,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -9,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import ButtonGradient from '../component/ButtonGradient';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import dayjs from 'dayjs';
 import {setDataFull} from '../redux/action/MeetingSchedule';
@@ -27,18 +28,32 @@ function CalendarScreen() {
     }
     // console.log(response.data);
   }
-
-  useEffect(() => {
-    initSelect();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      initSelect();
+    }, []),
+  );
   const meetings = useSelector(state => state.meetingSchedule.meetings);
-  // console.log(meetings);
   const getIdScreen = async id => {
     dispatch(dialogAction.showLoading());
     const response = await dispatch(GetSchedule(id));
     dispatch(dialogAction.dismissLoading());
     if (response.error) {
-      return;
+      Alert.alert(response.message);
+      Alert.alert(
+        //title
+        response.message,
+        //body
+        response.message,
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.navigate('Login'),
+          },
+        ],
+        {cancelable: false},
+        //clicking out side of alert will not cancel
+      );
     }
     navigation.navigate('GetSchedule');
   };
@@ -53,7 +68,11 @@ function CalendarScreen() {
                 style={styles.CardEvent}
                 onPress={() => getIdScreen(item.id)}>
                 <View style={{margin: 10, flex: 2}}>
-                  <View style={{flexDirection: 'column'}}>
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}>
                     <Text
                       style={{marginBottom: 10, fontSize: 18, color: 'red'}}>
                       Thời gian : <Text>{item.time}</Text>
@@ -65,9 +84,6 @@ function CalendarScreen() {
                         fontWeight: '600',
                       }}>
                       Tên cuộc họp : <Text>{item.title}</Text>
-                    </Text>
-                    <Text>
-                      Chủ Tọa: <Text>{item.hostname}</Text>
                     </Text>
                   </View>
                 </View>

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  Switch,
 } from 'react-native';
 import GradientText from '../component/GradientText';
 import DatePicker from 'react-native-date-picker';
@@ -28,7 +29,8 @@ function AddCalendar() {
   const [dateEnd, setDateEnd] = useState(new Date());
   const [timeEnd, setEnd] = useState(new Date());
   const [timeStart, setStart] = useState(new Date());
-
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [openDate, setOpenDate] = useState(false);
   const [openDateEnd, setOpenDateEnd] = useState(false);
   const [openEnd, setOpenEnd] = useState(false);
@@ -38,16 +40,16 @@ function AddCalendar() {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  async function getData() {
-    const response = await dispatch(getInit());
-    if (response.error) {
-      return;
-    }
-    // console.log(response.data);
-  }
-  useState(() => {
-    getData();
-  }, []);
+  // async function getData() {
+  //   const response = await dispatch(getInit());
+  //   if (response.error) {
+  //     return;
+  //   }
+  //   // console.log(response.data);
+  // }
+  // useState(() => {
+  //   getData();
+  // }, []);
 
   const hosts = useSelector(state => state.addSchedule.hosts).map(x => ({
     value: x.id,
@@ -327,12 +329,81 @@ function AddCalendar() {
         name="idHost"
       />
       <Text style={styles.text}>Đại biểu</Text>
+      <View style={{flexDirection: 'row'}}>
+        <Switch
+          trackColor={{false: 'white', true: '#65c1b6'}}
+          thumbColor={isEnabled ? 'white' : 'white'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+        <Text
+          style={{
+            alignSelf: 'center',
+            marginLeft: 10,
+            fontSize: 14,
+          }}>
+          Lưu thông tin đăng nhập
+        </Text>
+      </View>
+      <View style={{flexDirection: 'row'}}>
+        <Switch
+          trackColor={{false: 'white', true: '#65c1b6'}}
+          thumbColor={isEnabled ? 'white' : 'white'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+        <Text
+          style={{
+            alignSelf: 'center',
+            marginLeft: 10,
+            fontSize: 14,
+          }}>
+          Lưu thông tin đăng nhập
+        </Text>
+      </View>
+      <View style={{flexDirection: 'row'}}>
+        <Switch
+          trackColor={{false: 'white', true: '#65c1b6'}}
+          thumbColor={isEnabled ? 'white' : 'white'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+        <Text
+          style={{
+            alignSelf: 'center',
+            marginLeft: 10,
+            fontSize: 14,
+          }}>
+          Lưu thông tin đăng nhập
+        </Text>
+      </View>
+      <View style={{flexDirection: 'row'}}>
+        <Switch
+          trackColor={{false: 'white', true: '#65c1b6'}}
+          thumbColor={isEnabled ? 'white' : 'white'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+        <Text
+          style={{
+            alignSelf: 'center',
+            marginLeft: 10,
+            fontSize: 14,
+          }}>
+          Lưu thông tin đăng nhập
+        </Text>
+      </View>
 
       <ButtonGradient text={'Tạo lịch'} onPress={handleSubmit(submit)} />
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
+  switch: {},
   text: {
     fontSize: 13,
     fontWeight: '600',
