@@ -5,7 +5,7 @@ const MeetingService = {
     const date = dayjs(new Date()).format('YYYY-MM-DD');
     const params = {
       start: '2022-05-01',
-      end: '2022-05-31',
+      end: '2022-12-31',
       date: date,
       analytic: true,
     };

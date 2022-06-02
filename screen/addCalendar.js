@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -14,15 +14,21 @@ import GradientText from '../component/GradientText';
 import DatePicker from 'react-native-date-picker';
 import dayjs from 'dayjs';
 import ButtonGradient from '../component/ButtonGradient';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 // import {initData} from '../redux/action/InitAddSchedule';
-import {AddSchedule, getInit, setRoom} from '../redux/action/AddSchedule';
+import {
+  AddSchedule,
+  getInit,
+  setPart,
+  setRoom,
+} from '../redux/action/AddSchedule';
 import * as yup from 'yup';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup/dist/yup';
 import * as dialogAction from '../redux/action/Dialog';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {getContact} from '../redux/action/Contact';
 
 function AddCalendar() {
   const [date, setDate] = useState(new Date());
@@ -40,17 +46,33 @@ function AddCalendar() {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  // async function getData() {
-  //   const response = await dispatch(getInit());
-  //   if (response.error) {
-  //     return;
-  //   }
-  //   // console.log(response.data);
-  // }
-  // useState(() => {
-  //   getData();
-  // }, []);
-
+  async function getData() {
+    const response = await dispatch(getInit());
+    if (response.error) {
+      return;
+    }
+    // console.log(response.data);
+  }
+  useState(() => {
+    getData();
+  }, []);
+  async function getCon() {
+    const response = await dispatch(getContact());
+    if (response.error) {
+      return;
+    }
+  }
+  useFocusEffect(
+    useCallback(() => {
+      getCon();
+    }, []),
+  );
+  const contacts = useSelector(state => state.contact.contacts).map(x => ({
+    label: x.name,
+    value: x.id.toString(),
+  }));
+  const [openPart, setOpenPart] = useState(false);
+  const [valuePart, setValuePart] = useState([]);
   const hosts = useSelector(state => state.addSchedule.hosts).map(x => ({
     value: x.id,
     label: x.name,
@@ -60,19 +82,15 @@ function AddCalendar() {
     label: x.name,
   }));
   const defaultValues = {
+    id: 0,
     name: '',
     idMeetingRoom: 0,
-    startDate: '',
-    startTime: '',
-    endTime: '',
-    endDate: '',
-    isRecurring: true,
-    days: [0],
+    isRecurring: false,
+    days: [],
     idHost: 0,
-    idParticipants: [],
     isOnHostVideo: true,
     isOnParticipantVideos: true,
-    isOnDingDongSound: true,
+    isOnDingDongSound: false,
     isUsePassCode: false,
     passCode: '',
     isBlocked: false,
@@ -91,8 +109,9 @@ function AddCalendar() {
     defaultValues: defaultValues,
   });
   const submit = async data => {
+    const totaldata = {...data, ...dataBonus};
     dispatch(dialogAction.showLoading());
-    const result = await dispatch(AddSchedule(data));
+    const result = await dispatch(AddSchedule(totaldata));
     dispatch(dialogAction.dismissLoading());
 
     if (result.error) {
@@ -103,9 +122,20 @@ function AddCalendar() {
       return;
     }
     console.log(result);
-    dispatch(dialogAction.showAlert(result.message, () => navigation.goBack()));
+    Alert.alert(result.message);
+    navigation.goBack();
   };
-
+  const onSubmit = data => {
+    console.log(data);
+  };
+  const dataBonus = {
+    startDate: dayjs(date).format('YYYY-MM-DD'),
+    startTime: dayjs(timeStart).format('HH:mm:ss'),
+    endTime: dayjs(timeEnd).format('HH:mm:ss'),
+    endDate: dayjs(dateEnd).format('YYYY-MM-DD'),
+    idParticipants: valuePart,
+  };
+  // console.log(dataBonus);
   return (
     <SafeAreaView style={{margin: 10}}>
       <GradientText
@@ -113,11 +143,10 @@ function AddCalendar() {
           fontSize: 30,
           fontWeight: '700',
           color: '#09bcc8',
-          marginBottom: 10,
+          marginBottom: 5,
         }}>
         Tạo lịch họp
       </GradientText>
-
       <Text style={styles.text}>Tên lịch họp</Text>
       <Controller
         control={control}
@@ -128,7 +157,7 @@ function AddCalendar() {
           <TextInput
             ref={ref}
             autoFocus
-            value={value}
+            // value={''}
             onChangeText={onChange}
             style={styles.textinput}
             placeholder="Tên lịch họp"
@@ -138,48 +167,48 @@ function AddCalendar() {
         )}
         name="name"
       />
-      {errors.fullname && (
-        <Text style={{color: 'red', fontWeight: 'bold'}}>
-          * Thông tin bắt buộc
-        </Text>
-      )}
       <Text style={styles.text}>Thời gian họp</Text>
       <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
         }}>
-        <TouchableOpacity onPress={() => setOpenStart(true)}>
-          <Text
-            style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 5}}>
-            {dayjs(timeStart).format('HH:mm A')}
-          </Text>
-        </TouchableOpacity>
+        {/*<TouchableOpacity onPress={() => setOpenStart(true)}>*/}
+        {/*  <Text*/}
+        {/*    style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 5}}>*/}
+        {/*    {dayjs(timeStart).format('HH:mm A')}*/}
+        {/*  </Text>*/}
+        {/*</TouchableOpacity>*/}
         <Controller
           control={control}
           render={({
             field: {onChange, value, ref},
             fieldState: {error: fieldError},
           }) => (
-            <DatePicker
-              modal
-              mode="time"
-              open={openStart}
-              date={timeStart}
-              onConfirm={timeStart => {
-                setOpenStart(false);
-                value = timeStart;
-                setStart(timeStart);
-                onChange = dayjs(timeStart).format('HH:mm[:00]');
-                console.log(onChange);
-              }}
-              onCancel={() => {
-                setOpenStart(false);
-              }}
+            <TextInput
+              placeholder="Tên lịch họp"
+              value={dayjs(timeStart).format('HH:mm A')}
+              onPressIn={() => setOpenStart(true)}
+              onChangeText={onChange}
             />
           )}
           name="startTime"
         />
+
+        <DatePicker
+          modal
+          mode="time"
+          open={openStart}
+          date={timeStart}
+          onConfirm={timeStart => {
+            setOpenStart(false);
+            setStart(timeStart);
+          }}
+          onCancel={() => {
+            setOpenStart(false);
+          }}
+        />
+
         <TouchableOpacity onPress={() => setOpenEnd(true)}>
           <Text
             style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 5}}>
@@ -220,10 +249,10 @@ function AddCalendar() {
             {dayjs(date).format('DD/MM/YYYY')}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setOpenDate(true)}>
+        <TouchableOpacity onPress={() => setOpenDateEnd(true)}>
           <Text
             style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 5}}>
-            {dayjs(date).format('DD/MM/YYYY')}
+            {dayjs(dateEnd).format('DD/MM/YYYY')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -265,7 +294,7 @@ function AddCalendar() {
             onConfirm={date => {
               setOpenDate(false);
               setDateEnd(date);
-              onChange = dayjs(date).format('YYYY-MM-DDT[00:00:00]');
+              onChange(dayjs(date).format('YYYY-MM-DDT[00:00:00]'));
               console.log(onChange);
             }}
             onCancel={() => {
@@ -323,15 +352,29 @@ function AddCalendar() {
             onPress={() => {
               dispatch(setRoom(value));
               console.log(value);
+              console.log('onchange', onChange);
             }}
           />
         )}
         name="idHost"
       />
       <Text style={styles.text}>Đại biểu</Text>
-      <ButtonGradient
-        onPress={() => navigation.navigate('Participants')}
-        text={' +  THÊM ĐẠI BIỂU'}
+      <DropDownPicker
+        zIndex={3000}
+        zIndexInverse={1000}
+        searchable={true}
+        multiple={true}
+        min={0}
+        max={10}
+        open={openPart}
+        value={valuePart}
+        items={contacts}
+        setOpen={setOpenPart}
+        setValue={setValuePart}
+        setItems={contacts.label}
+        onPress={() => {
+          dispatch(setPart(valuePart));
+        }}
       />
       <View style={styles.Viewswitch}>
         <Switch
