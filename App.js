@@ -16,6 +16,7 @@ import {Provider} from 'react-redux';
 import {store} from './redux';
 import FreeJoinScreen from './screen/FreeJoinScreen';
 import GetScheduleScreen from './screen/GetScheduleScreen';
+import EditCalendar from './screen/editCalendar';
 
 const Stack = createNativeStackNavigator();
 const options = {headerShown: false};
@@ -54,6 +55,7 @@ function MyStack() {
           component={CalendarScreen}
           options={options}
         />
+        <Stack.Screen name="EditCalendar" component={EditCalendar} />
       </Stack.Navigator>
     </Provider>
   );

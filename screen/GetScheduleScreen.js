@@ -9,8 +9,8 @@ import {
   View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
-import {useEffect, useState} from 'react';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useCallback, useEffect, useState} from 'react';
 import {GetSchedule} from '../redux/action/GetSchedule';
 import CommonHelper from '../helpers/CommonHelper';
 import GradientText from '../component/GradientText';
@@ -21,37 +21,23 @@ import DeleteSchedule from '../redux/reducer/DeleteSchedule';
 import {Delete} from '../redux/action/DeleteSchedule';
 
 function GetScheduleScreen() {
+  async function getInfo() {
+    const response = await dispatch(GetSchedule(id));
+    if (response.error) {
+      return;
+    }
+  }
+  useFocusEffect(
+    useCallback(() => {
+      getInfo();
+    }, []),
+  );
   const info = useSelector(state => state.getSchedule.info);
+  console.log('info', info);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const customParseFormat = require('dayjs/plugin/customParseFormat');
-  dayjs.extend(customParseFormat);
-  const name = info.name;
-  const ts = dayjs(info.startTime.toString(), 'hh:mm:ss');
-  const te = dayjs(info.endTime.toString(), 'hh:mm:ss');
-  const timeStart = dayjs(ts).format('HH:mm');
-  const timeEnd = dayjs(te).format('HH:mm');
-  const dateStart = dayjs(info.startDate).format('DD/MM/YYYY');
-  const dateEnd = dayjs(info.endDate).format('DD/MM/YYYY');
-  const id = info.id;
+  const id = info.idGet;
   const deleteID = {id};
-  const hosts = info.hosts
-    .filter(x => x.isSelected === true)
-    .map(a => ({
-      name: a.name,
-    }));
-  const hostname = hosts[0].name;
-  const items = {
-    id,
-    name,
-    timeStart,
-    timeEnd,
-    dateStart,
-    dateEnd,
-    hostname,
-  };
-  console.log(items);
-  console.log(deleteID);
   const DeleteScheduleByID = async id => {
     dispatch(dialogAction.showLoading());
     const response = await dispatch(Delete(id));
@@ -75,7 +61,7 @@ function GetScheduleScreen() {
         },
         {
           text: 'Không',
-          onPress: () => console.log('No Pressed'),
+          // onPress: () => console.log('No Pressed'),
           style: 'cancel',
         },
       ],
@@ -97,7 +83,7 @@ function GetScheduleScreen() {
           source={require('../icons/font.png')}
           style={{width: 30, height: 30, marginRight: 20}}
         />
-        <Text style={styles.text}>{items.name}</Text>
+        <Text style={styles.text}>{info.name}</Text>
       </View>
       <View style={{flexDirection: 'row', marginTop: 20}}>
         <Image
@@ -105,7 +91,7 @@ function GetScheduleScreen() {
           style={{width: 30, height: 30, marginRight: 20}}
         />
         <Text style={styles.text}>
-          {items.timeStart} - {items.timeEnd}
+          {info.timeStart} - {info.timeEnd}
         </Text>
       </View>
       <View style={{flexDirection: 'row', marginTop: 20}}>
@@ -114,7 +100,7 @@ function GetScheduleScreen() {
           style={{width: 30, height: 30, marginRight: 20}}
         />
         <Text style={styles.text}>
-          {items.dateStart} - {items.dateEnd}
+          {info.dateStart} - {info.dateEnd}
         </Text>
       </View>
       <View style={{flexDirection: 'row', marginTop: 20}}>
@@ -122,7 +108,7 @@ function GetScheduleScreen() {
           source={require('../icons/user.png')}
           style={{width: 30, height: 30, marginRight: 20}}
         />
-        <Text style={styles.text}>{items.hostname}</Text>
+        <Text style={styles.text}>{info.hosts[0].name}</Text>
       </View>
       <View
         style={{
@@ -131,6 +117,8 @@ function GetScheduleScreen() {
           alignContent: 'center',
         }}>
         <TouchableOpacity
+          // onPress={() => EditScreen(id)}
+          onPress={() => navigation.navigate('EditCalendar')}
           style={{
             marginTop: 10,
             marginBottom: 10,

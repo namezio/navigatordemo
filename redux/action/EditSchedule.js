@@ -1,5 +1,6 @@
 import CommonHelper from '../../helpers/CommonHelper';
 import AuthenticateService from '../../services/AuthenticateService';
+import MeetingService from '../../services/MeetingService';
 
 export const EditScheduleAction = {
   SET_DATA: 'SET_DATA',
@@ -14,7 +15,7 @@ export const setData = data => dispatch =>
 
 export const edit = data => async dispatch => {
   await CommonHelper.delay(1000);
-  const response = await AuthenticateService.EditSchedule(data);
+  const response = await MeetingService.EditSchedule(data);
   if (!response) {
     return {
       error: true,
