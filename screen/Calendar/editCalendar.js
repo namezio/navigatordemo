@@ -10,10 +10,10 @@ import {
   Alert,
   Switch,
 } from 'react-native';
-import GradientText from '../component/GradientText';
+import GradientText from '../../component/GradientText';
 import DatePicker from 'react-native-date-picker';
 import dayjs from 'dayjs';
-import ButtonGradient from '../component/ButtonGradient';
+import ButtonGradient from '../../component/ButtonGradient';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 // import {initData} from '../redux/action/InitAddSchedule';
@@ -22,49 +22,38 @@ import {
   getInit,
   setPart,
   setRoom,
-} from '../redux/action/AddSchedule';
+} from '../../redux/action/AddSchedule';
 import * as yup from 'yup';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup/dist/yup';
-import * as dialogAction from '../redux/action/Dialog';
+import * as dialogAction from '../../redux/action/Dialog';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {getContact} from '../redux/action/Contact';
+import {getContact} from '../../redux/action/Contact';
+import {GetSchedule} from '../../redux/action/GetSchedule';
+import {edit} from '../../redux/action/EditSchedule';
 
-function AddCalendar() {
+function EditCalendar() {
   const [date, setDate] = useState(new Date());
   const [dateEnd, setDateEnd] = useState(new Date());
   const [timeEnd, setEnd] = useState(new Date());
   const [timeStart, setStart] = useState(new Date());
-  const [isEnabledHost, setIsEnabledHost] = useState(false);
-  const [isEnabledPart, setIsEnabledPart] = useState(false);
-  const [isEnabledDingDong, setIsEnabledDingDong] = useState(false);
-  const [isEnabledPass, setIsEnabledPass] = useState(false);
-  const [isEnabledBlocked, setIsEnabledBlocked] = useState(false);
   const [openDate, setOpenDate] = useState(false);
   const [openDateEnd, setOpenDateEnd] = useState(false);
   const [openEnd, setOpenEnd] = useState(false);
   const [openStart, setOpenStart] = useState(false);
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
-
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  async function getData() {
-    const response = await dispatch(getInit());
-    if (response.error) {
-      return;
-    }
-    // console.log(response.data);
-  }
-  useState(() => {
-    getData();
-  }, []);
   async function getCon() {
     const response = await dispatch(getContact());
     if (response.error) {
       return;
     }
   }
+  const info = useSelector(state => state.getSchedule.info);
+  console.log('edit', info);
+
   useFocusEffect(
     useCallback(() => {
       getCon();
@@ -74,8 +63,12 @@ function AddCalendar() {
     label: x.name,
     value: x.id.toString(),
   }));
+  const idPart = info.participants.map(x => x.id.toString());
+  const idHost = info.hosts.map(x => x.id);
+  // const idRoom = info.rooms.map(x => ({id: x.id, name: x.name}));
+  // console.log(idRoom);
   const [openPart, setOpenPart] = useState(false);
-  const [valuePart, setValuePart] = useState([]);
+  const [valuePart, setValuePart] = useState(idPart);
   const hosts = useSelector(state => state.addSchedule.hosts).map(x => ({
     value: x.id,
     label: x.name,
@@ -85,18 +78,18 @@ function AddCalendar() {
     label: x.name,
   }));
   const defaultValues = {
-    id: 0,
-    name: '',
-    idMeetingRoom: 0,
-    isRecurring: false,
+    id: info.idGet,
+    name: info.name,
+    idMeetingRoom: info.idMeetingRoom,
+    isRecurring: info.isRecurring,
     days: [],
-    idHost: 0,
-    isOnHostVideo: true,
-    isOnParticipantVideos: true,
-    isOnDingDongSound: false,
-    isUsePassCode: false,
-    passCode: '',
-    isBlocked: false,
+    idHost: info.idHost,
+    isOnHostVideo: info.isOnHostVideo,
+    isOnParticipantVideos: info.isOnParticipantVideos,
+    isOnDingDongSound: info.isOnDingDongSound,
+    isUsePassCode: info.isUsePassCode,
+    passCode: info.passCode,
+    isBlocked: info.isBlocked,
   };
   const schema = yup.object().shape({
     name: yup.string().required(''),
@@ -114,7 +107,7 @@ function AddCalendar() {
   const submit = async data => {
     const totaldata = {...data, ...dataBonus};
     dispatch(dialogAction.showLoading());
-    const result = await dispatch(AddSchedule(totaldata));
+    const result = await dispatch(edit(totaldata));
     dispatch(dialogAction.dismissLoading());
 
     if (result.error) {
@@ -145,7 +138,7 @@ function AddCalendar() {
           color: '#09bcc8',
           marginBottom: 5,
         }}>
-        Tạo lịch họp
+        Sửa lịch họp
       </GradientText>
       <Text style={styles.text}>Tên lịch họp</Text>
       <Controller
@@ -156,6 +149,7 @@ function AddCalendar() {
         }) => (
           <TextInput
             ref={ref}
+            value={value}
             onChangeText={onChange}
             style={styles.textinput}
             placeholder="Tên lịch họp"
@@ -171,7 +165,7 @@ function AddCalendar() {
           flexDirection: 'row',
           alignItems: 'center',
         }}>
-        <TouchableOpacity onPress={() => setOpenDate(true)}>
+        <TouchableOpacity onPress={() => setOpenStart(true)}>
           <Text
             style={{fontSize: 20, color: 'red', fontWeight: '600', margin: 5}}>
             {dayjs(timeStart).format('HH:mm A')}
@@ -228,53 +222,33 @@ function AddCalendar() {
           </Text>
         </TouchableOpacity>
       </View>
-      <Controller
-        control={control}
-        render={({
-          field: {onChange, value, ref},
-          fieldState: {error: fieldError},
-        }) => (
-          <DatePicker
-            modal
-            mode="date"
-            open={openDate}
-            date={date}
-            onConfirm={date => {
-              setOpenDate(false);
-              setDate(date);
-              onChange = dayjs(date).format('YYYY-MM-DDT[00:00:00]');
-              // console.log(onChange);
-            }}
-            onCancel={() => {
-              setOpenDate(false);
-            }}
-          />
-        )}
-        name="startDate"
+      <DatePicker
+        modal
+        mode="date"
+        open={openDate}
+        date={date}
+        onConfirm={date => {
+          setOpenDate(false);
+          setDate(date);
+          // console.log(onChange);
+        }}
+        onCancel={() => {
+          setOpenDate(false);
+        }}
       />
-      <Controller
-        control={control}
-        render={({
-          field: {onChange, value, ref},
-          fieldState: {error: fieldError},
-        }) => (
-          <DatePicker
-            modal
-            mode="date"
-            open={openDateEnd}
-            date={dateEnd}
-            onConfirm={date => {
-              setOpenDate(false);
-              setDateEnd(date);
-              onChange(dayjs(date).format('YYYY-MM-DDT[00:00:00]'));
-              // console.log(onChange);
-            }}
-            onCancel={() => {
-              setOpenDateEnd(false);
-            }}
-          />
-        )}
-        name="endDate"
+      <DatePicker
+        modal
+        mode="date"
+        open={openDateEnd}
+        date={dateEnd}
+        onConfirm={date => {
+          setOpenDate(false);
+          setDateEnd(date);
+          // console.log(onChange);
+        }}
+        onCancel={() => {
+          setOpenDateEnd(false);
+        }}
       />
       <View style={{flexDirection: 'row', alignItems: 'center'}} />
       <Text style={styles.text}>Phòng họp</Text>
@@ -289,7 +263,7 @@ function AddCalendar() {
             autoScroll={true}
             style={styles.textinput}
             open={open1}
-            value={value}
+            value={info.RoomsID}
             items={rooms}
             setOpen={setOpen1}
             setValue={onChange}
@@ -315,7 +289,7 @@ function AddCalendar() {
             autoScroll={true}
             style={styles.textinput}
             open={open}
-            value={value}
+            value={info.HostsID}
             items={hosts}
             setOpen={setOpen}
             setValue={onChange}
@@ -514,4 +488,4 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
-export default AddCalendar;
+export default EditCalendar;

@@ -9,10 +9,10 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback, useState} from 'react';
-import GradientText from '../component/GradientText';
+import GradientText from '../../component/GradientText';
 import {useDispatch, useSelector} from 'react-redux';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {getContact} from '../redux/action/Contact';
+import {getContact} from '../../redux/action/Contact';
 
 const ContactScreen = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const ContactScreen = () => {
   const data = contacts.filter(contacts =>
     contacts.name.toLowerCase().includes(searchText.toLowerCase()),
   );
-  console.log(contacts);
+  // console.log(contacts);
   async function initSelect() {
     const response = await dispatch(getContact());
     if (response.error) {
@@ -43,6 +43,8 @@ const ContactScreen = () => {
     <SafeAreaView
       style={{
         margin: 5,
+        maxWidth: 400,
+        flex: 1,
       }}>
       <GradientText
         style={{
@@ -67,16 +69,16 @@ const ContactScreen = () => {
           }}
           placeholder={'Tìm Kiếm'}
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigator.navigate('AddContact')}>
           <Image
             style={{
               height: 40,
               width: 40,
               borderRadius: 40,
-              marginTop: 7,
+              marginTop: 10,
               marginLeft: 5,
             }}
-            source={require('../icons/add_contact.png')}
+            source={require('../../icons/add_contact.png')}
           />
         </TouchableOpacity>
       </View>
@@ -87,8 +89,12 @@ const ContactScreen = () => {
               <View style={styles.item}>
                 <AvatarShortName shortName={x.shortName} />
                 <View style={{flexDirection: 'column', margin: 5}}>
-                  <Text style={{fontSize: 20}}>{x.name}</Text>
-                  <Text style={{fontSize: 13}}>{x.meetingId}</Text>
+                  <GradientText style={{fontSize: 22, fontWeight: '600'}}>
+                    {x.name}
+                  </GradientText>
+                  <Text style={{fontSize: 15, color: 'red'}}>
+                    {x.meetingId}
+                  </Text>
                 </View>
               </View>
             </TouchableOpacity>

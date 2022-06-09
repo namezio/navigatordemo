@@ -10,13 +10,14 @@ import CreateRoomScreen from './screen/siteScreens/CreateRoomScreen';
 import ManagerRoomScreen from './screen/siteScreens/ManagerRoomScreen';
 import signInScreen from './screen/SignUpScreen';
 import ForgetPasswordScreen from './screen/ForgetPasswordScreen';
-import AddCalendar from './screen/addCalendar';
-import CalendarScreen from './screen/CalendarScreen';
+import AddCalendar from './screen/Calendar/addCalendar';
+import CalendarScreen from './screen/Calendar/CalendarScreen';
 import {Provider} from 'react-redux';
 import {store} from './redux';
 import FreeJoinScreen from './screen/FreeJoinScreen';
 import GetScheduleScreen from './screen/GetScheduleScreen';
-import EditCalendar from './screen/editCalendar';
+import EditCalendar from './screen/Calendar/editCalendar';
+import AddContact from './screen/Contact/AddContact';
 
 const Stack = createNativeStackNavigator();
 const options = {headerShown: false};
@@ -56,6 +57,7 @@ function MyStack() {
           options={options}
         />
         <Stack.Screen name="EditCalendar" component={EditCalendar} />
+        <Stack.Screen name="AddContact" component={AddContact} />
       </Stack.Navigator>
     </Provider>
   );

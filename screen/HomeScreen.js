@@ -22,13 +22,13 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import SiteHomeBottom from '../component/SiteHomeBottom';
 import GradientText from '../component/GradientText';
 import HomeSchedule from '../component/HomeSchedule';
-import CalendarScreen from './CalendarScreen';
+import CalendarScreen from './Calendar/CalendarScreen';
 import ButtonGradient from '../component/ButtonGradient';
 import {useDispatch, useSelector} from 'react-redux';
 import CommonHelper from '../helpers/CommonHelper';
 import {setData} from '../redux/action/MeetingList';
 import dayjs from 'dayjs';
-import ContactScreen from './ContactScreen';
+import ContactScreen from './Contact/ContactScreen';
 // import {login} from '../redux/action/Auth';
 function HomeScreen() {
   const dispatch = useDispatch();

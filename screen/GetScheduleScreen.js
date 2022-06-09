@@ -33,7 +33,7 @@ function GetScheduleScreen() {
     }, []),
   );
   const info = useSelector(state => state.getSchedule.info);
-  console.log('info', info);
+  // console.log('info', info);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const id = info.idGet;

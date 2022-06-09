@@ -9,14 +9,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ButtonGradient from '../component/ButtonGradient';
+import ButtonGradient from '../../component/ButtonGradient';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import dayjs from 'dayjs';
-import {setDataFull} from '../redux/action/MeetingSchedule';
+import {setDataFull} from '../../redux/action/MeetingSchedule';
 import _ from 'lodash';
-import {GetSchedule} from '../redux/action/GetSchedule';
-import * as dialogAction from '../redux/action/Dialog';
+import {GetSchedule} from '../../redux/action/GetSchedule';
+import * as dialogAction from '../../redux/action/Dialog';
 
 function CalendarScreen() {
   const dispatch = useDispatch();
