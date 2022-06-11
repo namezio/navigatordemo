@@ -13,6 +13,7 @@ import GradientText from '../../component/GradientText';
 import {useDispatch, useSelector} from 'react-redux';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {getContact} from '../../redux/action/Contact';
+import AvatarShortName from '../../component/AvatarShortName';
 
 const ContactScreen = () => {
   const dispatch = useDispatch();
@@ -128,24 +129,3 @@ const styles = StyleSheet.create({
     color: '#65c1b6',
   },
 });
-const AvatarShortName = ({shortName}) => {
-  return (
-    <View
-      style={{
-        width: 50,
-        height: 50,
-        backgroundColor: 'gray',
-        justifyContent: 'center',
-        borderRadius: 30,
-      }}>
-      <Text
-        style={{
-          alignSelf: 'center',
-          color: '#FFF',
-          fontSize: 24,
-        }}>
-        {shortName}
-      </Text>
-    </View>
-  );
-};
