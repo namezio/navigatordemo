@@ -6,10 +6,6 @@ const initialState = {
     code: '',
     password: '',
   },
-  loading: false,
-  code: 0,
-  message: '',
-  error: false,
 };
 const ChangePasswordByCodeReducer = (state = initialState, action) => {
   switch (action.type) {

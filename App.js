@@ -18,6 +18,7 @@ import FreeJoinScreen from './screen/FreeJoinScreen';
 import GetScheduleScreen from './screen/GetScheduleScreen';
 import EditCalendar from './screen/Calendar/editCalendar';
 import AddContact from './screen/Contact/AddContact';
+import ContactScreen from './screen/Contact/ContactScreen';
 
 const Stack = createNativeStackNavigator();
 const options = {headerShown: false};
@@ -57,7 +58,16 @@ function MyStack() {
           options={options}
         />
         <Stack.Screen name="EditCalendar" component={EditCalendar} />
-        <Stack.Screen name="AddContact" component={AddContact} />
+        <Stack.Screen
+          name="Contact"
+          component={ContactScreen}
+          options={options}
+        />
+        <Stack.Screen
+          name="AddContact"
+          component={AddContact}
+          options={options}
+        />
       </Stack.Navigator>
     </Provider>
   );

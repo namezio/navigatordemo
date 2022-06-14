@@ -15,7 +15,8 @@ import GetScheduleReducer from './GetSchedule';
 import InitAddScheduleReducer from './InitAddSchedule';
 import meetingScheduleReducer from './MeetingSchedule';
 import ContactReducer from './Contact';
-import SearchForContactReducer from './SearchForContact';
+import SearchForContactReducer from './AddContact';
+import AddContactReducer from './AddContact';
 
 const authPersistConfig = {
   key: 'auth',
@@ -45,7 +46,7 @@ const rootReducer = combineReducers({
   editSchedule: EditScheduleReducer,
   initAddSchedule: InitAddScheduleReducer,
   contact: ContactReducer,
-  search: SearchForContactReducer,
+  search: AddContactReducer,
   settings: persistReducer(settingsPersistConfig, settingsReducer),
   freeJoin: persistReducer(freeJoinPersistConfig, freeJoinReducer),
   auth: persistReducer(authPersistConfig, authReducer),

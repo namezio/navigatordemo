@@ -1,4 +1,4 @@
-import {SearchForContactAction} from '../action/SearchForContact';
+import {AddContactAction} from '../action/AddContact';
 
 const initialState = {
   contacts: [
@@ -13,9 +13,9 @@ const initialState = {
   ],
   draw: 0,
 };
-const SearchForContactReducer = (state = initialState, action) => {
+const AddContactReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SearchForContactAction.INIT_DATA:
+    case AddContactAction.INIT_DATA:
       const data = action.payload;
       return {
         ...state,
@@ -27,4 +27,4 @@ const SearchForContactReducer = (state = initialState, action) => {
   }
 };
 
-export default SearchForContactReducer;
+export default AddContactReducer;

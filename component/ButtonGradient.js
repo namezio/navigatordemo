@@ -3,7 +3,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-function ButtonGradient({text, onPress, disabled}) {
+function ButtonGradient({text, onPress, disabled, style}) {
   const navigation = useNavigation();
   return (
     <TouchableOpacity disabled={disabled} onPress={onPress}>
@@ -12,6 +12,7 @@ function ButtonGradient({text, onPress, disabled}) {
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
         style={{
+          style,
           borderRadius: 10,
           height: 40,
           maxWidth: 360,

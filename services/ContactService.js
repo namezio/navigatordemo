@@ -7,5 +7,8 @@ const ContactService = {
   async SearchforContact(key) {
     return await HTTPHelper.get('/Contact/SearchForContact?Keyword=' + key);
   },
+  async AddContact(data) {
+    return await HTTPHelper.post('/Contact/Add', data);
+  },
 };
 export default ContactService;

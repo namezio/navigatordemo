@@ -52,7 +52,7 @@ function EditCalendar() {
     }
   }
   const info = useSelector(state => state.getSchedule.info);
-  console.log('edit', info);
+  // console.log('edit', info);
 
   useFocusEffect(
     useCallback(() => {
