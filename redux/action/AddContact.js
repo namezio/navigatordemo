@@ -2,11 +2,12 @@ import ContactService from '../../services/ContactService';
 
 export const AddContactAction = {
   INIT_DATA: 'INIT_DATA',
+  GROUP_DATA: 'INIT_DATA',
   ADD_CONTACT: 'ADD_CONTACT',
 };
 
-export const initData = key => async dispatch => {
-  const response = await ContactService.SearchforContact(key);
+export const initData = (key, per) => async dispatch => {
+  const response = await ContactService.SearchforContact(key, per);
   if (!response) {
     return {
       error: true,

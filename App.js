@@ -17,8 +17,8 @@ import {store} from './redux';
 import FreeJoinScreen from './screen/FreeJoinScreen';
 import GetScheduleScreen from './screen/GetScheduleScreen';
 import EditCalendar from './screen/Calendar/editCalendar';
-import AddContact from './screen/Contact/AddContact';
-import ContactScreen from './screen/Contact/ContactScreen';
+import AddContact from './screen/AddContact';
+import ContactScreen from './screen/ContactScreen';
 
 const Stack = createNativeStackNavigator();
 const options = {headerShown: false};

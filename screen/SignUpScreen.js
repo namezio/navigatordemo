@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import * as yup from 'yup';
@@ -27,6 +30,7 @@ import {
   submit,
 } from '../redux/action/SignUp';
 import {initData} from '../redux/action/SignUp';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 function SignUpScreen({navigation}) {
   const dispatch = useDispatch();
@@ -143,83 +147,10 @@ function SignUpScreen({navigation}) {
           Vui lòng nhập những thông tin sau
         </Text>
         <Text style={styles.text}>Họ tên</Text>
-        <Controller
-          control={control}
-          render={({
-            field: {onChange, value, ref},
-            fieldState: {error: fieldError},
-          }) => (
-            <TextInput
-              ref={ref}
-              autoFocus
-              value={value}
-              onChangeText={onChange}
-              style={styles.textinput}
-              placeholder="Họ và tên"
-              error={!!fieldError}
-              hint={fieldError?.message}
-            />
-          )}
-          name="fullname"
-        />
-        {errors.fullname && (
-          <Text style={{color: 'red', fontWeight: 'bold'}}>
-            * Thông tin bắt buộc
-          </Text>
-        )}
-        <Text style={styles.text}>Số điện thoại</Text>
-        <Controller
-          control={control}
-          render={({
-            field: {onChange, value, ref},
-            fieldState: {error: fieldError},
-          }) => (
-            <TextInput
-              ref={ref}
-              autoFocus
-              value={value}
-              onChangeText={onChange}
-              style={styles.textinput}
-              placeholder="Số điện thoại"
-              error={!!fieldError}
-              hint={fieldError?.message}
-            />
-          )}
-          name="mobile"
-        />
-        {errors.mobile && (
-          <Text style={{color: 'red', fontWeight: 'bold'}}>
-            * Thông tin bắt buộc
-          </Text>
-        )}
-        <Text style={styles.text}>Email</Text>
-        <Controller
-          control={control}
-          render={({
-            field: {onChange, value, ref},
-            fieldState: {error: fieldError},
-          }) => (
-            <TextInput
-              ref={ref}
-              autoFocus
-              value={value}
-              onChangeText={onChange}
-              style={styles.textinput}
-              placeholder="Email"
-              error={!!fieldError}
-              hint={fieldError?.message}
-            />
-          )}
-          name="email"
-        />
-        {errors.email && (
-          <Text style={{color: 'red', fontWeight: 'bold'}}>
-            * Thông tin bắt buộc
-          </Text>
-        )}
-        <View style={{flexDirection: 'row'}}>
-          <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
-            <Text style={styles.text}>Mật khẩu</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.container}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Controller
               control={control}
               render={({
@@ -232,16 +163,19 @@ function SignUpScreen({navigation}) {
                   value={value}
                   onChangeText={onChange}
                   style={styles.textinput}
-                  placeholder="Mật khẩu"
+                  placeholder="Họ và tên"
                   error={!!fieldError}
                   hint={fieldError?.message}
                 />
               )}
-              name="password"
+              name="fullname"
             />
-          </View>
-          <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
-            <Text style={styles.text}>Xác nhận</Text>
+            {errors.fullname && (
+              <Text style={{color: 'red', fontWeight: 'bold'}}>
+                * Thông tin bắt buộc
+              </Text>
+            )}
+            <Text style={styles.text}>Số điện thoại</Text>
             <Controller
               control={control}
               render={({
@@ -254,106 +188,180 @@ function SignUpScreen({navigation}) {
                   value={value}
                   onChangeText={onChange}
                   style={styles.textinput}
-                  placeholder="Xác nhận"
+                  placeholder="Số điện thoại"
                   error={!!fieldError}
                   hint={fieldError?.message}
                 />
               )}
-              name="confirmPassword"
+              name="mobile"
             />
-          </View>
-        </View>
-        {errors.password && (
-          <Text style={{color: 'red', fontWeight: 'bold'}}>
-            * Hãy nhập mật khẩu
-          </Text>
-        )}
-        {errors.confirmPassword && (
-          <Text style={{color: 'red', fontWeight: 'bold'}}>
-            * Hãy nhập lại mật khẩu
-          </Text>
-        )}
-        <View style={{flexDirection: 'row'}}>
-          <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
-            <Text style={styles.text}>Lĩnh Vực</Text>
+            {errors.mobile && (
+              <Text style={{color: 'red', fontWeight: 'bold'}}>
+                * Thông tin bắt buộc
+              </Text>
+            )}
+            <Text style={styles.text}>Email</Text>
             <Controller
               control={control}
               render={({
                 field: {onChange, value, ref},
                 fieldState: {error: fieldError},
               }) => (
-                <DropDownPicker
-                  stickyHeader={true}
-                  autoScroll={true}
-                  style={styles.textinput}
-                  open={open}
+                <TextInput
+                  ref={ref}
+                  autoFocus
                   value={value}
-                  items={careers}
-                  setOpen={setOpen}
-                  setValue={onChange}
-                  setItems={careers.label}
-                  onChangeValue={onChange}
-                  onPress={() => {
-                    dispatch(setCareer(value));
-                    console.log(value);
-                  }}
+                  onChangeText={onChange}
+                  style={styles.textinput}
+                  placeholder="Email"
+                  error={!!fieldError}
+                  hint={fieldError?.message}
                 />
               )}
-              name="idCareer"
+              name="email"
             />
-          </View>
-          <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
-            <Text style={styles.text}>Quốc Gia</Text>
-            <Controller
-              control={control}
-              render={({
-                field: {onChange, value, ref},
-                fieldState: {error: fieldError},
-              }) => (
-                <DropDownPicker
-                  stickyHeader={true}
-                  autoScroll={true}
-                  style={styles.textinput}
-                  open={open1}
-                  value={value}
-                  items={countries}
-                  setOpen={setOpen1}
-                  setValue={onChange}
-                  setItems={countries.label}
-                  onChangeValue={onChange}
-                  onPress={() => {
-                    dispatch(setCountry(value));
-                    console.log(value);
-                  }}
+            {errors.email && (
+              <Text style={{color: 'red', fontWeight: 'bold'}}>
+                * Thông tin bắt buộc
+              </Text>
+            )}
+            <View style={{flexDirection: 'row'}}>
+              <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
+                <Text style={styles.text}>Mật khẩu</Text>
+                <Controller
+                  control={control}
+                  render={({
+                    field: {onChange, value, ref},
+                    fieldState: {error: fieldError},
+                  }) => (
+                    <TextInput
+                      ref={ref}
+                      autoFocus
+                      value={value}
+                      onChangeText={onChange}
+                      style={styles.textinput}
+                      placeholder="Mật khẩu"
+                      error={!!fieldError}
+                      hint={fieldError?.message}
+                    />
+                  )}
+                  name="password"
                 />
-              )}
-              name="idCountry"
+              </View>
+              <View style={{flexDirection: 'column', flex: 1, margin: 5}}>
+                <Text style={styles.text}>Xác nhận</Text>
+                <Controller
+                  control={control}
+                  render={({
+                    field: {onChange, value, ref},
+                    fieldState: {error: fieldError},
+                  }) => (
+                    <TextInput
+                      ref={ref}
+                      autoFocus
+                      value={value}
+                      onChangeText={onChange}
+                      style={styles.textinput}
+                      placeholder="Xác nhận"
+                      error={!!fieldError}
+                      hint={fieldError?.message}
+                    />
+                  )}
+                  name="confirmPassword"
+                />
+              </View>
+            </View>
+            {errors.password && (
+              <Text style={{color: 'red', fontWeight: 'bold'}}>
+                * Hãy nhập mật khẩu
+              </Text>
+            )}
+            {errors.confirmPassword && (
+              <Text style={{color: 'red', fontWeight: 'bold'}}>
+                * Hãy nhập lại mật khẩu
+              </Text>
+            )}
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+        <Text style={styles.text}>Lĩnh Vực</Text>
+        <Controller
+          control={control}
+          render={({
+            field: {onChange, value, ref},
+            fieldState: {error: fieldError},
+          }) => (
+            <DropDownPicker
+              stickyHeader={true}
+              autoScroll={true}
+              style={styles.textinput}
+              open={open}
+              value={value}
+              items={careers}
+              setOpen={setOpen}
+              setValue={onChange}
+              setItems={careers.label}
+              onChangeValue={onChange}
+              onPress={() => {
+                dispatch(setCareer(value));
+                console.log(value);
+              }}
             />
-          </View>
-        </View>
-      </View>
-      <View style={{flexDirection: 'row', margin: 5}}>
-        <CheckBox
-          isChecked={isAcceptTerm}
-          onClick={() => setIsAcceptTerm(true)}
+          )}
+          name="idCareer"
         />
-        <Text style={{alignSelf: 'center', marginLeft: 5, fontSize: 16}}>
-          Chấp nhận với điều khoản của chúng tôi
-        </Text>
-      </View>
 
-      <ButtonGradient
-        text="ĐĂNG KÝ"
-        // disabled={false}
-        onPress={handleSubmit(submit)}
-      />
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          marginTop: 200,
-        }}>
-        <Text>Copyright @ 2022 by Namviet Telecom</Text>
+        <Text style={styles.text}>Quốc Gia</Text>
+        <View>
+          <Controller
+            control={control}
+            render={({
+              field: {onChange, value, ref},
+              fieldState: {error: fieldError},
+            }) => (
+              <DropDownPicker
+                stickyHeader={true}
+                autoScroll={true}
+                style={styles.textinput}
+                open={open1}
+                value={value}
+                items={countries}
+                setOpen={setOpen1}
+                setValue={onChange}
+                setItems={countries.label}
+                onChangeValue={onChange}
+                onPress={() => {
+                  dispatch(setCountry(value));
+                  console.log(value);
+                }}
+              />
+            )}
+            name="idCountry"
+          />
+        </View>
+
+        <View style={{flexDirection: 'row', margin: 5}}>
+          <CheckBox
+            isChecked={isAcceptTerm}
+            onClick={() => setIsAcceptTerm(true)}
+          />
+          <Text style={{alignSelf: 'center', marginLeft: 5, fontSize: 16}}>
+            Chấp nhận với điều khoản của chúng tôi
+          </Text>
+        </View>
+
+        <ButtonGradient
+          text="ĐĂNG KÝ"
+          // disabled={false}
+          onPress={handleSubmit(submit)}
+        />
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            marginTop: 200,
+          }}>
+          <Text>Copyright @ 2022 by Namviet Telecom</Text>
+        </View>
       </View>
     </SafeAreaView>
   );

@@ -9,11 +9,11 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback, useState} from 'react';
-import GradientText from '../../component/GradientText';
+import GradientText from '../component/GradientText';
 import {useDispatch, useSelector} from 'react-redux';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {getContact} from '../../redux/action/Contact';
-import AvatarShortName from '../../component/AvatarShortName';
+import {getContact} from '../redux/action/Contact';
+import AvatarShortName from '../component/AvatarShortName';
 
 const ContactScreen = () => {
   const dispatch = useDispatch();
@@ -79,7 +79,7 @@ const ContactScreen = () => {
               marginTop: 10,
               marginLeft: 5,
             }}
-            source={require('../../icons/add_contact.png')}
+            source={require('../icons/add_contact.png')}
           />
         </TouchableOpacity>
       </View>

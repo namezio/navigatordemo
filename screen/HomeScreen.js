@@ -28,7 +28,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import CommonHelper from '../helpers/CommonHelper';
 import {setData} from '../redux/action/MeetingList';
 import dayjs from 'dayjs';
-import ContactScreen from './Contact/ContactScreen';
+import ContactScreen from './ContactScreen';
 // import {login} from '../redux/action/Auth';
 function HomeScreen() {
   const dispatch = useDispatch();
