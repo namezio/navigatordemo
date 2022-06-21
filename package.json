@@ -23,6 +23,7 @@
     "@react-navigation/native-stack": "^6.5.0",
     "@react-navigation/stack": "^6.1.1",
     "@reduxjs/toolkit": "^1.8.0",
+    "@zoom/react-native-videosdk": "^1.2.0",
     "dayjs": "^1.11.0",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",

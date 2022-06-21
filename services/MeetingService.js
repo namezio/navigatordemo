@@ -39,5 +39,8 @@ const MeetingService = {
   async DeleteSchedule(data) {
     return await HTTPHelper.post('/MeetingSchedule/Delete', data);
   },
+  async StartMeeting() {
+    return await HTTPHelper.get('/Meeting/Start');
+  },
 };
 export default MeetingService;

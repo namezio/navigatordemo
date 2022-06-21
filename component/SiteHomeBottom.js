@@ -30,7 +30,7 @@ function SiteHomeBottom() {
           icon={require('../icons/add_video.png')}
           label="Lập lịch họp"
           onPress={() => {
-            navigation.navigate('CreateRoom');
+            navigation.navigate('AddCalendar');
           }}
           colorS="#f29e02"
           colorE="#f2da02"

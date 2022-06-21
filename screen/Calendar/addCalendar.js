@@ -137,7 +137,7 @@ function AddCalendar() {
   };
   // console.log(dataBonus);
   return (
-    <SafeAreaView style={{margin: 10}}>
+    <SafeAreaView style={{margin: 10, flex: 1}}>
       <GradientText
         style={{
           fontSize: 30,
@@ -336,6 +336,7 @@ function AddCalendar() {
         zIndexInverse={1000}
         searchable={true}
         multiple={true}
+        style={styles.textinput}
         min={0}
         max={10}
         open={openPart}
@@ -456,6 +457,7 @@ function AddCalendar() {
           Sử dụng chức năng mật khẩu phòng họp
         </Text>
       </View>
+
       <View style={styles.Viewswitch}>
         <Controller
           control={control}

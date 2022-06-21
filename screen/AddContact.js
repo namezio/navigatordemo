@@ -100,7 +100,7 @@ function AddPersional() {
   }));
   // console.log(contacts);
   return (
-    <SafeAreaView style={{margin: 5}}>
+    <SafeAreaView style={styles.body}>
       <GradientText
         style={{
           fontSize: 30,
@@ -345,7 +345,7 @@ function AddGroup() {
         )}
         name="name"
       />
-      {errors.name && <Text>Day la du lieu bat buoc</Text>}
+      {errors.name && <Text>Đây là dữ liệu bắt buộc</Text>}
       <Text style={styles.text}>Tìm kiếm người dùng</Text>
       <View style={{flexDirection: 'row'}}>
         <TextInput
@@ -531,7 +531,7 @@ const styles = StyleSheet.create({
   body: {
     margin: 5,
     flexDirection: 'column',
-    height: 600,
+    flex: 1,
     backgroundColor: 'transparent',
   },
   item: {

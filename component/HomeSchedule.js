@@ -97,7 +97,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 5,
     // justifyContent: 'center',
+    borderColor: 'gray',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   text: {
     maxWidth: 250,

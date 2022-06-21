@@ -41,14 +41,16 @@ function HomeScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={{backgroundColor: 'gray', maxWidth: 400, flex: 1}}>
+    <SafeAreaView style={{backgroundColor: '#DBD7D3', maxWidth: 400, flex: 1}}>
       <HeaderHome />
       <ScrollView>
         <View style={{margin: 10}}>
-          <Text style={{fontSize: 24, fontWeight: 'bold'}}>
+          <GradientText style={{fontSize: 24, fontWeight: 'bold'}}>
             Xin chào, {name}
-          </Text>
-          <Text style={{fontSize: 20}}>Chào mừng bạn đến với Trans</Text>
+          </GradientText>
+          <GradientText style={{fontSize: 20}}>
+            Chào mừng bạn đến với Trans
+          </GradientText>
         </View>
         <View style={{margin: 10, backgroundColor: '#FFF', borderRadius: 20}}>
           <View style={{margin: 20, alignItems: 'center'}}>

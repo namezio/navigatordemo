@@ -1,32 +1,30 @@
-import {View, Text} from 'react-native';
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
-function HomeScreen() {
+import {View, Text, SafeAreaView} from 'react-native';
+import React, {useCallback} from 'react';
+import {getContact} from '../../redux/action/Contact';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {start} from '../../redux/action/MeetingStart';
+function MeetingRoomScreen() {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  async function initSelect() {
+    const response = await dispatch(start());
+    if (response.error) {
+      return;
+    }
+  }
+  useFocusEffect(
+    useCallback(() => {
+      initSelect();
+    }, []),
+  );
+  const starts = useSelector(state => state.startMeeting.data);
+  console.log(starts);
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Home!</Text>
-    </View>
+    <SafeAreaView>
+      <Text>{JSON.stringify(starts)}</Text>
+    </SafeAreaView>
   );
 }
-
-function SettingsScreen() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
-const Tab = createBottomTabNavigator();
-const MeetingRoomScreen = () => {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-    </Tab.Navigator>
-  );
-};
 
 export default MeetingRoomScreen;
